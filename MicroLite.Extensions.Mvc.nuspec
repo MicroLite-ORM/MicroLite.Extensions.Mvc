@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MicroLite.Extensions.Mvc</id>
+    <version>0.0.0</version>
+    <authors>Trevor Pilley</authors>
+    <owners>Trevor Pilley</owners>
+    <licenseUrl>https://github.com/TrevorPilley/MicroLite.Extensions.Mvc/blob/master/License.txt</licenseUrl>
+    <projectUrl>https://github.com/TrevorPilley/MicroLite.Extensions.Mvc/wiki</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MicroLite ORM Framework extension to integrate with ASP.NET MVC 3</description>
+    <releaseNotes>See https://github.com/TrevorPilley/MicroLite.Extensions.Mvc/wiki/Release-Notes for a summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>Micro ORM Framework POCO Database NLog ASP.NET MVC</tags>
+    <dependencies>
+      <dependency id="MicroLite" version="0.9.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\build\4.0\MicroLite.Extensions.Mvc.dll" target="lib\net40" />
+    <file src="..\build\4.0\MicroLite.Extensions.Mvc.xml" target="lib\net40" />
+  </files>
+</package>

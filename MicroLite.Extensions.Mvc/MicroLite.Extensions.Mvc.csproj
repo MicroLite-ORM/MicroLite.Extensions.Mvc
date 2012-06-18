@@ -60,6 +60,9 @@
     <Compile Include="MicroLiteController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MicroLiteSessionActionFilterAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

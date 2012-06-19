@@ -44,7 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MicroLite, Version=1.0.0.0, Culture=neutral, PublicKeyToken=08410e6798c4fa37, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroLite.1.0.0-rc1\lib\net40-client\MicroLite.dll</HintPath>
+      <HintPath>..\packages\MicroLite.1.0.0-rc2\lib\net40-client\MicroLite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,9 +53,15 @@
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptionMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExceptionMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MicroLiteController.cs">
       <SubType>Code</SubType>
@@ -75,6 +81,12 @@
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
       <Link>CodeAnalysisDictionary.xml</Link>
     </CodeAnalysisDictionary>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExceptionMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProgramFiles)\MSBuild\StyleCop\v4.7\StyleCop.targets" />

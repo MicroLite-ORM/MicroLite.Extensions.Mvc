@@ -14,6 +14,7 @@ namespace MicroLite.Extensions.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
 
@@ -43,6 +44,15 @@ namespace MicroLite.Extensions.Mvc
         }
 
         /// <summary>
+        /// Gets or sets the session factory.
+        /// </summary>
+        public static IEnumerable<ISessionFactory> SessionFactories
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets the name of the connection.
         /// </summary>
         public string ConnectionName
@@ -51,6 +61,66 @@ namespace MicroLite.Extensions.Mvc
             {
                 return this.connectionName;
             }
+        }
+
+        /// <summary>
+        /// Called by the ASP.NET MVC framework after the action method executes.
+        /// </summary>
+        /// <param name="filterContext">The filter context.</param>
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            var controller = (MicroLiteController)filterContext.Controller;
+
+            if (controller.Session != null)
+            {
+                if (controller.Session.Transaction != null)
+                {
+                    if (filterContext.Exception != null)
+                    {
+                        controller.Session.Transaction.Rollback();
+                    }
+                    else
+                    {
+                        controller.Session.Transaction.Commit();
+                    }
+                }
+
+                controller.Session.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Called by the ASP.NET MVC framework before the action method executes.
+        /// </summary>
+        /// <param name="filterContext">The filter context.</param>
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (SessionFactories == null)
+            {
+                throw new MicroLiteException(ExceptionMessages.NoSessionFactoriesSet);
+            }
+
+            if (this.connectionName == null && SessionFactories.Count() > 1)
+            {
+                throw new MicroLiteException(ExceptionMessages.NoConnectionNameMultipleSessionFactories);
+            }
+
+            var controller = filterContext.Controller as MicroLiteController;
+
+            if (controller == null)
+            {
+                throw new NotSupportedException(ExceptionMessages.ControllerNotMicroLiteController);
+            }
+
+            var sessionFactory = SessionFactories.SingleOrDefault(x => x.ConnectionName == this.connectionName);
+
+            if (sessionFactory == null)
+            {
+                throw new MicroLiteException(string.Format(CultureInfo.InvariantCulture, ExceptionMessages.NoSessionFactoryFoundForConnectionName, this.connectionName));
+            }
+
+            controller.Session = sessionFactory.OpenSession();
+            controller.Session.BeginTransaction();
         }
     }
 }

@@ -5,7 +5,7 @@
     <version>0.0.0</version>
     <authors>Trevor Pilley</authors>
     <owners>Trevor Pilley</owners>
-    <licenseUrl>https://github.com/TrevorPilley/MicroLite.Extensions.Mvc/blob/master/License.txt</licenseUrl>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <projectUrl>https://github.com/TrevorPilley/MicroLite.Extensions.Mvc/wiki</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>MicroLite ORM Framework extension to integrate with ASP.NET MVC 3</description>

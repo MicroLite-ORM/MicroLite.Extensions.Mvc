@@ -6,17 +6,17 @@
     using NUnit.Framework;
 
     /// <summary>
-    /// Unit Tests for the <see cref="MicroLiteSessionActionFilterAttribute"/> class.
+    /// Unit Tests for the <see cref="MicroLiteSessionAttribute"/> class.
     /// </summary>
     [TestFixture]
-    public class MicroLiteSessionActionFilterAttributeTests
+    public class MicroLiteSessionAttributeTests
     {
         [Test]
         public void ConstructorSetsConnectionName()
         {
             var connectionName = "Northwind";
 
-            var attribute = new MicroLiteSessionActionFilterAttribute(connectionName);
+            var attribute = new MicroLiteSessionAttribute(connectionName);
 
             Assert.AreEqual(connectionName, attribute.ConnectionName);
         }
@@ -38,7 +38,7 @@
                 Controller = controller
             };
 
-            var attribute = new MicroLiteSessionActionFilterAttribute();
+            var attribute = new MicroLiteSessionAttribute();
             attribute.OnActionExecuted(context);
 
             mockTransaction.VerifyAll();
@@ -58,7 +58,7 @@
                 Controller = controller
             };
 
-            var attribute = new MicroLiteSessionActionFilterAttribute();
+            var attribute = new MicroLiteSessionAttribute();
             attribute.OnActionExecuted(context);
 
             mockSession.VerifyAll();
@@ -82,7 +82,7 @@
                 Exception = new Exception()
             };
 
-            var attribute = new MicroLiteSessionActionFilterAttribute();
+            var attribute = new MicroLiteSessionAttribute();
             attribute.OnActionExecuted(context);
 
             mockTransaction.VerifyAll();
@@ -100,7 +100,7 @@
             mockSessionFactory.Setup(x => x.ConnectionName).Returns("Northwind");
             mockSessionFactory.Setup(x => x.OpenSession()).Returns(session);
 
-            MicroLiteSessionActionFilterAttribute.SessionFactories = new[]
+            MicroLiteSessionAttribute.SessionFactories = new[]
             {
                 mockSessionFactory.Object
             };
@@ -114,7 +114,7 @@
                 Controller = controller
             };
 
-            var attribute = new MicroLiteSessionActionFilterAttribute("Northwind");
+            var attribute = new MicroLiteSessionAttribute("Northwind");
             attribute.OnActionExecuting(context);
 
             mockSessionFactory.VerifyAll();
@@ -127,7 +127,7 @@
         [Test]
         public void OnActionExecutingThrowsMicroLiteExceptionIfNoConnectionNameAndMultipleSessionFactories()
         {
-            MicroLiteSessionActionFilterAttribute.SessionFactories = new[]
+            MicroLiteSessionAttribute.SessionFactories = new[]
             {
                 new Mock<ISessionFactory>().Object,
                 new Mock<ISessionFactory>().Object
@@ -138,7 +138,7 @@
                 Controller = new Mock<MicroLiteController>().Object
             };
 
-            var attribute = new MicroLiteSessionActionFilterAttribute();
+            var attribute = new MicroLiteSessionAttribute();
 
             var exception = Assert.Throws<MicroLiteException>(() => attribute.OnActionExecuting(context));
             Assert.AreEqual(ExceptionMessages.NoConnectionNameMultipleSessionFactories, exception.Message);
@@ -147,14 +147,14 @@
         [Test]
         public void OnActionExecutingThrowsMicroLiteExceptionIfNoSessionFactories()
         {
-            MicroLiteSessionActionFilterAttribute.SessionFactories = null;
+            MicroLiteSessionAttribute.SessionFactories = null;
 
             var context = new ActionExecutingContext
             {
                 Controller = new Mock<MicroLiteController>().Object
             };
 
-            var attribute = new MicroLiteSessionActionFilterAttribute();
+            var attribute = new MicroLiteSessionAttribute();
 
             var exception = Assert.Throws<MicroLiteException>(() => attribute.OnActionExecuting(context));
             Assert.AreEqual(ExceptionMessages.NoSessionFactoriesSet, exception.Message);
@@ -163,7 +163,7 @@
         [Test]
         public void OnActionExecutingThrowsMicroLiteExceptionIfNoSessionFactoryFoundForConnectionName()
         {
-            MicroLiteSessionActionFilterAttribute.SessionFactories = new[]
+            MicroLiteSessionAttribute.SessionFactories = new[]
             {
                 new Mock<ISessionFactory>().Object,
                 new Mock<ISessionFactory>().Object
@@ -174,7 +174,7 @@
                 Controller = new Mock<MicroLiteController>().Object
             };
 
-            var attribute = new MicroLiteSessionActionFilterAttribute("Northwind");
+            var attribute = new MicroLiteSessionAttribute("Northwind");
 
             var exception = Assert.Throws<MicroLiteException>(() => attribute.OnActionExecuting(context));
             Assert.AreEqual(string.Format(ExceptionMessages.NoSessionFactoryFoundForConnectionName, "Northwind"), exception.Message);
@@ -183,7 +183,7 @@
         [Test]
         public void OnActionExecutingThrowsNotSupportedExceptionIfControllerIsNotMicroLiteController()
         {
-            MicroLiteSessionActionFilterAttribute.SessionFactories = new[]
+            MicroLiteSessionAttribute.SessionFactories = new[]
             {
                 new Mock<ISessionFactory>().Object
             };
@@ -193,7 +193,7 @@
                 Controller = new Mock<Controller>().Object
             };
 
-            var attribute = new MicroLiteSessionActionFilterAttribute();
+            var attribute = new MicroLiteSessionAttribute();
 
             var exception = Assert.Throws<NotSupportedException>(() => attribute.OnActionExecuting(context));
             Assert.AreEqual(ExceptionMessages.ControllerNotMicroLiteController, exception.Message);

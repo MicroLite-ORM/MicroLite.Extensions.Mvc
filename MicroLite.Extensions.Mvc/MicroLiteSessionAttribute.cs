@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MicroLiteSessionActionFilterAttribute.cs" company="MicroLite">
+// <copyright file="MicroLiteSessionAttribute.cs" company="MicroLite">
 // Copyright 2012 Trevor Pilley
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,22 +23,22 @@ namespace MicroLite.Extensions.Mvc
     /// with a new <see cref="ISession"/> when an action is executed.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
-    public sealed class MicroLiteSessionActionFilterAttribute : ActionFilterAttribute
+    public sealed class MicroLiteSessionAttribute : ActionFilterAttribute
     {
         private readonly string connectionName;
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="MicroLiteSessionActionFilterAttribute"/> class.
+        /// Initialises a new instance of the <see cref="MicroLiteSessionAttribute"/> class.
         /// </summary>
-        public MicroLiteSessionActionFilterAttribute()
+        public MicroLiteSessionAttribute()
         {
         }
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="MicroLiteSessionActionFilterAttribute"/> class.
+        /// Initialises a new instance of the <see cref="MicroLiteSessionAttribute"/> class.
         /// </summary>
         /// <param name="connectionName">Name of the connection to manage the session for.</param>
-        public MicroLiteSessionActionFilterAttribute(string connectionName)
+        public MicroLiteSessionAttribute(string connectionName)
         {
             this.connectionName = connectionName;
         }

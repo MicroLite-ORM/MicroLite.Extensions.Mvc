@@ -131,6 +131,11 @@
             <exception cref="T:MicroLite.MicroLiteException">Thrown if the connection is not found in the app config.</exception>
             <exception cref="T:System.NotSupportedException">Thrown if the provider name is not supported.</exception>
         </member>
+        <member name="P:MicroLite.Configuration.Configure.SessionFactories">
+            <summary>
+            Gets the session factories created by the configuration.
+            </summary>
+        </member>
         <member name="T:MicroLite.Configuration.ConfigureExtensions">
             <summary>
             The class used to configure extensions to the MicroLite ORM framework.

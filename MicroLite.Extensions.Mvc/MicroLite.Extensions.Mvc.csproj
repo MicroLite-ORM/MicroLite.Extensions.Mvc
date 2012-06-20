@@ -44,7 +44,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MicroLite, Version=1.0.0.0, Culture=neutral, PublicKeyToken=08410e6798c4fa37, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroLite.1.0.0-rc2\lib\net40-client\MicroLite.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MicroLite.1.0.0-rc3\lib\net35-client\MicroLite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

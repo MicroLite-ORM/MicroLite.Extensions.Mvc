@@ -152,6 +152,13 @@
             </summary>
             <param name="logResolver">The function to resolve an ILog.</param>
         </member>
+        <member name="M:MicroLite.Configuration.IConfigureExtensions.SetMappingConvention(MicroLite.Mapping.IMappingConvention)">
+            <summary>
+            Sets the mapping convention.
+            </summary>
+            <param name="mappingConvention">The mapping convention to use.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if mappingConvention is null.</exception>
+        </member>
         <member name="T:MicroLite.Core.SessionFactoryOptions">
             <summary>
             The class used to hold the options for configuring a session factory.
@@ -601,9 +608,170 @@
               Looks up a localized string similar to The object does not have an identifier value set so it cannot be updated.
             </summary>
         </member>
-        <member name="T:MicroLite.ObjectInfo">
+        <member name="T:MicroLite.Mapping.ColumnInfo">
+            <summary>
+            A class which contains information about a database table column and the property it is mapped to.
+            </summary>
+        </member>
+        <member name="M:MicroLite.Mapping.ColumnInfo.#ctor(System.String,System.Boolean,System.Reflection.PropertyInfo)">
+            <summary>
+            Initialises a new instance of the <see cref="T:MicroLite.Mapping.ColumnInfo"/> class.
+            </summary>
+            <param name="columnName">The name of the column in the database table.</param>
+            <param name="isIdentifier">A value indicating whether column is the table identifier column (primary key).</param>
+            <param name="propertyInfo">The property info for the property the column maps to.</param>
+        </member>
+        <member name="P:MicroLite.Mapping.ColumnInfo.ColumnName">
+            <summary>
+            Gets the name of the column in the database table.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.ColumnInfo.IsIdentifier">
+            <summary>
+            Gets a value indicating whether column is the table identifier column (primary key).
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.ColumnInfo.PropertyInfo">
+            <summary>
+            Gets the property info for the property the column maps to.
+            </summary>
+        </member>
+        <member name="T:MicroLite.Mapping.IMappingConvention">
+            <summary>
+            The interface for a class which implements a mapping convention between a class and a table.
+            </summary>
+        </member>
+        <member name="M:MicroLite.Mapping.IMappingConvention.CreateObjectInfo(System.Type)">
+            <summary>
+            Creates the object info for the supplied type.
+            </summary>
+            <param name="forType">The type to create the object info for.</param>
+            <returns>The <see cref="T:MicroLite.Mapping.ObjectInfo"/> for the supplied type.</returns>
+        </member>
+        <member name="T:MicroLite.Mapping.Messages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.Messages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.Messages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.Messages.StrictAttributeMappingConvention_IgnoringProperty">
+            <summary>
+              Looks up a localized string similar to Ignoring {0}.{1} as it has no ColumnAttribute.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.Messages.StrictAttributeMappingConvention_NoTableAttribute">
+            <summary>
+              Looks up a localized string similar to The type {0} is not decorated with a TableAttribute.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.Messages.TableInfo_NoIdentifierColumn">
+            <summary>
+              Looks up a localized string similar to No ColumnInfo was supplied with IsIdentifier set to true.
+            </summary>
+        </member>
+        <member name="T:MicroLite.Mapping.ObjectInfo">
             <summary>
             The class which describes a type and the table it is mapped to.
+            </summary>
+        </member>
+        <member name="M:MicroLite.Mapping.ObjectInfo.#ctor(System.Type,MicroLite.Mapping.TableInfo)">
+            <summary>
+            Initialises a new instance of the <see cref="T:MicroLite.Mapping.ObjectInfo"/> class.
+            </summary>
+            <param name="forType">The type the object info relates to.</param>
+            <param name="tableInfo">The table info.</param>
+        </member>
+        <member name="M:MicroLite.Mapping.ObjectInfo.For(System.Type)">
+            <summary>
+            Gets the object info for the specified type.
+            </summary>
+            <param name="forType">The type to get the object info for.</param>
+            <returns>The <see cref="T:MicroLite.Mapping.ObjectInfo"/> for the specified <see cref="T:System.Type"/>.</returns>
+        </member>
+        <member name="M:MicroLite.Mapping.ObjectInfo.GetPropertyInfoForColumn(System.String)">
+            <summary>
+            Gets the property info for supplied column name.
+            </summary>
+            <param name="columnName">Name of the column.</param>
+            <returns>The <see cref="T:System.Reflection.PropertyInfo"/> for the column, or null if it is not a mapped column.</returns>
+        </member>
+        <member name="M:MicroLite.Mapping.ObjectInfo.HasDefaultIdentifierValue(System.Object)">
+            <summary>
+            Determines whether the supplied instance has the default identifier value.
+            </summary>
+            <param name="instance">The instance.</param>
+            <returns>
+              <c>true</c> if the instance has the default identifier value; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:MicroLite.Mapping.ObjectInfo.DefaultIdentifierValue">
+            <summary>
+            Gets the default identifier value.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.ObjectInfo.ForType">
+            <summary>
+            Gets type the object info deals with.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.ObjectInfo.TableInfo">
+            <summary>
+            Gets the table info.
+            </summary>
+        </member>
+        <member name="T:MicroLite.Mapping.AttributeMappingConvention">
+            <summary>
+            The implementation of <see cref="T:MicroLite.Mapping.IMappingConvention"/> which uses attributes to map tables and columns
+            to types and properties only maps if an attribute is present (opt-in).
+            </summary>
+        </member>
+        <member name="T:MicroLite.Mapping.TableInfo">
+            <summary>
+            A class which contains information about a database table .
+            </summary>
+        </member>
+        <member name="M:MicroLite.Mapping.TableInfo.#ctor(System.Collections.Generic.IEnumerable{MicroLite.Mapping.ColumnInfo},MicroLite.Mapping.IdentifierStrategy,System.String,System.String)">
+            <summary>
+            Initialises a new instance of the <see cref="T:MicroLite.Mapping.TableInfo"/> class.
+            </summary>
+            <param name="columns">The columns that are mapped for the table.</param>
+            <param name="identifierStrategy">The identifier strategy used by the table.</param>
+            <param name="name">The name of the table.</param>
+            <param name="schema">The name of the schema the table exists within.</param>
+        </member>
+        <member name="P:MicroLite.Mapping.TableInfo.Columns">
+            <summary>
+            Gets the columns that are mapped for the table.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.TableInfo.IdentifierColumn">
+            <summary>
+            Gets the name of the column that is the table identifier column (primary key).
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.TableInfo.IdentifierStrategy">
+            <summary>
+            Gets the identifier strategy used by the table.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.TableInfo.Name">
+            <summary>
+            Gets the name of the table.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.TableInfo.Schema">
+            <summary>
+            Gets the name of the schema the table exists within.
             </summary>
         </member>
         <member name="T:MicroLite.Query.IAndOrOrderBy">
@@ -708,17 +876,6 @@
             </summary>
             <param name="table">The name of the table.</param>
             <returns>The next step in the fluent sql builder.</returns>
-        </member>
-        <member name="T:MicroLite.Mapping.IgnoreAttribute">
-            <summary>
-            An attribute which can be applied to a property to specify that it should be ignored by the
-            MicroLite ORM framework.
-            </summary>
-        </member>
-        <member name="M:MicroLite.Mapping.IgnoreAttribute.#ctor">
-            <summary>
-            Initialises a new instance of the <see cref="T:MicroLite.Mapping.IgnoreAttribute"/> class.
-            </summary>
         </member>
         <member name="T:MicroLite.Query.IWhereOrOrderBy">
             <summary>
@@ -1120,12 +1277,13 @@
             </summary>
             <typeparam name="T">The type of object the contained in the results.</typeparam>
         </member>
-        <member name="M:MicroLite.PagedResult`1.#ctor(System.Int64,System.Collections.Generic.IList{`0})">
+        <member name="M:MicroLite.PagedResult`1.#ctor(System.Int64,System.Collections.Generic.IList{`0},System.Int64)">
             <summary>
             Initialises a new instance of the <see cref="T:MicroLite.PagedResult`1"/> class.
             </summary>
-            <param name="page">The page.</param>
-            <param name="results">The results.</param>
+            <param name="page">The page number.</param>
+            <param name="results">The results in the page.</param>
+            <param name="resultsPerPage">The number of results per page.</param>
         </member>
         <member name="P:MicroLite.PagedResult`1.Page">
             <summary>
@@ -1135,6 +1293,11 @@
         <member name="P:MicroLite.PagedResult`1.Results">
             <summary>
             Gets the results in the page.
+            </summary>
+        </member>
+        <member name="P:MicroLite.PagedResult`1.ResultsPerPage">
+            <summary>
+            Gets the number of results per page.
             </summary>
         </member>
         <member name="T:MicroLite.Query.SqlBuilder">
@@ -1267,6 +1430,11 @@
         <member name="P:MicroLite.SqlQuery.CommandText">
             <summary>
             Gets or sets the SQL statement or stored procedure to execute at the data source.
+            </summary>
+        </member>
+        <member name="P:MicroLite.SqlQuery.Timeout">
+            <summary>
+            Gets or sets the timeout in seconds for the query.
             </summary>
         </member>
         <member name="T:MicroLite.Mapping.TableAttribute">

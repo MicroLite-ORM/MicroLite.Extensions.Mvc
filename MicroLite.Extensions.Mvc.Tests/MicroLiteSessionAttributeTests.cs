@@ -89,7 +89,7 @@
         }
 
         [Test]
-        public void OnActionExecutingOpensSessionAndBeginsTransaction()
+        public void OnActionExecutingOpensSessionAndBeginsTransactionForNamedConnection()
         {
             var mockSession = new Mock<ISession>();
             mockSession.Setup(x => x.BeginTransaction()).Returns(new Mock<ITransaction>().Object);
@@ -115,6 +115,41 @@
             };
 
             var attribute = new MicroLiteSessionAttribute("Northwind");
+            attribute.OnActionExecuting(context);
+
+            mockSessionFactory.VerifyAll();
+
+            Assert.AreSame(session, controller.Session);
+
+            mockSession.VerifyAll();
+        }
+
+        [Test]
+        public void OnActionExecutingOpensSessionAndBeginsTransactionForSingleSessionFactory()
+        {
+            var mockSession = new Mock<ISession>();
+            mockSession.Setup(x => x.BeginTransaction()).Returns(new Mock<ITransaction>().Object);
+
+            var session = mockSession.Object;
+
+            var mockSessionFactory = new Mock<ISessionFactory>();
+            mockSessionFactory.Setup(x => x.OpenSession()).Returns(session);
+
+            MicroLiteSessionAttribute.SessionFactories = new[]
+            {
+                mockSessionFactory.Object
+            };
+
+            var mockController = new Mock<MicroLiteController>();
+
+            var controller = mockController.Object;
+
+            var context = new ActionExecutingContext
+            {
+                Controller = controller
+            };
+
+            var attribute = new MicroLiteSessionAttribute();
             attribute.OnActionExecuting(context);
 
             mockSessionFactory.VerifyAll();

@@ -112,7 +112,8 @@ namespace MicroLite.Extensions.Mvc
                 throw new NotSupportedException(ExceptionMessages.ControllerNotMicroLiteController);
             }
 
-            var sessionFactory = SessionFactories.SingleOrDefault(x => x.ConnectionName == this.connectionName);
+            var sessionFactory =
+                SessionFactories.SingleOrDefault(x => this.connectionName == null || x.ConnectionName == this.connectionName);
 
             if (sessionFactory == null)
             {

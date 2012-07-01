@@ -20,6 +20,24 @@
             </summary>
             <param name="name">The name of the column in the database table that the property maps to.</param>
         </member>
+        <member name="M:MicroLite.Mapping.ColumnAttribute.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Initialises a new instance of the <see cref="T:MicroLite.Mapping.ColumnAttribute"/> class.
+            </summary>
+            <param name="name">The name of the column in the database table that the property maps to.</param>
+            <param name="allowInsert">true if the column value can be inserted, otherwise false.</param>
+            <param name="allowUpdate">true if the column value can be updated, otherwise false.</param>
+        </member>
+        <member name="P:MicroLite.Mapping.ColumnAttribute.AllowInsert">
+            <summary>
+            Gets a value indicating whether the column value is allowed to be inserted.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.ColumnAttribute.AllowUpdate">
+            <summary>
+            Gets a value indicating whether the column value is allowed to be updated.
+            </summary>
+        </member>
         <member name="P:MicroLite.Mapping.ColumnAttribute.Name">
             <summary>
             Gets the name of the column in the database table that the property maps to
@@ -201,23 +219,38 @@
         </member>
         <member name="M:MicroLite.Listeners.IListener.AfterInsert(System.Object,System.Object)">
             <summary>
-            Invoked after the record for the instance has been inserted into the database.
+            Invoked after the SqlQuery to insert the record for the instance has been executed.
             </summary>
             <param name="instance">The instance which has been inserted.</param>
             <param name="executeScalarResult">The execute scalar result.</param>
+        </member>
+        <member name="M:MicroLite.Listeners.IListener.BeforeDelete(System.Object)">
+            <summary>
+            Invoked before the SqlQuery to delete the record from the database is created.
+            </summary>
+            <param name="instance">The instance to be deleted.</param>
+            <remarks>This is called before IListener.BeforeDelete(instance, sqlQuery).</remarks>
+        </member>
+        <member name="M:MicroLite.Listeners.IListener.BeforeDelete(System.Object,MicroLite.SqlQuery)">
+            <summary>
+            Invoked before the SqlQuery to delete the record from the database is executed.
+            </summary>
+            <param name="instance">The instance to be deleted.</param>
+            <param name="sqlQuery">The SqlQuery to be executed.</param>
+            <remarks>This is called after IListener.BeforeDelete(instance).</remarks>
         </member>
         <member name="M:MicroLite.Listeners.IListener.BeforeInsert(System.Object)">
             <summary>
             Invoked before the SqlQuery to insert the record into the database is created.
             </summary>
             <param name="instance">The instance to be inserted.</param>
-            <remarks>This is called before IListener.BeforeInsert(sqlQuery).</remarks>
+            <remarks>This is called before IListener.BeforeInsert(instance, sqlQuery).</remarks>
         </member>
-        <member name="M:MicroLite.Listeners.IListener.BeforeInsert(System.Type,MicroLite.SqlQuery)">
+        <member name="M:MicroLite.Listeners.IListener.BeforeInsert(System.Object,MicroLite.SqlQuery)">
             <summary>
             Invoked before the SqlQuery to insert the record into the database is executed.
             </summary>
-            <param name="forType">The type the query is for.</param>
+            <param name="instance">The instance to be inserted.</param>
             <param name="sqlQuery">The SqlQuery to be executed.</param>
             <remarks>This is called after IListener.BeforeInsert(instance).</remarks>
         </member>
@@ -226,13 +259,35 @@
             Invoked before the SqlQuery to update the record in the database is created.
             </summary>
             <param name="instance">The instance to be updated.</param>
+            <remarks>This is called before IListener.BeforeUpdate(instance, sqlQuery).</remarks>
+        </member>
+        <member name="M:MicroLite.Listeners.IListener.BeforeUpdate(System.Object,MicroLite.SqlQuery)">
+            <summary>
+            Invoked before the SqlQuery to update the record in the database is executed.
+            </summary>
+            <param name="instance">The instance to be updated.</param>
+            <param name="sqlQuery">The SqlQuery to be executed.</param>
+            <remarks>This is called after IListener.BeforeUpdate(instance).</remarks>
         </member>
         <member name="M:MicroLite.Listeners.Listener.AfterInsert(System.Object,System.Object)">
             <summary>
-            Invoked after the record for the instance has been inserted into the database.
+            Invoked after the SqlQuery to insert the record for the instance has been executed.
             </summary>
             <param name="instance">The instance which has been inserted.</param>
             <param name="executeScalarResult">The execute scalar result.</param>
+        </member>
+        <member name="M:MicroLite.Listeners.Listener.BeforeDelete(System.Object)">
+            <summary>
+            Invoked before the SqlQuery to delete the record from the database is created.
+            </summary>
+            <param name="instance">The instance to be deleted.</param>
+        </member>
+        <member name="M:MicroLite.Listeners.Listener.BeforeDelete(System.Object,MicroLite.SqlQuery)">
+            <summary>
+            Invoked before the SqlQuery to delete the record from the database is executed.
+            </summary>
+            <param name="instance">The instance to be deleted.</param>
+            <param name="sqlQuery">The SqlQuery to be executed.</param>
         </member>
         <member name="M:MicroLite.Listeners.Listener.BeforeInsert(System.Object)">
             <summary>
@@ -240,14 +295,38 @@
             </summary>
             <param name="instance">The instance to be inserted.</param>
         </member>
-        <member name="M:MicroLite.Listeners.Listener.BeforeInsert(System.Type,MicroLite.SqlQuery)">
+        <member name="M:MicroLite.Listeners.Listener.BeforeInsert(System.Object,MicroLite.SqlQuery)">
             <summary>
             Invoked before the SqlQuery to insert the record into the database is executed.
             </summary>
-            <param name="forType">The type the query is for.</param>
+            <param name="instance">The instance to be inserted.</param>
             <param name="sqlQuery">The SqlQuery to be executed.</param>
         </member>
         <member name="M:MicroLite.Listeners.Listener.BeforeUpdate(System.Object)">
+            <summary>
+            Invoked before the SqlQuery to update the record in the database is created.
+            </summary>
+            <param name="instance">The instance to be updated.</param>
+        </member>
+        <member name="M:MicroLite.Listeners.Listener.BeforeUpdate(System.Object,MicroLite.SqlQuery)">
+            <summary>
+            Invoked before the SqlQuery to update the record in the database is executed.
+            </summary>
+            <param name="instance">The instance to be updated.</param>
+            <param name="sqlQuery">The SqlQuery to be executed.</param>
+        </member>
+        <member name="P:MicroLite.Listeners.Listener.Listeners">
+            <summary>
+            Gets the listener collection which contains all listeners registered with the MicroLite ORM framework.
+            </summary>
+        </member>
+        <member name="M:MicroLite.Listeners.AssignedListener.BeforeInsert(System.Object)">
+            <summary>
+            Invoked before the SqlQuery to insert the record into the database is created.
+            </summary>
+            <param name="instance">The instance to be inserted.</param>
+        </member>
+        <member name="M:MicroLite.Listeners.AssignedListener.BeforeUpdate(System.Object)">
             <summary>
             Invoked before the SqlQuery to update the record in the database is created.
             </summary>
@@ -264,22 +343,61 @@
             <see cref="T:MicroLite.Mapping.IdentifierStrategy"/>.Guid is used.
             </summary>
         </member>
+        <member name="M:MicroLite.Listeners.GuidListener.BeforeInsert(System.Object)">
+            <summary>
+            Invoked before the SqlQuery to insert the record into the database is created.
+            </summary>
+            <param name="instance">The instance to be inserted.</param>
+        </member>
+        <member name="M:MicroLite.Listeners.GuidListener.BeforeUpdate(System.Object)">
+            <summary>
+            Invoked before the SqlQuery to update the record in the database is created.
+            </summary>
+            <param name="instance">The instance to be updated.</param>
+        </member>
         <member name="T:MicroLite.Listeners.IdentityListener">
             <summary>
             The implementation of <see cref="T:MicroLite.Listeners.IListener"/> for setting the instance identifier value if
             <see cref="T:MicroLite.Mapping.IdentifierStrategy"/>.Identity is used.
             </summary>
         </member>
+        <member name="M:MicroLite.Listeners.IdentityListener.AfterInsert(System.Object,System.Object)">
+            <summary>
+            Invoked after the SqlQuery to insert the record for the instance has been executed.
+            </summary>
+            <param name="instance">The instance which has been inserted.</param>
+            <param name="executeScalarResult">The execute scalar result.</param>
+        </member>
+        <member name="M:MicroLite.Listeners.IdentityListener.BeforeInsert(System.Object)">
+            <summary>
+            Invoked before the SqlQuery to insert the record into the database is created.
+            </summary>
+            <param name="instance">The instance to be inserted.</param>
+        </member>
+        <member name="M:MicroLite.Listeners.IdentityListener.BeforeInsert(System.Object,MicroLite.SqlQuery)">
+            <summary>
+            Invoked before the SqlQuery to insert the record into the database is executed.
+            </summary>
+            <param name="instance">The instance to be inserted.</param>
+            <param name="sqlQuery">The SqlQuery to be executed.</param>
+        </member>
+        <member name="M:MicroLite.Listeners.IdentityListener.BeforeUpdate(System.Object)">
+            <summary>
+            Invoked before the SqlQuery to update the record in the database is created.
+            </summary>
+            <param name="instance">The instance to be updated.</param>
+        </member>
         <member name="T:MicroLite.Core.IObjectBuilder">
             <summary>
             The interface for a class which builds an object instance from the values in a <see cref="T:System.Data.IDataReader"/>.
             </summary>
         </member>
-        <member name="M:MicroLite.Core.IObjectBuilder.BuildNewInstance``1(System.Data.IDataReader)">
+        <member name="M:MicroLite.Core.IObjectBuilder.BuildNewInstance``1(MicroLite.Mapping.ObjectInfo,System.Data.IDataReader)">
             <summary>
             Builds the new instance.
             </summary>
             <typeparam name="T">The type of object to be built.</typeparam>
+            <param name="objectInfo">The <see cref="T:MicroLite.Mapping.ObjectInfo"/> for the type to be built.</param>
             <param name="reader">The <see cref="T:System.Data.IDataReader"/> containing the values to populate the object with.</param>
             <returns>
             The new instance populated with the values from the <see cref="T:System.Data.IDataReader"/>.
@@ -335,37 +453,6 @@
             </summary>
             <param name="instance">The instance to build the query for.</param>
             <returns>A <see cref="T:MicroLite.SqlQuery"/> to update a record.</returns>
-        </member>
-        <member name="T:MicroLite.Core.Messages">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Core.Messages.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Core.Messages.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Core.Messages.ArgumentsCountMismatch">
-            <summary>
-              Looks up a localized string similar to There are {0} parameters in the SQL statement, however only {1} parameter arguments were supplied..
-            </summary>
-        </member>
-        <member name="P:MicroLite.Core.Messages.MustHaveAtLeast1Result">
-            <summary>
-              Looks up a localized string similar to There must be at least 1 result per page.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Core.Messages.PagesStartAtOne">
-            <summary>
-              Looks up a localized string similar to The first page which can be requested is page 1.
-            </summary>
         </member>
         <member name="T:MicroLite.Core.ObjectBuilder">
             <summary>
@@ -559,67 +646,74 @@
             </summary>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error rolling back the transaction.</exception>
         </member>
-        <member name="T:MicroLite.Listeners.ListenerManager">
+        <member name="T:MicroLite.Listeners.ListenerCollection">
             <summary>
-            The class which manages the IListeners used by the MicroLite ORM framework.
+            The class which contains the IListeners used by the MicroLite ORM framework.
             </summary>
         </member>
-        <member name="M:MicroLite.Listeners.ListenerManager.Add``1">
+        <member name="M:MicroLite.Listeners.ListenerCollection.#ctor">
             <summary>
-            Adds the listener.
+            Initialises a new instance of the <see cref="T:MicroLite.Listeners.ListenerCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:MicroLite.Listeners.ListenerCollection.Add``1">
+            <summary>
+            Adds the IListener to the collection.
             </summary>
             <typeparam name="T">The type of <see cref="T:MicroLite.Listeners.IListener"/> to add.</typeparam>
         </member>
-        <member name="M:MicroLite.Listeners.ListenerManager.Add(System.Func{MicroLite.Listeners.IListener})">
+        <member name="M:MicroLite.Listeners.ListenerCollection.Clear">
+            <summary>
+            Clears all IListeners registered.
+            </summary>
+        </member>
+        <member name="M:MicroLite.Listeners.ListenerCollection.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:MicroLite.Listeners.ListenerCollection.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:MicroLite.Listeners.ListenerCollection.Add(System.Func{MicroLite.Listeners.IListener})">
             <summary>
             Adds the specified listener factory.
             </summary>
             <param name="listenerFactory">The listener factory.</param>
             <remarks>This method exists so that we can unit test with Mock IListeners, it should remain internal.</remarks>
         </member>
-        <member name="T:MicroLite.Listeners.Messages">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Listeners.Messages.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Listeners.Messages.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Listeners.Messages.Assigned_IdentifierNotSetForInsert">
-            <summary>
-              Looks up a localized string similar to The object does not have an identifier value set so it cannot be inserted.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Listeners.Messages.Identity_IdentifierSetForInsert">
-            <summary>
-              Looks up a localized string similar to The object already has an identifier value so it cannot be inserted using the Identity strategy.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Listeners.Messages.IListener_IdentifierNotSetForUpdate">
-            <summary>
-              Looks up a localized string similar to The object does not have an identifier value set so it cannot be updated.
-            </summary>
-        </member>
         <member name="T:MicroLite.Mapping.ColumnInfo">
             <summary>
             A class which contains information about a database table column and the property it is mapped to.
             </summary>
         </member>
-        <member name="M:MicroLite.Mapping.ColumnInfo.#ctor(System.String,System.Boolean,System.Reflection.PropertyInfo)">
+        <member name="M:MicroLite.Mapping.ColumnInfo.#ctor(System.String,System.Reflection.PropertyInfo,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Initialises a new instance of the <see cref="T:MicroLite.Mapping.ColumnInfo"/> class.
             </summary>
             <param name="columnName">The name of the column in the database table.</param>
-            <param name="isIdentifier">A value indicating whether column is the table identifier column (primary key).</param>
             <param name="propertyInfo">The property info for the property the column maps to.</param>
+            <param name="isIdentifier">A value indicating whether column is the table identifier column (primary key).</param>
+            <param name="allowInsert">true if the column can be inserted, otherwise false.</param>
+            <param name="allowUpdate">true if the column can be updated, otherwise false.</param>
+        </member>
+        <member name="P:MicroLite.Mapping.ColumnInfo.AllowInsert">
+            <summary>
+            Gets a value indicating whether the column value is allowed to be inserted.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.ColumnInfo.AllowUpdate">
+            <summary>
+            Gets a value indicating whether the column value is allowed to be updated.
+            </summary>
         </member>
         <member name="P:MicroLite.Mapping.ColumnInfo.ColumnName">
             <summary>
@@ -647,37 +741,6 @@
             </summary>
             <param name="forType">The type to create the object info for.</param>
             <returns>The <see cref="T:MicroLite.Mapping.ObjectInfo"/> for the supplied type.</returns>
-        </member>
-        <member name="T:MicroLite.Mapping.Messages">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Mapping.Messages.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Mapping.Messages.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Mapping.Messages.StrictAttributeMappingConvention_IgnoringProperty">
-            <summary>
-              Looks up a localized string similar to Ignoring {0}.{1} as it has no ColumnAttribute.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Mapping.Messages.StrictAttributeMappingConvention_NoTableAttribute">
-            <summary>
-              Looks up a localized string similar to The type {0} is not decorated with a TableAttribute.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Mapping.Messages.TableInfo_NoIdentifierColumn">
-            <summary>
-              Looks up a localized string similar to No ColumnInfo was supplied with IsIdentifier set to true.
-            </summary>
         </member>
         <member name="T:MicroLite.Mapping.ObjectInfo">
             <summary>
@@ -772,6 +835,207 @@
         <member name="P:MicroLite.Mapping.TableInfo.Schema">
             <summary>
             Gets the name of the schema the table exists within.
+            </summary>
+        </member>
+        <member name="T:MicroLite.Messages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.AssignedListener_IdentifierNotSetForInsert">
+            <summary>
+              Looks up a localized string similar to The object does not have an identifier value set so it cannot be inserted.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.AttributeMappingConvention_IgnoringProperty">
+            <summary>
+              Looks up a localized string similar to Ignoring [{0}].[{1}] as it has no ColumnAttribute.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.AttributeMappingConvention_NoTableAttribute">
+            <summary>
+              Looks up a localized string similar to The type [{0}] is not decorated with a TableAttribute.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Configure_ConnectionNotFound">
+            <summary>
+              Looks up a localized string similar to No connection was found in the app.config with the name [{0}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Configure_CreatingSessionFactory">
+            <summary>
+              Looks up a localized string similar to Creating a session factory for connection named [{0}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Configure_ProviderNotSupported">
+            <summary>
+              Looks up a localized string similar to The provider [{0}] is currently not supported by the MicroLite framework.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Configure_ReadingConnection">
+            <summary>
+              Looks up a localized string similar to Reading connection named [{0}] from app.config.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ConnectionManager_ArgumentsCountMismatch">
+            <summary>
+              Looks up a localized string similar to There are [{0}] parameters in the SQL statement, however only [{1}] parameter arguments were supplied..
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.IdentityListener_IdentifierSetForInsert">
+            <summary>
+              Looks up a localized string similar to The object already has an identifier value so it cannot be inserted using the Identity strategy.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.IListener_IdentifierNotSetForUpdate">
+            <summary>
+              Looks up a localized string similar to The object does not have an identifier value set so it cannot be updated.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.IListener_SettingIdentifierValue">
+            <summary>
+              Looks up a localized string similar to Setting the identifier value for an instance of the type [{0}] to [{1}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.NoIdentifierFoundForType">
+            <summary>
+              Looks up a localized string similar to The type [{0}] has no property with an IdentifierAttribute specified..
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectBuilder_CreatingInstance">
+            <summary>
+              Looks up a localized string similar to Creating a new instance of [{0}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectBuilder_SettingPropertyValue">
+            <summary>
+              Looks up a localized string similar to Setting the property value for [{0}].[{1}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectBuilder_UnknownProperty">
+            <summary>
+              Looks up a localized string similar to The type [{0}] does not have a mapped property with the name [{1}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectInfo_CreatingObjectInfo">
+            <summary>
+              Looks up a localized string similar to Creating ObjectInfo for [{0}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectInfo_MappingClassToTable">
+            <summary>
+              Looks up a localized string similar to Mapping the {0} class to the {1} table.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectInfo_MappingColumnToProperty">
+            <summary>
+              Looks up a localized string similar to Mapping the {0}.{1} property to the column {2}.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectInfo_RetrievingObjectInfo">
+            <summary>
+              Looks up a localized string similar to Retrieving ObjectInfo for [{0}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectInfo_TypeMustBeClass">
+            <summary>
+              Looks up a localized string similar to The type [{0}] is not a class and therefore cannot be used by the MicroLite ORM Framework.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectInfo_TypeMustHaveDefaultConstructor">
+            <summary>
+              Looks up a localized string similar to The type [{0}] has no default (zero parameter) constructor and therefore cannot be used by the MicroLite ORM Framework.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectInfo_TypeMustNotBeAbstract">
+            <summary>
+              Looks up a localized string similar to The type [{0}] is abstract and therefore cannot be used by the MicroLite ORM Framework.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectInfo_UsingPropertyAsIdentifier">
+            <summary>
+              Looks up a localized string similar to Mapping the {0}.{1} property as the identifier with the strategy {2}.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Session_ClosingConnection">
+            <summary>
+              Looks up a localized string similar to Session [{0}] closing database connection.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Session_Created">
+            <summary>
+              Looks up a localized string similar to Session [{0}] created.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Session_Disposed">
+            <summary>
+              Looks up a localized string similar to Session [{0}] disposed.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Session_MustHaveAtLeast1Result">
+            <summary>
+              Looks up a localized string similar to There must be at least 1 result per page.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Session_OpeningConnection">
+            <summary>
+              Looks up a localized string similar to Session [{0}] opening database connection.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Session_PagesStartAtOne">
+            <summary>
+              Looks up a localized string similar to The first page which can be requested is page 1.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.SessionFactory_CreatingSession">
+            <summary>
+              Looks up a localized string similar to Creating a new session.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.TableInfo_NoIdentifierColumn">
+            <summary>
+              Looks up a localized string similar to No ColumnInfo was supplied with IsIdentifier set to true.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Transaction_Committing">
+            <summary>
+              Looks up a localized string similar to Transaction [{0}] committing changes.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Transaction_Created">
+            <summary>
+              Looks up a localized string similar to Transaction [{0}] created.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Transaction_Disposed">
+            <summary>
+              Looks up a localized string similar to Transaction [{0}] disposed.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Transaction_DisposedUncommitted">
+            <summary>
+              Looks up a localized string similar to Transaction [{0}] is being disposed with uncommitted changes.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Transaction_EnlistingCommand">
+            <summary>
+              Looks up a localized string similar to Command enlisted in transaction [{0}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Transaction_RollingBack">
+            <summary>
+              Looks up a localized string similar to Transaction [{0}] rolling back changes.
             </summary>
         </member>
         <member name="T:MicroLite.Query.IAndOrOrderBy">
@@ -1072,167 +1336,6 @@
         <member name="P:MicroLite.Logging.LogManager.GetLogger">
             <summary>
             Gets or sets the function which can be called by MicroLite to resolve the <see cref="T:MicroLite.Logging.ILog"/> to use.
-            </summary>
-        </member>
-        <member name="T:MicroLite.Logging.LogMessages">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Configure_ConnectionNotFound">
-            <summary>
-              Looks up a localized string similar to No connection was found in the app.config with the name {0}.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Configure_CreatingSessionFactory">
-            <summary>
-              Looks up a localized string similar to Creating a session factory for connection [{0}].
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Configure_ProviderNotSupported">
-            <summary>
-              Looks up a localized string similar to The provider {0} is currently not supported by the MicroLite framework.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Configure_ReadingConnection">
-            <summary>
-              Looks up a localized string similar to Reading connection named {0} from app.config.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.IListener_SettingIdentifierValue">
-            <summary>
-              Looks up a localized string similar to Setting the identifier value for an instance of the type {0} to {1}.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.NoIdentifierFoundForType">
-            <summary>
-              Looks up a localized string similar to The type {0} has no property named &apos;Id&apos;, &apos;{0}Id&apos; or a property with an IdentifierAttribute specified..
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.ObjectBuilder_CreatingInstance">
-            <summary>
-              Looks up a localized string similar to Creating a new instance of {0}.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.ObjectBuilder_SettingPropertyValue">
-            <summary>
-              Looks up a localized string similar to Setting the property value for {0}.{1}.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.ObjectBuilder_UnknownProperty">
-            <summary>
-              Looks up a localized string similar to The type {0} does not have a mapped property with the name {1}.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.ObjectInfo_CreatingObjectInfo">
-            <summary>
-              Looks up a localized string similar to Creating ObjectInfo for {0}.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.ObjectInfo_IgnoringProperty">
-            <summary>
-              Looks up a localized string similar to Ignoring the property {0}.{1}.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.ObjectInfo_MappingClassToTable">
-            <summary>
-              Looks up a localized string similar to Mapping the {0} class to the {1} table.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.ObjectInfo_MappingColumnToProperty">
-            <summary>
-              Looks up a localized string similar to Mapping the {0}.{1} property to the column {2}.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.ObjectInfo_RetrievingObjectInfo">
-            <summary>
-              Looks up a localized string similar to Retrieving ObjectInfo for {0}.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.ObjectInfo_UsingPropertyAsIdentifier">
-            <summary>
-              Looks up a localized string similar to Mapping the {0}.{1} property as the identifier with the strategy {2}.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Session_ClosingConnection">
-            <summary>
-              Looks up a localized string similar to Session {0} closing database connection.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Session_Created">
-            <summary>
-              Looks up a localized string similar to Session {0} created.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Session_Disposed">
-            <summary>
-              Looks up a localized string similar to Session {0} disposed.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Session_OpeningConnection">
-            <summary>
-              Looks up a localized string similar to Session {0} opening database connection.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.SessionFactory_CreatingSession">
-            <summary>
-              Looks up a localized string similar to Creating a new session.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Transaction_Committing">
-            <summary>
-              Looks up a localized string similar to Transaction {0} committing changes.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Transaction_Created">
-            <summary>
-              Looks up a localized string similar to Transaction {0} created.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Transaction_Disposed">
-            <summary>
-              Looks up a localized string similar to Transaction {0} disposed.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Transaction_DisposedUncommitted">
-            <summary>
-              Looks up a localized string similar to Transaction {0} is being disposed with uncommitted changes.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Transaction_EnlistingCommand">
-            <summary>
-              Looks up a localized string similar to Command enlisted in transaction {0}.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.Transaction_RollingBack">
-            <summary>
-              Looks up a localized string similar to Transaction {0} rolling back changes.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.TypeMustBeClass">
-            <summary>
-              Looks up a localized string similar to The type {0} is not a class and therefore cannot be used by the MicroLite ORM Framework.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.TypeMustHaveDefaultConstructor">
-            <summary>
-              Looks up a localized string similar to The type {0} has no default (zero parameter) constructor and therefore cannot be used by the MicroLite ORM Framework.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Logging.LogMessages.TypeMustNotBeAbstract">
-            <summary>
-              Looks up a localized string similar to The type {0} is abstract and therefore cannot be used by the MicroLite ORM Framework.
             </summary>
         </member>
         <member name="T:MicroLite.MicroLiteException">

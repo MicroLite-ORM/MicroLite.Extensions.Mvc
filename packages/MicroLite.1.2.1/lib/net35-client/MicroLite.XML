@@ -4,48 +4,9 @@
         <name>MicroLite</name>
     </assembly>
     <members>
-        <member name="T:MicroLite.FrameworkExtensions.EventHandlerExtensions">
+        <member name="T:MicroLite.Configuration.FluentConfiguration">
             <summary>
-            Extension methods for the EventHandler delegate.
-            </summary>
-        </member>
-        <member name="T:MicroLite.Mapping.ColumnAttribute">
-            <summary>
-            An attribute which can be applied to a property to specify the column name that the property maps to.
-            </summary>
-        </member>
-        <member name="M:MicroLite.Mapping.ColumnAttribute.#ctor(System.String)">
-            <summary>
-            Initialises a new instance of the <see cref="T:MicroLite.Mapping.ColumnAttribute"/> class.
-            </summary>
-            <param name="name">The name of the column in the database table that the property maps to.</param>
-        </member>
-        <member name="M:MicroLite.Mapping.ColumnAttribute.#ctor(System.String,System.Boolean,System.Boolean)">
-            <summary>
-            Initialises a new instance of the <see cref="T:MicroLite.Mapping.ColumnAttribute"/> class.
-            </summary>
-            <param name="name">The name of the column in the database table that the property maps to.</param>
-            <param name="allowInsert">true if the column value can be inserted, otherwise false.</param>
-            <param name="allowUpdate">true if the column value can be updated, otherwise false.</param>
-        </member>
-        <member name="P:MicroLite.Mapping.ColumnAttribute.AllowInsert">
-            <summary>
-            Gets a value indicating whether the column value is allowed to be inserted.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Mapping.ColumnAttribute.AllowUpdate">
-            <summary>
-            Gets a value indicating whether the column value is allowed to be updated.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Mapping.ColumnAttribute.Name">
-            <summary>
-            Gets the name of the column in the database table that the property maps to
-            </summary>
-        </member>
-        <member name="T:MicroLite.Configuration.Configure">
-            <summary>
-            The class used to configure the MicroLite ORM framework.
+            The class used to configure the MicroLite ORM framework using the fluent API.
             </summary>
         </member>
         <member name="T:MicroLite.Configuration.IConfigureConnection">
@@ -112,24 +73,7 @@
             </summary>
             <returns>The session factory for the specified connection.</returns>
         </member>
-        <member name="M:MicroLite.Configuration.Configure.#ctor">
-            <summary>
-            Prevents a default instance of the <see cref="T:MicroLite.Configuration.Configure"/> class from being created.
-            </summary>
-        </member>
-        <member name="M:MicroLite.Configuration.Configure.Extensions">
-            <summary>
-            Enables extensions to be loaded.
-            </summary>
-            <returns>The interface which provides the extension points.</returns>
-        </member>
-        <member name="M:MicroLite.Configuration.Configure.Fluently">
-            <summary>
-            Begins the configuration process using the fluent API.
-            </summary>
-            <returns>The next step in the fluent configuration.</returns>
-        </member>
-        <member name="M:MicroLite.Configuration.Configure.CreateSessionFactory">
+        <member name="M:MicroLite.Configuration.FluentConfiguration.CreateSessionFactory">
             <summary>
             Creates the session factory for the configured connection.
             </summary>
@@ -137,7 +81,7 @@
             The session factory for the specified connection.
             </returns>
         </member>
-        <member name="M:MicroLite.Configuration.Configure.ForConnection(System.String)">
+        <member name="M:MicroLite.Configuration.FluentConfiguration.ForConnection(System.String)">
             <summary>
             Specifies the named connection string in the app config to be used.
             </summary>
@@ -148,6 +92,57 @@
             <exception cref="T:System.ArgumentNullException">Thrown if connectionName is null.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if the connection is not found in the app config.</exception>
             <exception cref="T:System.NotSupportedException">Thrown if the provider name is not supported.</exception>
+        </member>
+        <member name="T:MicroLite.Mapping.ColumnAttribute">
+            <summary>
+            An attribute which can be applied to a property to specify the column name that the property maps to.
+            </summary>
+        </member>
+        <member name="M:MicroLite.Mapping.ColumnAttribute.#ctor(System.String)">
+            <summary>
+            Initialises a new instance of the <see cref="T:MicroLite.Mapping.ColumnAttribute"/> class.
+            </summary>
+            <param name="name">The name of the column in the database table that the property maps to.</param>
+        </member>
+        <member name="M:MicroLite.Mapping.ColumnAttribute.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Initialises a new instance of the <see cref="T:MicroLite.Mapping.ColumnAttribute"/> class.
+            </summary>
+            <param name="name">The name of the column in the database table that the property maps to.</param>
+            <param name="allowInsert">true if the column value can be inserted, otherwise false.</param>
+            <param name="allowUpdate">true if the column value can be updated, otherwise false.</param>
+        </member>
+        <member name="P:MicroLite.Mapping.ColumnAttribute.AllowInsert">
+            <summary>
+            Gets a value indicating whether the column value is allowed to be inserted.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.ColumnAttribute.AllowUpdate">
+            <summary>
+            Gets a value indicating whether the column value is allowed to be updated.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Mapping.ColumnAttribute.Name">
+            <summary>
+            Gets the name of the column in the database table that the property maps to
+            </summary>
+        </member>
+        <member name="T:MicroLite.Configuration.Configure">
+            <summary>
+            The class used to configure the MicroLite ORM framework.
+            </summary>
+        </member>
+        <member name="M:MicroLite.Configuration.Configure.Extensions">
+            <summary>
+            Begins the process of specifying the extensions which should be used by MicroLite.
+            </summary>
+            <returns>The interface which provides the extension points.</returns>
+        </member>
+        <member name="M:MicroLite.Configuration.Configure.Fluently">
+            <summary>
+            Begins the configuration process using the fluent API.
+            </summary>
+            <returns>The next step in the fluent configuration.</returns>
         </member>
         <member name="P:MicroLite.Configuration.Configure.SessionFactories">
             <summary>
@@ -325,12 +320,14 @@
             Invoked before the SqlQuery to insert the record into the database is created.
             </summary>
             <param name="instance">The instance to be inserted.</param>
+            <exception cref="T:MicroLite.MicroLiteException">Thrown if the identifier value for the object has not been set.</exception>
         </member>
         <member name="M:MicroLite.Listeners.AssignedListener.BeforeUpdate(System.Object)">
             <summary>
             Invoked before the SqlQuery to update the record in the database is created.
             </summary>
             <param name="instance">The instance to be updated.</param>
+            <exception cref="T:MicroLite.MicroLiteException">Thrown if the identifier value for the object has not been set.</exception>
         </member>
         <member name="T:MicroLite.Core.ConnectionManager">
             <summary>
@@ -354,6 +351,7 @@
             Invoked before the SqlQuery to update the record in the database is created.
             </summary>
             <param name="instance">The instance to be updated.</param>
+            <exception cref="T:MicroLite.MicroLiteException">Thrown if the identifier value for the object has not been set.</exception>
         </member>
         <member name="T:MicroLite.Listeners.IdentityListener">
             <summary>
@@ -373,6 +371,7 @@
             Invoked before the SqlQuery to insert the record into the database is created.
             </summary>
             <param name="instance">The instance to be inserted.</param>
+            <exception cref="T:MicroLite.MicroLiteException">Thrown if the identifier value for the object has already been set.</exception>
         </member>
         <member name="M:MicroLite.Listeners.IdentityListener.BeforeInsert(System.Object,MicroLite.SqlQuery)">
             <summary>
@@ -386,6 +385,7 @@
             Invoked before the SqlQuery to update the record in the database is created.
             </summary>
             <param name="instance">The instance to be updated.</param>
+            <exception cref="T:MicroLite.MicroLiteException">Thrown if the identifier value for the object has not been set.</exception>
         </member>
         <member name="T:MicroLite.Core.IObjectBuilder">
             <summary>
@@ -437,7 +437,7 @@
             <param name="sqlQuery">The SQL query.</param>
             <param name="page">The page number to get the results for.</param>
             <param name="resultsPerPage">The number of results to be shown per page.</param>
-            <returns>A <see cref="T:MicroLite.SqlQuery"/> to return the paged results of the supplied query.</returns>
+            <returns>A <see cref="T:MicroLite.SqlQuery"/> to return the paged results of the specified query.</returns>
         </member>
         <member name="M:MicroLite.Core.ISqlQueryBuilder.SelectQuery(System.Type,System.Object)">
             <summary>
@@ -471,25 +471,25 @@
         </member>
         <member name="M:MicroLite.ISession.BeginTransaction">
             <summary>
-            Begins the transaction with the default isolation level of of the connection.
+            Begins the transaction with the default isolation level of the connection.
             </summary>
-            <returns>The transaction.</returns>
+            <returns>An <see cref="T:MicroLite.ITransaction"/> with the default isolation level of the connection.</returns>
         </member>
         <member name="M:MicroLite.ISession.BeginTransaction(System.Data.IsolationLevel)">
             <summary>
-            Begins the transaction with the supplied isolation level.
+            Begins the transaction with the specified isolation level.
             </summary>
-            <param name="isolationLevel">The isolation level.</param>
-            <returns>The transaction.</returns>
+            <param name="isolationLevel">The isolation level to use for the transaction.</param>
+            <returns>An <see cref="T:MicroLite.ITransaction"/> with the specified <see cref="T:System.Data.IsolationLevel"/>.</returns>
         </member>
         <member name="M:MicroLite.ISession.Delete(System.Object)">
             <summary>
-            Deletes the database record for the supplied instance.
+            Deletes the database record for the specified instance.
             </summary>
             <param name="instance">The instance to delete from the database.</param>
             <returns>true if the object was deleted successfully; otherwise false.</returns>
-            <exception cref="T:System.ObjectDisposedException">Thrown if session has been disposed.</exception>
-            <exception cref="T:System.ArgumentNullException">Thrown if supplied instance is null.</exception>
+            <exception cref="T:System.ObjectDisposedException">Thrown if the session has been disposed.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if the specified instance is null.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error executing the delete command.</exception>
         </member>
         <member name="M:MicroLite.ISession.Fetch``1(MicroLite.SqlQuery)">
@@ -499,17 +499,17 @@
             <typeparam name="T">The type of object the query relates to.</typeparam>
             <param name="sqlQuery">The SQL query to execute.</param>
             <returns>The objects that match the query in a list.</returns>
-            <exception cref="T:System.ObjectDisposedException">Thrown if session has been disposed.</exception>
-            <exception cref="T:System.ArgumentNullException">Thrown if supplied SqlQuery is null.</exception>
+            <exception cref="T:System.ObjectDisposedException">Thrown if the session has been disposed.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if the specified SqlQuery is null.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error executing the query.</exception>
         </member>
         <member name="M:MicroLite.ISession.Insert(System.Object)">
             <summary>
-            Inserts a new database record for the supplied instance.
+            Inserts a new database record for the specified instance.
             </summary>
             <param name="instance">The instance to persist the values for.</param>
-            <exception cref="T:System.ObjectDisposedException">Thrown if session has been disposed.</exception>
-            <exception cref="T:System.ArgumentNullException">Thrown if supplied instance is null.</exception>
+            <exception cref="T:System.ObjectDisposedException">Thrown if the session has been disposed.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if the specified instance is null.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error executing the insert command.</exception>
         </member>
         <member name="M:MicroLite.ISession.Paged``1(MicroLite.SqlQuery,System.Int64,System.Int64)">
@@ -520,31 +520,31 @@
             <param name="sqlQuery">The SQL query to page before executing.</param>
             <param name="page">The page number (supply a 1 for first page).</param>
             <param name="resultsPerPage">The number of results per page.</param>
-            <returns>An <see cref="T:MicroLite.PagedResult`1"/> containing the desired results.</returns>
-            <exception cref="T:System.ObjectDisposedException">Thrown if session has been disposed.</exception>
-            <exception cref="T:System.ArgumentNullException">Thrown if supplied SqlQuery is null.</exception>
+            <returns>A <see cref="T:MicroLite.PagedResult`1"/> containing the desired results.</returns>
+            <exception cref="T:System.ObjectDisposedException">Thrown if the session has been disposed.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if the specified SqlQuery is null.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown if page or resultsPerPage are below 1.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error executing the query.</exception>
         </member>
         <member name="M:MicroLite.ISession.Single``1(System.Object)">
             <summary>
-            Returns the instance of the specified type which corresponds to the row with the supplied identifier
-            in the mapped table or null if the identifier values does not exist in the table.
+            Returns the instance of the specified type which corresponds to the row with the specified identifier
+            in the mapped table, or null if the identifier values does not exist in the table.
             </summary>
             <typeparam name="T">The type of object.</typeparam>
             <param name="identifier">The record identifier.</param>
             <returns>An instance of the specified type or null if no matching record exists.</returns>
-            <exception cref="T:System.ObjectDisposedException">Thrown if session has been disposed.</exception>
-            <exception cref="T:System.ArgumentNullException">Thrown if supplied instance is null.</exception>
+            <exception cref="T:System.ObjectDisposedException">Thrown if the session has been disposed.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if the specified instance is null.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error executing the query.</exception>
         </member>
         <member name="M:MicroLite.ISession.Update(System.Object)">
             <summary>
-            Updates the database record for the supplied instance with the current property values.
+            Updates the database record for the specified instance with the current property values.
             </summary>
             <param name="instance">The instance to persist the values for.</param>
-            <exception cref="T:System.ObjectDisposedException">Thrown if session has been disposed.</exception>
-            <exception cref="T:System.ArgumentNullException">Thrown if supplied instance is null.</exception>
+            <exception cref="T:System.ObjectDisposedException">Thrown if the session has been disposed.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if the specified instance is null.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error executing the update command.</exception>
         </member>
         <member name="P:MicroLite.ISession.Advanced">
@@ -554,7 +554,7 @@
         </member>
         <member name="P:MicroLite.ISession.Transaction">
             <summary>
-            Gets the current transaction is one active.
+            Gets the current transaction or null if one has not been started.
             </summary>
         </member>
         <member name="T:MicroLite.IAdvancedSession">
@@ -568,13 +568,13 @@
         </member>
         <member name="M:MicroLite.IAdvancedSession.Delete(System.Type,System.Object)">
             <summary>
-            Deletes the database record for the type with the supplied identifier.
+            Deletes the database record for the type with the specified identifier.
             </summary>
             <param name="type">The type to delete.</param>
             <param name="identifier">The identifier of the record to delete.</param>
             <returns>true if the object was deleted successfully; otherwise false.</returns>
-            <exception cref="T:System.ObjectDisposedException">Thrown if session has been disposed.</exception>
-            <exception cref="T:System.ArgumentNullException">Thrown if supplied type or identifier is null.</exception>
+            <exception cref="T:System.ObjectDisposedException">Thrown if the session has been disposed.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if the specified type or identifier is null.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error executing the delete command.</exception>
         </member>
         <member name="M:MicroLite.IAdvancedSession.Execute(MicroLite.SqlQuery)">
@@ -583,19 +583,19 @@
             </summary>
             <param name="sqlQuery">The SQL query to execute.</param>
             <returns>The number of rows affected by the sql query.</returns>
-            <exception cref="T:System.ObjectDisposedException">Thrown if session has been disposed.</exception>
-            <exception cref="T:System.ArgumentNullException">Thrown if supplied SqlQuery is null.</exception>
+            <exception cref="T:System.ObjectDisposedException">Thrown if the session has been disposed.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if the specified SqlQuery is null.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error executing the command.</exception>
         </member>
         <member name="M:MicroLite.IAdvancedSession.ExecuteScalar``1(MicroLite.SqlQuery)">
             <summary>
-            Executes the supplied SQL query as a scalar command.
+            Executes the specified SQL query as a scalar command.
             </summary>
             <typeparam name="T">The type of result to be returned.</typeparam>
             <param name="sqlQuery">The SQL query to execute.</param>
             <returns>The result of the scalar query.</returns>
-            <exception cref="T:System.ObjectDisposedException">Thrown if session has been disposed.</exception>
-            <exception cref="T:System.ArgumentNullException">Thrown if supplied SqlQuery is null.</exception>
+            <exception cref="T:System.ObjectDisposedException">Thrown if the session has been disposed.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if the specified SqlQuery is null.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error executing the command.</exception>
         </member>
         <member name="T:MicroLite.Core.SessionFactory">
@@ -638,13 +638,37 @@
             <summary>
             Commits the transaction, applying all changes made within the transaction scope.
             </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown if the transaction has been completed.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error committing the transaction.</exception>
         </member>
         <member name="M:MicroLite.ITransaction.Rollback">
             <summary>
             Rollbacks the transaction, undoing all changes made within the transaction scope.
             </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown if the transaction has been completed.</exception>
             <exception cref="T:MicroLite.MicroLiteException">Thrown if there is an error rolling back the transaction.</exception>
+        </member>
+        <member name="P:MicroLite.ITransaction.IsActive">
+            <summary>
+            Gets a value indicating whether this <see cref="T:MicroLite.ITransaction"/> is active.
+            </summary>
+        </member>
+        <member name="P:MicroLite.ITransaction.WasCommitted">
+            <summary>
+            Gets a value indicating whether this <see cref="T:MicroLite.ITransaction"/> has been committed.
+            </summary>
+        </member>
+        <member name="P:MicroLite.ITransaction.WasRolledBack">
+            <summary>
+            Gets a value indicating whether this <see cref="T:MicroLite.ITransaction"/> has been rolled back.
+            </summary>
+        </member>
+        <member name="M:MicroLite.Core.Transaction.#ctor(System.Data.IDbTransaction)">
+            <summary>
+            Initialises a new instance of the <see cref="T:MicroLite.Core.Transaction"/> class.
+            </summary>
+            <param name="transaction">The transaction.</param>
+            <remarks>This is to enable easier unit testing only, all production code should call Transaction.Begin().</remarks>
         </member>
         <member name="T:MicroLite.Listeners.ListenerCollection">
             <summary>
@@ -704,6 +728,7 @@
             <param name="isIdentifier">A value indicating whether column is the table identifier column (primary key).</param>
             <param name="allowInsert">true if the column can be inserted, otherwise false.</param>
             <param name="allowUpdate">true if the column can be updated, otherwise false.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if columnName or propertyInfo are null.</exception>
         </member>
         <member name="P:MicroLite.Mapping.ColumnInfo.AllowInsert">
             <summary>
@@ -737,10 +762,10 @@
         </member>
         <member name="M:MicroLite.Mapping.IMappingConvention.CreateObjectInfo(System.Type)">
             <summary>
-            Creates the object info for the supplied type.
+            Creates the object info for the specified type.
             </summary>
             <param name="forType">The type to create the object info for.</param>
-            <returns>The <see cref="T:MicroLite.Mapping.ObjectInfo"/> for the supplied type.</returns>
+            <returns>The <see cref="T:MicroLite.Mapping.ObjectInfo"/> for the specified type.</returns>
         </member>
         <member name="T:MicroLite.Mapping.ObjectInfo">
             <summary>
@@ -753,6 +778,7 @@
             </summary>
             <param name="forType">The type the object info relates to.</param>
             <param name="tableInfo">The table info.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if forType or tableInfo are null.</exception>
         </member>
         <member name="M:MicroLite.Mapping.ObjectInfo.For(System.Type)">
             <summary>
@@ -760,17 +786,19 @@
             </summary>
             <param name="forType">The type to get the object info for.</param>
             <returns>The <see cref="T:MicroLite.Mapping.ObjectInfo"/> for the specified <see cref="T:System.Type"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if forType is null.</exception>
+            <exception cref="T:MicroLite.MicroLiteException">Thrown if the specified type cannot be used with MicroLite.</exception>
         </member>
         <member name="M:MicroLite.Mapping.ObjectInfo.GetPropertyInfoForColumn(System.String)">
             <summary>
-            Gets the property info for supplied column name.
+            Gets the property info for specified column name.
             </summary>
             <param name="columnName">Name of the column.</param>
             <returns>The <see cref="T:System.Reflection.PropertyInfo"/> for the column, or null if it is not a mapped column.</returns>
         </member>
         <member name="M:MicroLite.Mapping.ObjectInfo.HasDefaultIdentifierValue(System.Object)">
             <summary>
-            Determines whether the supplied instance has the default identifier value.
+            Determines whether the specified instance has the default identifier value.
             </summary>
             <param name="instance">The instance.</param>
             <returns>
@@ -811,6 +839,8 @@
             <param name="identifierStrategy">The identifier strategy used by the table.</param>
             <param name="name">The name of the table.</param>
             <param name="schema">The name of the schema the table exists within.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if columns, name or schema are null.</exception>
+            <exception cref="T:MicroLite.MicroLiteException">Thrown if no identifier column is specified.</exception>
         </member>
         <member name="P:MicroLite.Mapping.TableInfo.Columns">
             <summary>
@@ -868,29 +898,39 @@
               Looks up a localized string similar to The type [{0}] is not decorated with a TableAttribute.
             </summary>
         </member>
-        <member name="P:MicroLite.Messages.Configure_ConnectionNotFound">
+        <member name="P:MicroLite.Messages.ConfigureExtensions_UsingLogger">
             <summary>
-              Looks up a localized string similar to No connection was found in the app.config with the name [{0}].
+              Looks up a localized string similar to Using logger [{0}]..
             </summary>
         </member>
-        <member name="P:MicroLite.Messages.Configure_CreatingSessionFactory">
+        <member name="P:MicroLite.Messages.ConfigureExtensions_UsingMappingConvention">
             <summary>
-              Looks up a localized string similar to Creating a session factory for connection named [{0}].
-            </summary>
-        </member>
-        <member name="P:MicroLite.Messages.Configure_ProviderNotSupported">
-            <summary>
-              Looks up a localized string similar to The provider [{0}] is currently not supported by the MicroLite framework.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Messages.Configure_ReadingConnection">
-            <summary>
-              Looks up a localized string similar to Reading connection named [{0}] from app.config.
+              Looks up a localized string similar to Using mapping convention [{0}].
             </summary>
         </member>
         <member name="P:MicroLite.Messages.ConnectionManager_ArgumentsCountMismatch">
             <summary>
-              Looks up a localized string similar to There are [{0}] parameters in the SQL statement, however only [{1}] parameter arguments were supplied..
+              Looks up a localized string similar to There are [{0}] parameters in the SQL statement, however only [{1}] parameter arguments were specified..
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.FluentConfiguration_ConnectionNotFound">
+            <summary>
+              Looks up a localized string similar to No connection was found in the app.config with the name [{0}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.FluentConfiguration_CreatingSessionFactory">
+            <summary>
+              Looks up a localized string similar to Creating a session factory for connection named [{0}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.FluentConfiguration_ProviderNotSupported">
+            <summary>
+              Looks up a localized string similar to The provider [{0}] is currently not supported by the MicroLite ORM framework.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.FluentConfiguration_ReadingConnection">
+            <summary>
+              Looks up a localized string similar to Reading connection named [{0}] from app.config.
             </summary>
         </member>
         <member name="P:MicroLite.Messages.IdentityListener_IdentifierSetForInsert">
@@ -908,11 +948,6 @@
               Looks up a localized string similar to Setting the identifier value for an instance of the type [{0}] to [{1}].
             </summary>
         </member>
-        <member name="P:MicroLite.Messages.NoIdentifierFoundForType">
-            <summary>
-              Looks up a localized string similar to The type [{0}] has no property with an IdentifierAttribute specified..
-            </summary>
-        </member>
         <member name="P:MicroLite.Messages.ObjectBuilder_CreatingInstance">
             <summary>
               Looks up a localized string similar to Creating a new instance of [{0}].
@@ -920,7 +955,7 @@
         </member>
         <member name="P:MicroLite.Messages.ObjectBuilder_SettingPropertyValue">
             <summary>
-              Looks up a localized string similar to Setting the property value for [{0}].[{1}].
+              Looks up a localized string similar to Setting the property value of [{0}].[{1}].
             </summary>
         </member>
         <member name="P:MicroLite.Messages.ObjectBuilder_UnknownProperty">
@@ -933,14 +968,14 @@
               Looks up a localized string similar to Creating ObjectInfo for [{0}].
             </summary>
         </member>
-        <member name="P:MicroLite.Messages.ObjectInfo_MappingClassToTable">
-            <summary>
-              Looks up a localized string similar to Mapping the {0} class to the {1} table.
-            </summary>
-        </member>
         <member name="P:MicroLite.Messages.ObjectInfo_MappingColumnToProperty">
             <summary>
-              Looks up a localized string similar to Mapping the {0}.{1} property to the column {2}.
+              Looks up a localized string similar to Mapping the property [{0}].[{1}] to the column [{2}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.ObjectInfo_MappingTypeToTable">
+            <summary>
+              Looks up a localized string similar to Mapping the type [{0}] to the table [{1}].[{2}].
             </summary>
         </member>
         <member name="P:MicroLite.Messages.ObjectInfo_RetrievingObjectInfo">
@@ -955,17 +990,12 @@
         </member>
         <member name="P:MicroLite.Messages.ObjectInfo_TypeMustHaveDefaultConstructor">
             <summary>
-              Looks up a localized string similar to The type [{0}] has no default (zero parameter) constructor and therefore cannot be used by the MicroLite ORM Framework.
+              Looks up a localized string similar to The type [{0}] has no default (parameterless) constructor and therefore cannot be used by the MicroLite ORM Framework.
             </summary>
         </member>
         <member name="P:MicroLite.Messages.ObjectInfo_TypeMustNotBeAbstract">
             <summary>
               Looks up a localized string similar to The type [{0}] is abstract and therefore cannot be used by the MicroLite ORM Framework.
-            </summary>
-        </member>
-        <member name="P:MicroLite.Messages.ObjectInfo_UsingPropertyAsIdentifier">
-            <summary>
-              Looks up a localized string similar to Mapping the {0}.{1} property as the identifier with the strategy {2}.
             </summary>
         </member>
         <member name="P:MicroLite.Messages.Session_ClosingConnection">
@@ -1003,14 +1033,29 @@
               Looks up a localized string similar to Creating a new session.
             </summary>
         </member>
+        <member name="P:MicroLite.Messages.TableInfo_ColumnMappedMultipleTimes">
+            <summary>
+              Looks up a localized string similar to The column [{0}] has been mapped multiple times, this usually occurs if multiple properties have the same column name specified in the column attribute..
+            </summary>
+        </member>
         <member name="P:MicroLite.Messages.TableInfo_NoIdentifierColumn">
             <summary>
-              Looks up a localized string similar to No ColumnInfo was supplied with IsIdentifier set to true.
+              Looks up a localized string similar to No ColumnInfo was specified with IsIdentifier set to true.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Transaction_Committed">
+            <summary>
+              Looks up a localized string similar to Transaction [{0}] committed changes.
             </summary>
         </member>
         <member name="P:MicroLite.Messages.Transaction_Committing">
             <summary>
               Looks up a localized string similar to Transaction [{0}] committing changes.
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Transaction_Completed">
+            <summary>
+              Looks up a localized string similar to Transaction [{0}] has been completed.
             </summary>
         </member>
         <member name="P:MicroLite.Messages.Transaction_Created">
@@ -1031,6 +1076,11 @@
         <member name="P:MicroLite.Messages.Transaction_EnlistingCommand">
             <summary>
               Looks up a localized string similar to Command enlisted in transaction [{0}].
+            </summary>
+        </member>
+        <member name="P:MicroLite.Messages.Transaction_RolledBack">
+            <summary>
+              Looks up a localized string similar to Transaction [{0}] rolled back changes.
             </summary>
         </member>
         <member name="P:MicroLite.Messages.Transaction_RollingBack">
@@ -1161,7 +1211,7 @@
         </member>
         <member name="M:MicroLite.Query.IWithParameter.WithParameter(System.String,System.Object)">
             <summary>
-            Specifies that the stored procedure should be executed the supplied parameter and argument.
+            Specifies that the stored procedure should be executed the specified parameter and argument.
             </summary>
             <param name="parameter">The parameter to be added.</param>
             <param name="arg">The argument value for the parameter.</param>
@@ -1326,11 +1376,11 @@
         </member>
         <member name="M:MicroLite.Logging.LogManager.GetLog(System.String)">
             <summary>
-            Gets the log instance with the supplied name.
+            Gets the log instance with the specified name.
             </summary>
             <param name="name">The name of the log to get.</param>
             <returns>
-            The <see cref="T:MicroLite.Logging.ILog"/> for the supplied log name or null if LogManager.GetLogger nas not been set.
+            The <see cref="T:MicroLite.Logging.ILog"/> for the specified log name or null if LogManager.GetLogger nas not been set.
             </returns>
         </member>
         <member name="P:MicroLite.Logging.LogManager.GetLogger">
@@ -1424,7 +1474,7 @@
         </member>
         <member name="M:MicroLite.Query.SqlBuilder.SelectFrom(System.Type)">
             <summary>
-            Selects all mapped columns from the table the supplied type maps to.
+            Selects all mapped columns from the table the specified type maps to.
             </summary>
             <param name="forType">The type to select the columns for.</param>
             <returns>The next step in the fluent sql builder.</returns>
@@ -1482,7 +1532,7 @@
         </member>
         <member name="M:MicroLite.Query.SqlBuilder.WithParameter(System.String,System.Object)">
             <summary>
-            Specifies that the stored procedure should be executed the supplied parameter and argument.
+            Specifies that the stored procedure should be executed the specified parameter and argument.
             </summary>
             <param name="parameter">The parameter to be added.</param>
             <param name="arg">The argument value for the parameter.</param>
@@ -1495,7 +1545,7 @@
         </member>
         <member name="M:MicroLite.SqlQuery.#ctor(System.String,System.Object[])">
             <summary>
-            Initialises a new instance of the <see cref="T:MicroLite.SqlQuery"/> class with the supplied command text and parameter values.
+            Initialises a new instance of the <see cref="T:MicroLite.SqlQuery"/> class with the specified command text and parameter values.
             </summary>
             <param name="commandText">The SQL command text.</param>
             <param name="arguments">The parameter values for the query.</param>

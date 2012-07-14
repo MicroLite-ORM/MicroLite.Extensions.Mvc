@@ -22,9 +22,10 @@
         }
 
         [Test]
-        public void OnActionExecutedCommitsTransactionIfFilterContextHasNoException()
+        public void OnActionExecutedCommitsTransactionIfFilterContextHasNoExceptionAndTransactionIsActive()
         {
             var mockTransaction = new Mock<ITransaction>();
+            mockTransaction.Setup(x => x.IsActive).Returns(true);
             mockTransaction.Setup(x => x.Commit());
 
             var mockSession = new Mock<ISession>();
@@ -65,9 +66,59 @@
         }
 
         [Test]
-        public void OnActionExecutedRollsBackTransactionIfFilterContextException()
+        public void OnActionExecutedDoesNotCommitTransactionIfFilterContextHasNoExceptionAndTransactionIsNotActive()
         {
             var mockTransaction = new Mock<ITransaction>();
+            mockTransaction.Setup(x => x.IsActive).Returns(false);
+            mockTransaction.Setup(x => x.Commit());
+
+            var mockSession = new Mock<ISession>();
+            mockSession.Setup(x => x.Transaction).Returns(mockTransaction.Object);
+
+            var controller = new Mock<MicroLiteController>().Object;
+            controller.Session = mockSession.Object;
+
+            var context = new ActionExecutedContext
+            {
+                Controller = controller
+            };
+
+            var attribute = new MicroLiteSessionAttribute();
+            attribute.OnActionExecuted(context);
+
+            mockTransaction.Verify(x => x.Commit(), Times.Never());
+        }
+
+        [Test]
+        public void OnActionExecutedDoesNotRollBackTransactionIfFilterContextExceptionAndAlreadyRolledBack()
+        {
+            var mockTransaction = new Mock<ITransaction>();
+            mockTransaction.Setup(x => x.WasRolledBack).Returns(true);
+            mockTransaction.Setup(x => x.Rollback());
+
+            var mockSession = new Mock<ISession>();
+            mockSession.Setup(x => x.Transaction).Returns(mockTransaction.Object);
+
+            var controller = new Mock<MicroLiteController>().Object;
+            controller.Session = mockSession.Object;
+
+            var context = new ActionExecutedContext
+            {
+                Controller = controller,
+                Exception = new Exception()
+            };
+
+            var attribute = new MicroLiteSessionAttribute();
+            attribute.OnActionExecuted(context);
+
+            mockTransaction.Verify(x => x.Rollback(), Times.Never());
+        }
+
+        [Test]
+        public void OnActionExecutedRollsBackTransactionIfFilterContextExceptionAndNotRolledBack()
+        {
+            var mockTransaction = new Mock<ITransaction>();
+            mockTransaction.Setup(x => x.WasRolledBack).Returns(false);
             mockTransaction.Setup(x => x.Rollback());
 
             var mockSession = new Mock<ISession>();

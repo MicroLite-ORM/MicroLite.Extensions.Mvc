@@ -77,11 +77,17 @@ namespace MicroLite.Extensions.Mvc
                 {
                     if (filterContext.Exception != null)
                     {
-                        controller.Session.Transaction.Rollback();
+                        if (!controller.Session.Transaction.WasRolledBack)
+                        {
+                            controller.Session.Transaction.Rollback();
+                        }
                     }
                     else
                     {
-                        controller.Session.Transaction.Commit();
+                        if (controller.Session.Transaction.IsActive)
+                        {
+                            controller.Session.Transaction.Commit();
+                        }
                     }
                 }
 

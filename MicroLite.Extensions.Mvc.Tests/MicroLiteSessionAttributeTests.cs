@@ -1,6 +1,7 @@
 ﻿namespace MicroLite.Extensions.Mvc.Tests
 {
     using System;
+    using System.Data;
     using System.Web.Mvc;
     using Moq;
     using NUnit.Framework;
@@ -309,6 +310,41 @@
             mockSessionFactory.VerifyAll();
 
             Assert.AreSame(session, controller.Session);
+
+            mockSession.VerifyAll();
+        }
+
+        [Test]
+        public void OnActionExecutingOpensSessionAndBeginsTransactionWithSpecifiedIsolationLevel()
+        {
+            var isolationLevel = IsolationLevel.Chaos;
+
+            var mockSession = new Mock<ISession>();
+            mockSession.Setup(x => x.BeginTransaction(isolationLevel)).Returns(new Mock<ITransaction>().Object);
+
+            var mockSessionFactory = new Mock<ISessionFactory>();
+            mockSessionFactory.Setup(x => x.OpenSession()).Returns(mockSession.Object);
+
+            MicroLiteSessionAttribute.SessionFactories = new[]
+            {
+                mockSessionFactory.Object
+            };
+
+            var mockController = new Mock<MicroLiteController>();
+
+            var controller = mockController.Object;
+
+            var context = new ActionExecutingContext
+            {
+                Controller = controller
+            };
+
+            var attribute = new MicroLiteSessionAttribute()
+            {
+                IsolationLevel = IsolationLevel.Chaos
+            };
+
+            attribute.OnActionExecuting(context);
 
             mockSession.VerifyAll();
         }

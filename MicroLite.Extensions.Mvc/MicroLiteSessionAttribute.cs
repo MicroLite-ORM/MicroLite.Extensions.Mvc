@@ -14,6 +14,7 @@ namespace MicroLite.Extensions.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
@@ -73,6 +74,15 @@ namespace MicroLite.Extensions.Mvc
             {
                 return this.connectionName;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the isolation level to be used when a transaction is started.
+        /// </summary>
+        public IsolationLevel? IsolationLevel
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -146,7 +156,15 @@ namespace MicroLite.Extensions.Mvc
                 }
 
                 controller.Session = sessionFactory.OpenSession();
-                controller.Session.BeginTransaction();
+
+                if (this.IsolationLevel.HasValue)
+                {
+                    controller.Session.BeginTransaction(this.IsolationLevel.Value);
+                }
+                else
+                {
+                    controller.Session.BeginTransaction();
+                }
             }
         }
     }

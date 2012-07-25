@@ -12,6 +12,14 @@
     public class MicroLiteSessionAttributeTests
     {
         [Test]
+        public void ConnectionNameConstructorSetsAutoManageTransactionToTrue()
+        {
+            var attribute = new MicroLiteSessionAttribute("Northwind");
+
+            Assert.IsTrue(attribute.AutoManageTransaction);
+        }
+
+        [Test]
         public void ConstructorSetsConnectionName()
         {
             var connectionName = "Northwind";
@@ -19,6 +27,14 @@
             var attribute = new MicroLiteSessionAttribute(connectionName);
 
             Assert.AreEqual(connectionName, attribute.ConnectionName);
+        }
+
+        [Test]
+        public void DefaultConstructorSetsAutoManageTransactionToTrue()
+        {
+            var attribute = new MicroLiteSessionAttribute();
+
+            Assert.IsTrue(attribute.AutoManageTransaction);
         }
 
         [Test]
@@ -66,6 +82,34 @@
         }
 
         [Test]
+        public void OnActionExecutedDoesNotCommitSessionIfAutoManageTransactionIsSetToFalse()
+        {
+            var mockTransaction = new Mock<ITransaction>();
+            mockTransaction.Setup(x => x.IsActive).Returns(true);
+            mockTransaction.Setup(x => x.Commit());
+
+            var mockSession = new Mock<ISession>();
+            mockSession.Setup(x => x.Transaction).Returns(mockTransaction.Object);
+
+            var controller = new Mock<MicroLiteController>().Object;
+            controller.Session = mockSession.Object;
+
+            var context = new ActionExecutedContext
+            {
+                Controller = controller
+            };
+
+            var attribute = new MicroLiteSessionAttribute()
+            {
+                AutoManageTransaction = false
+            };
+
+            attribute.OnActionExecuted(context);
+
+            mockTransaction.Verify(x => x.Commit(), Times.Never());
+        }
+
+        [Test]
         public void OnActionExecutedDoesNotCommitTransactionIfFilterContextHasNoExceptionAndTransactionIsNotActive()
         {
             var mockTransaction = new Mock<ITransaction>();
@@ -87,6 +131,35 @@
             attribute.OnActionExecuted(context);
 
             mockTransaction.Verify(x => x.Commit(), Times.Never());
+        }
+
+        [Test]
+        public void OnActionExecutedDoesNotRollBackSessionIfAutoManageTransactionIsSetToFalse()
+        {
+            var mockTransaction = new Mock<ITransaction>();
+            mockTransaction.Setup(x => x.WasRolledBack).Returns(false);
+            mockTransaction.Setup(x => x.Rollback());
+
+            var mockSession = new Mock<ISession>();
+            mockSession.Setup(x => x.Transaction).Returns(mockTransaction.Object);
+
+            var controller = new Mock<MicroLiteController>().Object;
+            controller.Session = mockSession.Object;
+
+            var context = new ActionExecutedContext
+            {
+                Controller = controller,
+                Exception = new Exception()
+            };
+
+            var attribute = new MicroLiteSessionAttribute()
+            {
+                AutoManageTransaction = false
+            };
+
+            attribute.OnActionExecuted(context);
+
+            mockTransaction.Verify(x => x.Rollback(), Times.Never());
         }
 
         [Test]
@@ -137,6 +210,36 @@
             attribute.OnActionExecuted(context);
 
             mockTransaction.VerifyAll();
+        }
+
+        [Test]
+        public void OnActionExecutingDoesNotOpenSessionIfAutoManageTransactionIsSetToFalse()
+        {
+            var mockSession = new Mock<ISession>();
+            mockSession.Setup(x => x.BeginTransaction());
+
+            var mockSessionFactory = new Mock<ISessionFactory>();
+            mockSessionFactory.Setup(x => x.ConnectionName).Returns("Northwind");
+            mockSessionFactory.Setup(x => x.OpenSession()).Returns(mockSession.Object);
+
+            MicroLiteSessionAttribute.SessionFactories = new[]
+            {
+                mockSessionFactory.Object
+            };
+
+            var context = new ActionExecutingContext
+            {
+                Controller = new Mock<MicroLiteController>().Object
+            };
+
+            var attribute = new MicroLiteSessionAttribute("Northwind")
+            {
+                AutoManageTransaction = false
+            };
+
+            attribute.OnActionExecuting(context);
+
+            mockSession.Verify(x => x.BeginTransaction(), Times.Never());
         }
 
         [Test]

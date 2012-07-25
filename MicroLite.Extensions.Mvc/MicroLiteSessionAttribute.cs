@@ -32,6 +32,7 @@ namespace MicroLite.Extensions.Mvc
         /// </summary>
         public MicroLiteSessionAttribute()
         {
+            this.AutoManageTransaction = true;
         }
 
         /// <summary>
@@ -39,6 +40,7 @@ namespace MicroLite.Extensions.Mvc
         /// </summary>
         /// <param name="connectionName">Name of the connection to manage the session for.</param>
         public MicroLiteSessionAttribute(string connectionName)
+            : this()
         {
             this.connectionName = connectionName;
         }
@@ -47,6 +49,16 @@ namespace MicroLite.Extensions.Mvc
         /// Gets or sets the session factory.
         /// </summary>
         public static IEnumerable<ISessionFactory> SessionFactories
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to begin a transaction when OnActionExecuting is called
+        /// and either commit or roll it back when OnActionExecuted is called depending on whether the ActionExecutedContext has an exception.
+        /// </summary>
+        public bool AutoManageTransaction
         {
             get;
             set;
@@ -69,6 +81,11 @@ namespace MicroLite.Extensions.Mvc
         /// <param name="filterContext">The filter context.</param>
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
+            if (!this.AutoManageTransaction)
+            {
+                return;
+            }
+
             var controller = (MicroLiteController)filterContext.Controller;
 
             if (controller.Session != null)
@@ -118,16 +135,19 @@ namespace MicroLite.Extensions.Mvc
                 throw new NotSupportedException(ExceptionMessages.ControllerNotMicroLiteController);
             }
 
-            var sessionFactory =
-                SessionFactories.SingleOrDefault(x => this.connectionName == null || x.ConnectionName == this.connectionName);
-
-            if (sessionFactory == null)
+            if (this.AutoManageTransaction)
             {
-                throw new MicroLiteException(string.Format(CultureInfo.InvariantCulture, ExceptionMessages.NoSessionFactoryFoundForConnectionName, this.connectionName));
-            }
+                var sessionFactory =
+                    SessionFactories.SingleOrDefault(x => this.connectionName == null || x.ConnectionName == this.connectionName);
 
-            controller.Session = sessionFactory.OpenSession();
-            controller.Session.BeginTransaction();
+                if (sessionFactory == null)
+                {
+                    throw new MicroLiteException(string.Format(CultureInfo.InvariantCulture, ExceptionMessages.NoSessionFactoryFoundForConnectionName, this.connectionName));
+                }
+
+                controller.Session = sessionFactory.OpenSession();
+                controller.Session.BeginTransaction();
+            }
         }
     }
 }

@@ -61,7 +61,7 @@ namespace MicroLite.Extensions.Mvc {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The controller must inherit from the base MicroLite controller.
+        ///   Looks up a localized string similar to The MicroLiteSessionAttribute can only be applied to a controller or controller action which inherits from the MicroLiteController base class..
         /// </summary>
         internal static string ControllerNotMicroLiteController {
             get {
@@ -70,7 +70,7 @@ namespace MicroLite.Extensions.Mvc {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to determine session factory as no connection name was supplied and multiple session factories exist.
+        ///   Looks up a localized string similar to MicroLite has been configured for multiple connections, therefore the connection name must be specified in the MicroLiteSessionAttribute (e.g. [MicroLiteSession(&quot;MyConnection&quot;)])..
         /// </summary>
         internal static string NoConnectionNameMultipleSessionFactories {
             get {
@@ -79,7 +79,7 @@ namespace MicroLite.Extensions.Mvc {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No session factories have been set on the session factories static property.
+        ///   Looks up a localized string similar to Unable to find the session factory, check that Configure.Extensions().WithMvc() has been called in your application start up..
         /// </summary>
         internal static string NoSessionFactoriesSet {
             get {
@@ -88,7 +88,7 @@ namespace MicroLite.Extensions.Mvc {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No session factory was found with the connection name {0}.
+        ///   Looks up a localized string similar to MicroLite has not been configured for the connection named {0}, either the connection name in the MicroLiteSessionAttribute is incorrect or Configure.Fluently().ForConnection({0}) has not been called..
         /// </summary>
         internal static string NoSessionFactoryFoundForConnectionName {
             get {

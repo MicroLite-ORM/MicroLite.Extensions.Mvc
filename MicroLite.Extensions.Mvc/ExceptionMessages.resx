@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ControllerNotMicroLiteController" xml:space="preserve">
-    <value>The controller must inherit from the base MicroLite controller</value>
+    <value>The MicroLiteSessionAttribute can only be applied to a controller or controller action which inherits from the MicroLiteController base class.</value>
   </data>
   <data name="NoConnectionNameMultipleSessionFactories" xml:space="preserve">
-    <value>Unable to determine session factory as no connection name was supplied and multiple session factories exist</value>
+    <value>MicroLite has been configured for multiple connections, therefore the connection name must be specified in the MicroLiteSessionAttribute (e.g. [MicroLiteSession("MyConnection")]).</value>
   </data>
   <data name="NoSessionFactoriesSet" xml:space="preserve">
-    <value>No session factories have been set on the session factories static property</value>
+    <value>Unable to find the session factory, check that Configure.Extensions().WithMvc() has been called in your application start up.</value>
   </data>
   <data name="NoSessionFactoryFoundForConnectionName" xml:space="preserve">
-    <value>No session factory was found with the connection name {0}</value>
+    <value>MicroLite has not been configured for the connection named {0}, either the connection name in the MicroLiteSessionAttribute is incorrect or Configure.Fluently().ForConnection({0}) has not been called.</value>
   </data>
 </root>

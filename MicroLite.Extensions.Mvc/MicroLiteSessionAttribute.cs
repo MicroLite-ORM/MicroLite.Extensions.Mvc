@@ -92,16 +92,11 @@ namespace MicroLite.Extensions.Mvc
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "This method is only called the MVC framework & the ActionExecutingContext should never be null.")]
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (!this.AutoManageTransaction)
-            {
-                return;
-            }
-
             var controller = (MicroLiteController)filterContext.Controller;
 
             if (controller.Session != null)
             {
-                if (controller.Session.Transaction != null)
+                if (this.AutoManageTransaction && controller.Session.Transaction != null)
                 {
                     if (filterContext.Exception != null)
                     {
@@ -130,6 +125,32 @@ namespace MicroLite.Extensions.Mvc
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "This method is only called the MVC framework & the ActionExecutingContext should never be null.")]
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            var controller = filterContext.Controller as MicroLiteController;
+
+            if (controller == null)
+            {
+                throw new NotSupportedException(ExceptionMessages.ControllerNotMicroLiteController);
+            }
+
+            var sessionFactory = this.FindSessionFactoryForSpecifiedConnection();
+
+            controller.Session = sessionFactory.OpenSession();
+
+            if (this.AutoManageTransaction)
+            {
+                if (this.IsolationLevel.HasValue)
+                {
+                    controller.Session.BeginTransaction(this.IsolationLevel.Value);
+                }
+                else
+                {
+                    controller.Session.BeginTransaction();
+                }
+            }
+        }
+
+        private ISessionFactory FindSessionFactoryForSpecifiedConnection()
+        {
             if (SessionFactories == null)
             {
                 throw new MicroLiteException(ExceptionMessages.NoSessionFactoriesSet);
@@ -140,34 +161,15 @@ namespace MicroLite.Extensions.Mvc
                 throw new MicroLiteException(ExceptionMessages.NoConnectionNameMultipleSessionFactories);
             }
 
-            var controller = filterContext.Controller as MicroLiteController;
+            var sessionFactory =
+                SessionFactories.SingleOrDefault(x => this.connectionName == null || x.ConnectionName == this.connectionName);
 
-            if (controller == null)
+            if (sessionFactory == null)
             {
-                throw new NotSupportedException(ExceptionMessages.ControllerNotMicroLiteController);
+                throw new MicroLiteException(string.Format(CultureInfo.InvariantCulture, ExceptionMessages.NoSessionFactoryFoundForConnectionName, this.connectionName));
             }
 
-            if (this.AutoManageTransaction)
-            {
-                var sessionFactory =
-                    SessionFactories.SingleOrDefault(x => this.connectionName == null || x.ConnectionName == this.connectionName);
-
-                if (sessionFactory == null)
-                {
-                    throw new MicroLiteException(string.Format(CultureInfo.InvariantCulture, ExceptionMessages.NoSessionFactoryFoundForConnectionName, this.connectionName));
-                }
-
-                controller.Session = sessionFactory.OpenSession();
-
-                if (this.IsolationLevel.HasValue)
-                {
-                    controller.Session.BeginTransaction(this.IsolationLevel.Value);
-                }
-                else
-                {
-                    controller.Session.BeginTransaction();
-                }
-            }
+            return sessionFactory;
         }
     }
 }

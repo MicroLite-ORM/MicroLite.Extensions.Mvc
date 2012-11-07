@@ -13,7 +13,6 @@
 namespace MicroLite.Configuration
 {
     using MicroLite.Extensions.Mvc;
-    using MicroLite.Logging;
 
     /// <summary>
     /// Extensions for the MicroLite configuration.

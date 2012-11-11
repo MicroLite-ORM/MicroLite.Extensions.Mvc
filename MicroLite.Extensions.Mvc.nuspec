@@ -6,12 +6,12 @@
     <authors>Trevor Pilley</authors>
     <owners>Trevor Pilley</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
-    <projectUrl>https://github.com/TrevorPilley/MicroLite.Extensions.Mvc/wiki</projectUrl>
+    <projectUrl>http://microliteorm.wordpress.com/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>MicroLite ORM Framework extension to integrate with ASP.NET MVC</description>
     <releaseNotes>See https://github.com/TrevorPilley/MicroLite.Extensions.Mvc/wiki/Release-Notes for a summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright 2012</copyright>
-    <tags>Micro ORM Framework POCO Database NLog ASP.NET MVC</tags>
+    <tags>Micro ORM Framework POCO Database ASP.NET MVC</tags>
     <dependencies>
       <dependency id="MicroLite" version="2.0.0" />
     </dependencies>

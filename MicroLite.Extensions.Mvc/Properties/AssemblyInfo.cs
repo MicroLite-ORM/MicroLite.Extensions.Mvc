@@ -42,12 +42,8 @@ using System.Runtime.InteropServices;
 //      Minor Version
 //      Build Number
 //      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyVersion("2.1.0")]
+[assembly: AssemblyFileVersion("2.1.0.0")]
 [assembly: CLSCompliant(true)]
 [assembly: InternalsVisibleTo("MicroLite.Extensions.Mvc.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010011797cd346943588cc5fcfc675b0aeba173df75154e20fc84652791f0c028ec2d3f5c9a311ea16a2a6b021788a5e66ffa0bdb6d38e7678e605284be34be5eabe5f924eb633e9a7cf4b98ab2d12532fae0da9eda77b9aec3cbd78b1e0a2ed9e359ae4e706f441d796d92d5488b1dfb7456817454acb68265ae98d94b5fc79a8c7")]
 [assembly: NeutralResourcesLanguageAttribute("en-GB")]

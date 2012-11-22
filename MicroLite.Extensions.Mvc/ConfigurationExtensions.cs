@@ -20,7 +20,7 @@ namespace MicroLite.Configuration
     public static class ConfigurationExtensions
     {
         /// <summary>
-        /// Configures the MicroLite ORM Framework to use log4net as the logging framework.
+        /// Configures the MicroLite ORM Framework extensions for ASP.NET MVC.
         /// </summary>
         /// <param name="configureExtensions">The interface to configure extensions.</param>
         /// <returns>The configure extensions.</returns>

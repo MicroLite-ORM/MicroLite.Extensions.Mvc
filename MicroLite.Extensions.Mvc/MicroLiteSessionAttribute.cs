@@ -32,8 +32,8 @@ namespace MicroLite.Extensions.Mvc
         /// Initialises a new instance of the <see cref="MicroLiteSessionAttribute"/> class.
         /// </summary>
         public MicroLiteSessionAttribute()
+            : this(null)
         {
-            this.AutoManageTransaction = true;
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace MicroLite.Extensions.Mvc
         /// </summary>
         /// <param name="connectionName">Name of the connection to manage the session for.</param>
         public MicroLiteSessionAttribute(string connectionName)
-            : this()
         {
+            this.AutoManageTransaction = true;
             this.connectionName = connectionName;
         }
 

@@ -47,15 +47,6 @@ namespace MicroLite.Extensions.Mvc
         }
 
         /// <summary>
-        /// Gets or sets the session factory.
-        /// </summary>
-        public static IEnumerable<ISessionFactory> SessionFactories
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether to begin a transaction when OnActionExecuting is called
         /// and either commit or roll it back when OnActionExecuted is called depending on whether the ActionExecutedContext has an exception.
         /// </summary>
@@ -80,6 +71,15 @@ namespace MicroLite.Extensions.Mvc
         /// Gets or sets the isolation level to be used when a transaction is started.
         /// </summary>
         public IsolationLevel? IsolationLevel
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the session factory.
+        /// </summary>
+        internal static IEnumerable<ISessionFactory> SessionFactories
         {
             get;
             set;

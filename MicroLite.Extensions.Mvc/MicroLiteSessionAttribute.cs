@@ -27,6 +27,7 @@ namespace MicroLite.Extensions.Mvc
     public sealed class MicroLiteSessionAttribute : ActionFilterAttribute
     {
         private readonly string connectionName;
+        private readonly ISessionManager sessionManager;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="MicroLiteSessionAttribute"/> class.
@@ -41,9 +42,15 @@ namespace MicroLite.Extensions.Mvc
         /// </summary>
         /// <param name="connectionName">Name of the connection to manage the session for.</param>
         public MicroLiteSessionAttribute(string connectionName)
+            : this(connectionName, new SessionManager())
+        {
+        }
+
+        internal MicroLiteSessionAttribute(string connectionName, ISessionManager sessionManager)
         {
             this.AutoManageTransaction = true;
             this.connectionName = connectionName;
+            this.sessionManager = sessionManager;
         }
 
         /// <summary>
@@ -92,29 +99,19 @@ namespace MicroLite.Extensions.Mvc
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "This method is only called the MVC framework & the ActionExecutingContext should never be null.")]
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var controller = (MicroLiteController)filterContext.Controller;
+            var controller = filterContext.Controller as MicroLiteController;
 
-            if (controller.Session != null)
+            if (controller != null)
             {
-                if (this.AutoManageTransaction && controller.Session.Transaction != null)
-                {
-                    if (filterContext.Exception != null)
-                    {
-                        if (!controller.Session.Transaction.WasRolledBack)
-                        {
-                            controller.Session.Transaction.Rollback();
-                        }
-                    }
-                    else
-                    {
-                        if (controller.Session.Transaction.IsActive)
-                        {
-                            controller.Session.Transaction.Commit();
-                        }
-                    }
-                }
+                this.sessionManager.OnActionExecuted(controller.Session, this.AutoManageTransaction, filterContext.Exception != null);
+                return;
+            }
 
-                controller.Session.Dispose();
+            var readOnlyController = filterContext.Controller as MicroLiteReadOnlyController;
+
+            if (readOnlyController != null)
+            {
+                this.sessionManager.OnActionExecuted(readOnlyController.Session, this.AutoManageTransaction, filterContext.Exception != null);
             }
         }
 
@@ -125,28 +122,29 @@ namespace MicroLite.Extensions.Mvc
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "This method is only called the MVC framework & the ActionExecutingContext should never be null.")]
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var controller = filterContext.Controller as MicroLiteController;
-
-            if (controller == null)
-            {
-                throw new NotSupportedException(ExceptionMessages.ControllerNotMicroLiteController);
-            }
-
             var sessionFactory = this.FindSessionFactoryForSpecifiedConnection();
 
-            controller.Session = sessionFactory.OpenSession();
+            var controller = filterContext.Controller as MicroLiteController;
 
-            if (this.AutoManageTransaction)
+            if (controller != null)
             {
-                if (this.IsolationLevel.HasValue)
-                {
-                    controller.Session.BeginTransaction(this.IsolationLevel.Value);
-                }
-                else
-                {
-                    controller.Session.BeginTransaction();
-                }
+                controller.Session = sessionFactory.OpenSession();
+
+                this.sessionManager.OnActionExecuting(controller.Session, this.AutoManageTransaction, this.IsolationLevel);
+                return;
             }
+
+            var readOnlyController = filterContext.Controller as MicroLiteReadOnlyController;
+
+            if (readOnlyController != null)
+            {
+                readOnlyController.Session = sessionFactory.OpenReadOnlySession();
+
+                this.sessionManager.OnActionExecuting(readOnlyController.Session, this.AutoManageTransaction, this.IsolationLevel);
+                return;
+            }
+
+            throw new NotSupportedException(ExceptionMessages.ControllerNotMicroLiteController);
         }
 
         private ISessionFactory FindSessionFactoryForSpecifiedConnection()

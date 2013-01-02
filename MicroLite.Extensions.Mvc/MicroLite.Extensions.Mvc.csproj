@@ -51,7 +51,10 @@
   <ItemGroup>
     <Reference Include="MicroLite, Version=3.0.0.0, Culture=neutral, PublicKeyToken=08410e6798c4fa37, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MicroLite.3.0.0-beta\lib\net45\MicroLite.dll</HintPath>
+      <HintPath>..\packages\MicroLite.3.0.0-rc\lib\net45\MicroLite.dll</HintPath>
+    </Reference>
+    <Reference Include="MicroLite.Infrastructure.Web">
+      <HintPath>..\packages\MicroLite.Infrastructure.Web.1.0.0\lib\net45\MicroLite.Infrastructure.Web.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -93,7 +96,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExceptionMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="ISessionManager.cs" />
     <Compile Include="Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -107,7 +109,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MicroLite.snk">

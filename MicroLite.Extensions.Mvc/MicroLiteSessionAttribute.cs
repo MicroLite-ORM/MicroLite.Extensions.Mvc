@@ -18,6 +18,8 @@ namespace MicroLite.Extensions.Mvc
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
+    using MicroLite.Infrastructure;
+    using MicroLite.Infrastructure.Web;
 
     /// <summary>
     /// An action filter attribute which can be applied to a class or method to supply a <see cref="MicroLiteController"/>
@@ -99,7 +101,7 @@ namespace MicroLite.Extensions.Mvc
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "This method is only called the MVC framework & the ActionExecutingContext should never be null.")]
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var controller = filterContext.Controller as MicroLiteController;
+            var controller = filterContext.Controller as IHaveSession;
 
             if (controller != null)
             {
@@ -107,7 +109,7 @@ namespace MicroLite.Extensions.Mvc
                 return;
             }
 
-            var readOnlyController = filterContext.Controller as MicroLiteReadOnlyController;
+            var readOnlyController = filterContext.Controller as IHaveReadOnlySession;
 
             if (readOnlyController != null)
             {
@@ -124,7 +126,7 @@ namespace MicroLite.Extensions.Mvc
         {
             var sessionFactory = this.FindSessionFactoryForSpecifiedConnection();
 
-            var controller = filterContext.Controller as MicroLiteController;
+            var controller = filterContext.Controller as IHaveSession;
 
             if (controller != null)
             {
@@ -134,7 +136,7 @@ namespace MicroLite.Extensions.Mvc
                 return;
             }
 
-            var readOnlyController = filterContext.Controller as MicroLiteReadOnlyController;
+            var readOnlyController = filterContext.Controller as IHaveReadOnlySession;
 
             if (readOnlyController != null)
             {

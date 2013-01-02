@@ -14,11 +14,12 @@ namespace MicroLite.Extensions.Mvc
 {
     using System.Web;
     using System.Web.Mvc;
+    using MicroLite.Infrastructure;
 
     /// <summary>
     /// Provides access to a MicroLite ISession in addition to the base ASP.NET MVC controller.
     /// </summary>
-    public abstract class MicroLiteController : Controller
+    public abstract class MicroLiteController : Controller, IHaveSession
     {
         /// <summary>
         /// Gets the System.Web.HttpSessionStateBase object for the current HTTP request.

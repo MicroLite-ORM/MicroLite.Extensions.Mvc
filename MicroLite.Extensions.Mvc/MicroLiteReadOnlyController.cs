@@ -14,11 +14,12 @@ namespace MicroLite.Extensions.Mvc
 {
     using System.Web;
     using System.Web.Mvc;
+    using MicroLite.Infrastructure;
 
     /// <summary>
     /// Provides access to a MicroLite IReadOnlySession in addition to the base ASP.NET MVC controller.
     /// </summary>
-    public abstract class MicroLiteReadOnlyController : Controller
+    public abstract class MicroLiteReadOnlyController : Controller, IHaveReadOnlySession
     {
         /// <summary>
         /// Gets the System.Web.HttpSessionStateBase object for the current HTTP request.

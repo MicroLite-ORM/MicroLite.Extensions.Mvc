@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Web.Mvc;
+    using MicroLite.Infrastructure.Web;
     using Moq;
     using Xunit;
 

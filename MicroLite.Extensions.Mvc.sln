@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroLite.Extensions.Mvc", "MicroLite.Extensions.Mvc\MicroLite.Extensions.Mvc.csproj", "{14DE51D4-3029-441D-B001-555660EB065D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroLite.Extensions.Mvc.Tests", "MicroLite.Extensions.Mvc.Tests\MicroLite.Extensions.Mvc.Tests.csproj", "{3973DD15-AB08-4BC7-A883-9BD202523EAD}"

@@ -10,11 +10,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MicroLite.Extensions.Mvc</RootNamespace>
     <AssemblyName>MicroLite.Extensions.Mvc</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,6 +28,7 @@
     <CodeAnalysisRuleSet>..\MicroLite.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <DocumentationFile>bin\Debug\MicroLite.Extensions.Mvc.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,6 +40,7 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <DocumentationFile>bin\Release\MicroLite.Extensions.Mvc.XML</DocumentationFile>
     <CodeAnalysisRuleSet>..\MicroLite.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -46,8 +49,13 @@
     <AssemblyOriginatorKeyFile>..\MicroLite.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MicroLite">
-      <HintPath>..\packages\MicroLite.2.1.0\lib\net40-client\MicroLite.dll</HintPath>
+    <Reference Include="MicroLite, Version=3.0.0.0, Culture=neutral, PublicKeyToken=08410e6798c4fa37, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MicroLite.3.0.0\lib\net45\MicroLite.dll</HintPath>
+    </Reference>
+    <Reference Include="MicroLite.Infrastructure.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=08410e6798c4fa37, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MicroLite.Infrastructure.Web.1.0.1\lib\net45\MicroLite.Infrastructure.Web.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -97,6 +105,7 @@
     <Compile Include="MicroLiteController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MicroLiteReadOnlyController.cs" />
     <Compile Include="MicroLiteSessionAttribute.cs">
       <SubType>Code</SubType>
     </Compile>

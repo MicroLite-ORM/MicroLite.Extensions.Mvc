@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MicroLiteController.cs" company="MicroLite">
+// <copyright file="MicroLiteReadOnlyController.cs" company="MicroLite">
 // Copyright 2012 Trevor Pilley
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,9 +17,9 @@ namespace MicroLite.Extensions.Mvc
     using MicroLite.Infrastructure;
 
     /// <summary>
-    /// Provides access to a MicroLite ISession in addition to the base ASP.NET MVC controller.
+    /// Provides access to a MicroLite IReadOnlySession in addition to the base ASP.NET MVC controller.
     /// </summary>
-    public abstract class MicroLiteController : Controller, IHaveSession
+    public abstract class MicroLiteReadOnlyController : Controller, IHaveReadOnlySession
     {
         /// <summary>
         /// Gets the System.Web.HttpSessionStateBase object for the current HTTP request.
@@ -34,9 +34,9 @@ namespace MicroLite.Extensions.Mvc
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="ISession"/> for the current HTTP request.
+        /// Gets or sets the <see cref="IReadOnlySession"/> for the current HTTP request.
         /// </summary>
-        public new ISession Session
+        public new IReadOnlySession Session
         {
             get;
             set;

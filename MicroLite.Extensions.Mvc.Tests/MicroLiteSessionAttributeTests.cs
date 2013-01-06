@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Web.Mvc;
+    using MicroLite.Infrastructure.Web;
     using Moq;
     using Xunit;
 
@@ -11,376 +12,273 @@
     /// </summary>
     public class MicroLiteSessionAttributeTests
     {
-        [Fact]
-        public void ConnectionNameConstructorSetsAutoManageTransactionToTrue()
+        public class WhenCallingOnActionExecutedAndTheControllerIsAMicroLiteController
         {
-            var attribute = new MicroLiteSessionAttribute("Northwind");
+            private readonly Mock<ISessionManager> mockSessionManager = new Mock<ISessionManager>();
+            private readonly ISession session = new Mock<ISession>().Object;
 
-            Assert.True(attribute.AutoManageTransaction);
+            public WhenCallingOnActionExecutedAndTheControllerIsAMicroLiteController()
+            {
+                var mockController = new Mock<MicroLiteController>();
+
+                var controller = mockController.Object;
+                controller.Session = this.session;
+
+                var context = new ActionExecutedContext
+                {
+                    Controller = controller,
+                    Exception = new Exception()
+                };
+
+                var attribute = new MicroLiteSessionAttribute(null, this.mockSessionManager.Object);
+                attribute.AutoManageTransaction = true;
+                attribute.OnActionExecuted(context);
+            }
+
+            [Fact]
+            public void TheSessionShouldBePassedToTheSessionManager()
+            {
+                this.mockSessionManager.Verify(x => x.OnActionExecuted(this.session, true, true));
+            }
         }
 
-        [Fact]
-        public void ConstructorSetsConnectionName()
+        public class WhenCallingOnActionExecutedAndTheControllerIsAMicroLiteReadOnlyController
         {
-            var connectionName = "Northwind";
+            private readonly Mock<ISessionManager> mockSessionManager = new Mock<ISessionManager>();
+            private readonly IReadOnlySession session = new Mock<IReadOnlySession>().Object;
 
-            var attribute = new MicroLiteSessionAttribute(connectionName);
+            public WhenCallingOnActionExecutedAndTheControllerIsAMicroLiteReadOnlyController()
+            {
+                var mockController = new Mock<MicroLiteReadOnlyController>();
 
-            Assert.Equal(connectionName, attribute.ConnectionName);
+                var controller = mockController.Object;
+                controller.Session = this.session;
+
+                var context = new ActionExecutedContext
+                {
+                    Controller = controller,
+                    Exception = new Exception()
+                };
+
+                var attribute = new MicroLiteSessionAttribute(null, this.mockSessionManager.Object);
+                attribute.AutoManageTransaction = true;
+                attribute.OnActionExecuted(context);
+            }
+
+            [Fact]
+            public void TheSessionShouldBePassedToTheSessionManager()
+            {
+                this.mockSessionManager.Verify(x => x.OnActionExecuted(this.session, true, true));
+            }
         }
 
-        [Fact]
-        public void DefaultConstructorSetsAutoManageTransactionToTrue()
+        public class WhenCallingOnActionExecutingAndNoSessionFactoryIsFoundForTheConnectionName
         {
-            var attribute = new MicroLiteSessionAttribute();
+            [Fact]
+            public void AMicroLiteExceptionIsThrown()
+            {
+                MicroLiteSessionAttribute.SessionFactories = new[]
+                {
+                    new Mock<ISessionFactory>().Object,
+                    new Mock<ISessionFactory>().Object
+                };
 
-            Assert.True(attribute.AutoManageTransaction);
+                var context = new ActionExecutingContext
+                {
+                    Controller = new Mock<MicroLiteController>().Object
+                };
+
+                var attribute = new MicroLiteSessionAttribute("Northwind");
+
+                var exception = Assert.Throws<MicroLiteException>(() => attribute.OnActionExecuting(context));
+
+                Assert.Equal(string.Format(ExceptionMessages.NoSessionFactoryFoundForConnectionName, "Northwind"), exception.Message);
+            }
         }
 
-        [Fact]
-        public void OnActionExecutedCommitsTransactionIfFilterContextHasNoExceptionAndTransactionIsActive()
+        public class WhenCallingOnActionExecutingAndTheControllerIsAMicroLiteController
         {
-            var mockSession = new Mock<ISession>();
-            mockSession.Setup(x => x.Dispose());
-            mockSession.Setup(x => x.Transaction.IsActive).Returns(true);
-            mockSession.Setup(x => x.Transaction.Commit());
+            private readonly Mock<ISessionFactory> mockSessionFactory = new Mock<ISessionFactory>();
+            private readonly Mock<ISessionManager> mockSessionManager = new Mock<ISessionManager>();
 
-            var controller = new Mock<MicroLiteController>().Object;
-            controller.Session = mockSession.Object;
-
-            var attribute = new MicroLiteSessionAttribute();
-
-            attribute.OnActionExecuted(new ActionExecutedContext
+            public WhenCallingOnActionExecutingAndTheControllerIsAMicroLiteController()
             {
-                Controller = controller
-            });
+                MicroLiteSessionAttribute.SessionFactories = new[]
+                {
+                    this.mockSessionFactory.Object
+                };
 
-            mockSession.VerifyAll();
+                var context = new ActionExecutingContext
+                {
+                    Controller = new Mock<MicroLiteController>().Object
+                };
+
+                var attribute = new MicroLiteSessionAttribute(null, this.mockSessionManager.Object);
+                attribute.AutoManageTransaction = true;
+                attribute.IsolationLevel = IsolationLevel.Chaos;
+                attribute.OnActionExecuting(context);
+            }
+
+            [Fact]
+            public void ASessionShouldBeOpened()
+            {
+                this.mockSessionFactory.Verify(x => x.OpenSession(), Times.Once());
+            }
+
+            [Fact]
+            public void TheOnActionExecutingMethodOfTheSessionManagerShouldBeCalled()
+            {
+                this.mockSessionManager.Verify(x => x.OnActionExecuting(It.IsAny<IReadOnlySession>(), true, IsolationLevel.Chaos), Times.Once());
+            }
         }
 
-        [Fact]
-        public void OnActionExecutedDoesNotCommitTransactionIfAutoManageTransactionIsFalse()
+        public class WhenCallingOnActionExecutingAndTheControllerIsAMicroLiteReadOnlyController
         {
-            var mockSession = new Mock<ISession>();
-            mockSession.Setup(x => x.Dispose());
-            mockSession.Setup(x => x.Transaction.IsActive).Returns(true);
-            mockSession.Setup(x => x.Transaction.Commit());
+            private readonly Mock<ISessionFactory> mockSessionFactory = new Mock<ISessionFactory>();
+            private readonly Mock<ISessionManager> mockSessionManager = new Mock<ISessionManager>();
 
-            var controller = new Mock<MicroLiteController>().Object;
-            controller.Session = mockSession.Object;
-
-            var attribute = new MicroLiteSessionAttribute
+            public WhenCallingOnActionExecutingAndTheControllerIsAMicroLiteReadOnlyController()
             {
-                AutoManageTransaction = false
-            };
+                MicroLiteSessionAttribute.SessionFactories = new[]
+                {
+                    this.mockSessionFactory.Object
+                };
 
-            attribute.OnActionExecuted(new ActionExecutedContext
+                var context = new ActionExecutingContext
+                {
+                    Controller = new Mock<MicroLiteReadOnlyController>().Object
+                };
+
+                var attribute = new MicroLiteSessionAttribute(null, this.mockSessionManager.Object);
+                attribute.AutoManageTransaction = true;
+                attribute.IsolationLevel = IsolationLevel.Chaos;
+                attribute.OnActionExecuting(context);
+            }
+
+            [Fact]
+            public void AReadOnlySessionShouldBeOpened()
             {
-                Controller = controller
-            });
+                this.mockSessionFactory.Verify(x => x.OpenReadOnlySession(), Times.Once());
+            }
 
-            mockSession.Verify(x => x.Transaction.Commit(), Times.Never(), "If the attribute is marked AutoManageTransaction = false, the transaction should not be committed automatically");
-            mockSession.Verify(x => x.Dispose(), "The session should still be disposed");
+            [Fact]
+            public void TheOnActionExecutingMethodOfTheSessionManagerShouldBeCalled()
+            {
+                this.mockSessionManager.Verify(x => x.OnActionExecuting(It.IsAny<IReadOnlySession>(), true, IsolationLevel.Chaos), Times.Once());
+            }
         }
 
-        [Fact]
-        public void OnActionExecutedDoesNotCommitTransactionIfFilterContextHasNoExceptionAndTransactionIsNotActive()
+        public class WhenCallingOnActionExecutingAndTheControllerIsNotAMicroLiteController
         {
-            var mockSession = new Mock<ISession>();
-            mockSession.Setup(x => x.Dispose());
-            mockSession.Setup(x => x.Transaction.IsActive).Returns(false);
-            mockSession.Setup(x => x.Transaction.Commit());
-
-            var controller = new Mock<MicroLiteController>().Object;
-            controller.Session = mockSession.Object;
-
-            var attribute = new MicroLiteSessionAttribute();
-
-            attribute.OnActionExecuted(new ActionExecutedContext
+            [Fact]
+            public void ANotSupportedExceptionShouldBeThrown()
             {
-                Controller = controller
-            });
+                MicroLiteSessionAttribute.SessionFactories = new[]
+                {
+                    new Mock<ISessionFactory>().Object
+                };
 
-            mockSession.Verify(x => x.Transaction.Commit(), Times.Never(), "If the transaction has already been committed, it should not be again");
-            mockSession.Verify(x => x.Dispose(), "The session should still be disposed");
+                var context = new ActionExecutingContext
+                {
+                    Controller = new Mock<Controller>().Object
+                };
+
+                var attribute = new MicroLiteSessionAttribute();
+
+                var exception = Assert.Throws<NotSupportedException>(() => attribute.OnActionExecuting(context));
+
+                Assert.Equal(ExceptionMessages.ControllerNotMicroLiteController, exception.Message);
+            }
         }
 
-        [Fact]
-        public void OnActionExecutedDoesNotRollbackTransactionIfAutoManageTransactionIsFalse()
+        public class WhenCallingOnActionExecutingAndThereAreNoRegisteredSessionFactories
         {
-            var mockSession = new Mock<ISession>();
-            mockSession.Setup(x => x.Dispose());
-            mockSession.Setup(x => x.Transaction.WasCommitted).Returns(false);
-            mockSession.Setup(x => x.Transaction.Rollback());
-
-            var controller = new Mock<MicroLiteController>().Object;
-            controller.Session = mockSession.Object;
-
-            var attribute = new MicroLiteSessionAttribute
+            [Fact]
+            public void AMicroLiteExceptionShouldBeThrown()
             {
-                AutoManageTransaction = false
-            };
+                MicroLiteSessionAttribute.SessionFactories = null;
 
-            attribute.OnActionExecuted(new ActionExecutedContext
-            {
-                Controller = controller,
-                Exception = new Exception()
-            });
+                var context = new ActionExecutingContext
+                {
+                    Controller = new Mock<MicroLiteController>().Object
+                };
 
-            mockSession.Verify(x => x.Transaction.Rollback(), Times.Never(), "If the attribute is marked AutoManageTransaction = false, the transaction should not be rolledback automatically");
-            mockSession.Verify(x => x.Dispose(), "The session should still be disposed");
+                var attribute = new MicroLiteSessionAttribute();
+
+                var exception = Assert.Throws<MicroLiteException>(() => attribute.OnActionExecuting(context));
+
+                Assert.Equal(ExceptionMessages.NoSessionFactoriesSet, exception.Message);
+            }
         }
 
-        [Fact]
-        public void OnActionExecutedDoesNotRollbackTransactionIfFilterContextHasExceptionAndTransactionWasRolledBack()
+        public class WhenCallingOnActionExecutingAndThereIsNoConnectionNameSetAndMultipleSessionFactoriesRegistered
         {
-            var mockSession = new Mock<ISession>();
-            mockSession.Setup(x => x.Dispose());
-            mockSession.Setup(x => x.Transaction.WasRolledBack).Returns(true);
-            mockSession.Setup(x => x.Transaction.Rollback());
-
-            var controller = new Mock<MicroLiteController>().Object;
-            controller.Session = mockSession.Object;
-
-            var attribute = new MicroLiteSessionAttribute();
-
-            attribute.OnActionExecuted(new ActionExecutedContext
+            [Fact]
+            public void AMicroLiteExceptionIsThrown()
             {
-                Controller = controller,
-                Exception = new Exception()
-            });
+                MicroLiteSessionAttribute.SessionFactories = new[]
+                {
+                    new Mock<ISessionFactory>().Object,
+                    new Mock<ISessionFactory>().Object
+                };
 
-            mockSession.Verify(x => x.Transaction.Rollback(), Times.Never(), "If the transaction has already been rolled back, it should not be again");
-            mockSession.Verify(x => x.Dispose(), "The session should still be disposed");
+                var context = new ActionExecutingContext
+                {
+                    Controller = new Mock<MicroLiteController>().Object
+                };
+
+                var attribute = new MicroLiteSessionAttribute();
+
+                var exception = Assert.Throws<MicroLiteException>(() => attribute.OnActionExecuting(context));
+
+                Assert.Equal(ExceptionMessages.NoConnectionNameMultipleSessionFactories, exception.Message);
+            }
         }
 
-        [Fact]
-        public void OnActionExecutedRollsBackTransactionIfFilterContextHasExceptionAndTransactionNotRolledBack()
+        public class WhenConstructedUsingTheDefaultConstructor
         {
-            var mockSession = new Mock<ISession>();
-            mockSession.Setup(x => x.Dispose());
-            mockSession.Setup(x => x.Transaction.WasRolledBack).Returns(false);
-            mockSession.Setup(x => x.Transaction.Rollback());
+            private readonly MicroLiteSessionAttribute attribute = new MicroLiteSessionAttribute();
 
-            var controller = new Mock<MicroLiteController>().Object;
-            controller.Session = mockSession.Object;
-
-            var attribute = new MicroLiteSessionAttribute();
-
-            attribute.OnActionExecuted(new ActionExecutedContext
+            [Fact]
+            public void AutoManageTransactionShouldDefaultToTrue()
             {
-                Controller = controller,
-                Exception = new Exception()
-            });
+                Assert.True(this.attribute.AutoManageTransaction);
+            }
 
-            mockSession.VerifyAll();
+            [Fact]
+            public void TheConnectionNamePropertyShouldBeNull()
+            {
+                Assert.Null(this.attribute.ConnectionName);
+            }
+
+            [Fact]
+            public void TheIsolationLevelPropertyShouldBeNull()
+            {
+                Assert.Null(this.attribute.IsolationLevel);
+            }
         }
 
-        [Fact]
-        public void OnActionExecutingOpensSessionAndBeginsTransaction()
+        public class WhenConstructedWithAConnectionName
         {
-            var mockSession = new Mock<ISession>();
-            mockSession.Setup(x => x.BeginTransaction());
+            private readonly MicroLiteSessionAttribute attribute = new MicroLiteSessionAttribute("Northwind");
 
-            var session = mockSession.Object;
-
-            var mockSessionFactory = new Mock<ISessionFactory>();
-            mockSessionFactory.Setup(x => x.OpenSession()).Returns(session);
-
-            MicroLiteSessionAttribute.SessionFactories = new[]
+            [Fact]
+            public void AutoManageTransactionShouldDefaultToTrue()
             {
-                mockSessionFactory.Object
-            };
+                Assert.True(this.attribute.AutoManageTransaction);
+            }
 
-            var controller = new Mock<MicroLiteController>().Object;
-
-            var attribute = new MicroLiteSessionAttribute();
-
-            attribute.OnActionExecuting(new ActionExecutingContext
+            [Fact]
+            public void TheConnectionNamePropertyShouldBeSet()
             {
-                Controller = controller
-            });
+                Assert.Equal("Northwind", this.attribute.ConnectionName);
+            }
 
-            mockSessionFactory.VerifyAll();
-            mockSession.VerifyAll();
-
-            Assert.Same(session, controller.Session);
-        }
-
-        [Fact]
-        public void OnActionExecutingOpensSessionAndBeginsTransactionWithSpecifiedIsolationLevel()
-        {
-            var isolationLevel = IsolationLevel.Chaos;
-
-            var mockSession = new Mock<ISession>();
-            mockSession.Setup(x => x.BeginTransaction(isolationLevel));
-
-            var session = mockSession.Object;
-
-            var mockSessionFactory = new Mock<ISessionFactory>();
-            mockSessionFactory.Setup(x => x.OpenSession()).Returns(session);
-
-            MicroLiteSessionAttribute.SessionFactories = new[]
+            [Fact]
+            public void TheIsolationLevelPropertyShouldBeNull()
             {
-                mockSessionFactory.Object
-            };
-
-            var controller = new Mock<MicroLiteController>().Object;
-
-            var attribute = new MicroLiteSessionAttribute
-            {
-                IsolationLevel = isolationLevel
-            };
-
-            attribute.OnActionExecuting(new ActionExecutingContext
-            {
-                Controller = controller
-            });
-
-            mockSessionFactory.VerifyAll();
-            mockSession.VerifyAll();
-
-            Assert.Same(session, controller.Session);
-        }
-
-        [Fact]
-        public void OnActionExecutingOpensSessionButDoesNotBeginTransactionIfAutoManageTransactionIsSetToFalse()
-        {
-            var mockSession = new Mock<ISession>();
-            mockSession.Setup(x => x.BeginTransaction());
-
-            var session = mockSession.Object;
-
-            var mockSessionFactory = new Mock<ISessionFactory>();
-            mockSessionFactory.Setup(x => x.OpenSession()).Returns(session);
-
-            MicroLiteSessionAttribute.SessionFactories = new[]
-            {
-                mockSessionFactory.Object
-            };
-
-            var controller = new Mock<MicroLiteController>().Object;
-
-            var attribute = new MicroLiteSessionAttribute()
-            {
-                AutoManageTransaction = false
-            };
-
-            attribute.OnActionExecuting(new ActionExecutingContext
-            {
-                Controller = controller
-            });
-
-            mockSessionFactory.VerifyAll();
-            mockSession.Verify(x => x.BeginTransaction(), Times.Never());
-
-            Assert.Same(session, controller.Session);
-        }
-
-        [Fact]
-        public void OnActionExecutingThrowsMicroLiteExceptionIfNoConnectionNameAndMultipleSessionFactories()
-        {
-            MicroLiteSessionAttribute.SessionFactories = new[]
-            {
-                new Mock<ISessionFactory>().Object,
-                new Mock<ISessionFactory>().Object
-            };
-
-            var context = new ActionExecutingContext
-            {
-                Controller = new Mock<MicroLiteController>().Object
-            };
-
-            var attribute = new MicroLiteSessionAttribute();
-
-            var exception = Assert.Throws<MicroLiteException>(() => attribute.OnActionExecuting(context));
-
-            Assert.Equal(ExceptionMessages.NoConnectionNameMultipleSessionFactories, exception.Message);
-        }
-
-        [Fact]
-        public void OnActionExecutingThrowsMicroLiteExceptionIfNoSessionFactories()
-        {
-            MicroLiteSessionAttribute.SessionFactories = null;
-
-            var context = new ActionExecutingContext
-            {
-                Controller = new Mock<MicroLiteController>().Object
-            };
-
-            var attribute = new MicroLiteSessionAttribute();
-
-            var exception = Assert.Throws<MicroLiteException>(() => attribute.OnActionExecuting(context));
-
-            Assert.Equal(ExceptionMessages.NoSessionFactoriesSet, exception.Message);
-        }
-
-        [Fact]
-        public void OnActionExecutingThrowsMicroLiteExceptionIfNoSessionFactoryFoundForConnectionName()
-        {
-            MicroLiteSessionAttribute.SessionFactories = new[]
-            {
-                new Mock<ISessionFactory>().Object,
-                new Mock<ISessionFactory>().Object
-            };
-
-            var context = new ActionExecutingContext
-            {
-                Controller = new Mock<MicroLiteController>().Object
-            };
-
-            var attribute = new MicroLiteSessionAttribute("Northwind");
-
-            var exception = Assert.Throws<MicroLiteException>(() => attribute.OnActionExecuting(context));
-
-            Assert.Equal(string.Format(ExceptionMessages.NoSessionFactoryFoundForConnectionName, "Northwind"), exception.Message);
-        }
-
-        [Fact]
-        public void OnActionExecutingThrowsNotSupportedExceptionIfControllerIsNotMicroLiteController()
-        {
-            var context = new ActionExecutingContext
-            {
-                Controller = new Mock<Controller>().Object
-            };
-
-            var attribute = new MicroLiteSessionAttribute();
-
-            var exception = Assert.Throws<NotSupportedException>(() => attribute.OnActionExecuting(context));
-
-            Assert.Equal(ExceptionMessages.ControllerNotMicroLiteController, exception.Message);
-        }
-
-        [Fact]
-        public void OnActionOpensSessionAndBeginsTransactionForNamedConnection()
-        {
-            var mockSession = new Mock<ISession>();
-            mockSession.Setup(x => x.BeginTransaction());
-
-            var session = mockSession.Object;
-
-            var mockSessionFactory = new Mock<ISessionFactory>();
-            mockSessionFactory.Setup(x => x.ConnectionName).Returns("Northwind");
-            mockSessionFactory.Setup(x => x.OpenSession()).Returns(session);
-
-            MicroLiteSessionAttribute.SessionFactories = new[]
-            {
-                mockSessionFactory.Object
-            };
-
-            var controller = new Mock<MicroLiteController>().Object;
-
-            var attribute = new MicroLiteSessionAttribute("Northwind");
-
-            attribute.OnActionExecuting(new ActionExecutingContext
-            {
-                Controller = controller
-            });
-
-            mockSessionFactory.VerifyAll();
-            mockSession.VerifyAll();
-
-            Assert.Same(session, controller.Session);
+                Assert.Null(this.attribute.IsolationLevel);
+            }
         }
     }
 }

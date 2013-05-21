@@ -42,13 +42,13 @@
     <AssemblyOriginatorKeyFile>..\MicroLite.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MicroLite, Version=3.0.0.0, Culture=neutral, PublicKeyToken=08410e6798c4fa37, processorArchitecture=MSIL">
+    <Reference Include="MicroLite, Version=3.1.0.0, Culture=neutral, PublicKeyToken=08410e6798c4fa37, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MicroLite.3.0.0\lib\net45\MicroLite.dll</HintPath>
+      <HintPath>..\packages\MicroLite.3.1.1\lib\net45\MicroLite.dll</HintPath>
     </Reference>
-    <Reference Include="MicroLite.Infrastructure.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=08410e6798c4fa37, processorArchitecture=MSIL">
+    <Reference Include="MicroLite.Infrastructure.Web, Version=1.1.0.0, Culture=neutral, PublicKeyToken=08410e6798c4fa37, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MicroLite.Infrastructure.Web.1.0.1\lib\net45\MicroLite.Infrastructure.Web.dll</HintPath>
+      <HintPath>..\packages\MicroLite.Infrastructure.Web.1.1.0\lib\net45\MicroLite.Infrastructure.Web.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>

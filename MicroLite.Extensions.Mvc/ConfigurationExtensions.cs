@@ -35,7 +35,7 @@ namespace MicroLite.Configuration
         }
 
         /// <summary>
-        /// Configures the MicroLite ORM Framework extensions for ASP.NET MVC optionally registering a MicroLiteSessionAttribute configured with default values in GlobalFilters.Filters if one has not already been registered..
+        /// Configures the MicroLite ORM Framework extensions for ASP.NET MVC optionally registering a MicroLiteSessionAttribute configured with default values in GlobalFilters.Filters if one has not already been registered.
         /// </summary>
         /// <param name="configureExtensions">The interface to configure extensions.</param>
         /// <param name="registerGlobalFilter">If set to true and the MicroLiteSessionAttribute is not already registered in GlobalFilters.Filters, registers a new MicroLiteSessionAttribute with the default settings.</param>

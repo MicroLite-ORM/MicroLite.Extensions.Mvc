@@ -4,8 +4,7 @@ MicroLite.Extensions.Mvc
 An extension project for MicroLite ORM to integrate with ASP.NET MVC
 
 1. Install via NuGet `Install-Package MicroLite.Extensions.Mvc`
-2. Load the extension in the application startup `Configure.Extensions().WithMvc();`
-3. Make your controllers inherit from `MicroLiteController`
-4. Add the `MicroLiteSessionAttribute` to methods which require an `ISession`
+2. Load the extension in the application startup `Configure.Extensions().WithMvc();` prior to calling `Conflgure.Fluently()...`
+3. Inherit your controllers from `MicroLiteController` or `MicroLiteReadOnlyController`
 
 To find out more, head over to the wiki!

@@ -9,15 +9,38 @@
 
     public class ConfigurationExtensionsTests
     {
-        public class WhenCallingWithMvcAndRegisterGlobalFilterFalse
+        public class WhenCallingWithWebApiAndThereAreNoFiltersRegistered
         {
-            public WhenCallingWithMvcAndRegisterGlobalFilterFalse()
+            public WhenCallingWithWebApiAndThereAreNoFiltersRegistered()
             {
                 GlobalFilters.Filters.Clear();
 
                 var configureExtensions = new Mock<IConfigureExtensions>().Object;
 
-                configureExtensions.WithMvc(registerGlobalFilter: false);
+                configureExtensions.WithMvc(MvcConfigurationSettings.Default);
+            }
+
+            [Fact]
+            public void AMicroLiteSessionAttributeShouldBeRegistered()
+            {
+                var filter = GlobalFilters.Filters.Where(f => f.Instance.GetType().IsAssignableFrom(typeof(MicroLiteSessionAttribute))).SingleOrDefault();
+
+                Assert.NotNull(filter);
+            }
+        }
+
+        public class WhenCallingWithWebApiWithConfigurationSettingsDisabled
+        {
+            public WhenCallingWithWebApiWithConfigurationSettingsDisabled()
+            {
+                GlobalFilters.Filters.Clear();
+
+                var configureExtensions = new Mock<IConfigureExtensions>().Object;
+
+                configureExtensions.WithMvc(new MvcConfigurationSettings
+                {
+                    RegisterGlobalMicroLiteSessionAttribute = false
+                });
             }
 
             [Fact]
@@ -29,46 +52,26 @@
             }
         }
 
-        public class WhenCallingWithMvcAndThereIsAMicroLiteSessionAttributeRegistered
+        public class WhenCallingWithWebApiWithDefaultSettingsButFiltersAreAlreadyRegistered
         {
-            private readonly MicroLiteSessionAttribute attribute = new MicroLiteSessionAttribute();
+            private readonly MicroLiteSessionAttribute microLiteSessionAttribute = new MicroLiteSessionAttribute();
 
-            public WhenCallingWithMvcAndThereIsAMicroLiteSessionAttributeRegistered()
+            public WhenCallingWithWebApiWithDefaultSettingsButFiltersAreAlreadyRegistered()
             {
                 GlobalFilters.Filters.Clear();
-                GlobalFilters.Filters.Add(this.attribute);
+                GlobalFilters.Filters.Add(this.microLiteSessionAttribute);
 
                 var configureExtensions = new Mock<IConfigureExtensions>().Object;
 
-                configureExtensions.WithMvc(registerGlobalFilter: true);
+                configureExtensions.WithMvc(MvcConfigurationSettings.Default);
             }
 
             [Fact]
-            public void TheOriginalFilterShouldNotBeReplaced()
+            public void TheOriginalMicroLiteSessionAttributeShouldNotBeReplaced()
             {
                 var filter = GlobalFilters.Filters.Where(f => f.Instance.GetType().IsAssignableFrom(typeof(MicroLiteSessionAttribute))).SingleOrDefault();
 
-                Assert.Same(attribute, filter.Instance);
-            }
-        }
-
-        public class WhenCallingWithMvcAndThereIsNoMicroLiteSessionAttributeRegistered
-        {
-            public WhenCallingWithMvcAndThereIsNoMicroLiteSessionAttributeRegistered()
-            {
-                GlobalFilters.Filters.Clear();
-
-                var configureExtensions = new Mock<IConfigureExtensions>().Object;
-
-                configureExtensions.WithMvc(registerGlobalFilter: true);
-            }
-
-            [Fact]
-            public void AMicroLiteSessionAttributeShouldBeRegistered()
-            {
-                var filter = GlobalFilters.Filters.Where(f => f.Instance.GetType().IsAssignableFrom(typeof(MicroLiteSessionAttribute))).SingleOrDefault();
-
-                Assert.NotNull(filter);
+                Assert.Same(microLiteSessionAttribute, filter.Instance);
             }
         }
     }

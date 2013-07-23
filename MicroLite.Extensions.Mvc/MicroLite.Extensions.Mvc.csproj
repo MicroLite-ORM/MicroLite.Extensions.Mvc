@@ -109,6 +109,7 @@
     <Compile Include="Filters\MicroLiteSessionAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MvcConfigurationSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

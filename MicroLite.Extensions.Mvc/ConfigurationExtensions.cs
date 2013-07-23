@@ -12,6 +12,7 @@
 // -----------------------------------------------------------------------
 namespace MicroLite.Configuration
 {
+    using System;
     using System.Linq;
     using System.Web.Mvc;
     using MicroLite.Extensions.Mvc;
@@ -23,34 +24,29 @@ namespace MicroLite.Configuration
     /// </summary>
     public static class ConfigurationExtensions
     {
-        private static ILog log = LogManager.GetCurrentClassLog();
+        private static readonly ILog Log = LogManager.GetCurrentClassLog();
 
         /// <summary>
-        /// Configures the MicroLite ORM Framework extensions for ASP.NET MVC registering a MicroLiteSessionAttribute configured with default values in GlobalFilters.Filters if one has not already been registered.
+        /// Configures the MicroLite ORM Framework extensions for ASP.NET Mvc using the specified configuration settings.
         /// </summary>
         /// <param name="configureExtensions">The interface to configure extensions.</param>
+        /// <param name="settings">The settings used for configuration.</param>
         /// <returns>The configure extensions.</returns>
-        public static IConfigureExtensions WithMvc(this IConfigureExtensions configureExtensions)
+        public static IConfigureExtensions WithMvc(this IConfigureExtensions configureExtensions, MvcConfigurationSettings settings)
         {
-            return WithMvc(configureExtensions, true);
-        }
+            if (settings == null)
+            {
+                throw new ArgumentNullException("settings");
+            }
 
-        /// <summary>
-        /// Configures the MicroLite ORM Framework extensions for ASP.NET MVC optionally registering a MicroLiteSessionAttribute configured with default values in GlobalFilters.Filters if one has not already been registered.
-        /// </summary>
-        /// <param name="configureExtensions">The interface to configure extensions.</param>
-        /// <param name="registerGlobalFilter">If set to true and the MicroLiteSessionAttribute is not already registered in GlobalFilters.Filters, registers a new MicroLiteSessionAttribute with the default settings.</param>
-        /// <returns>The configure extensions.</returns>
-        public static IConfigureExtensions WithMvc(this IConfigureExtensions configureExtensions, bool registerGlobalFilter)
-        {
             System.Diagnostics.Trace.TraceInformation(Messages.LoadingExtension);
-            log.TryLogInfo(Messages.LoadingExtension);
+            Log.TryLogInfo(Messages.LoadingExtension);
             MicroLiteSessionAttribute.SessionFactories = Configure.SessionFactories;
 
-            if (registerGlobalFilter
+            if (settings.RegisterGlobalMicroLiteSessionAttribute
                 && !GlobalFilters.Filters.Any(f => f.Instance.GetType().IsAssignableFrom(typeof(MicroLiteSessionAttribute))))
             {
-                log.TryLogInfo(Messages.RegisteringDefaultActionFilter);
+                Log.TryLogInfo(Messages.RegisteringDefaultActionFilter);
                 GlobalFilters.Filters.Add(new MicroLiteSessionAttribute());
             }
 

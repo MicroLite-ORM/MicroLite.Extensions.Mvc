@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Web.Mvc;
     using MicroLite.Configuration;
+    using MicroLite.Extensions.Mvc.Filters;
     using Moq;
     using Xunit;
 

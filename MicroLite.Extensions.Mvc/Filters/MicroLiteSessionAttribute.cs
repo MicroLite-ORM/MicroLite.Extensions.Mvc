@@ -10,7 +10,7 @@
 //
 // </copyright>
 // -----------------------------------------------------------------------
-namespace MicroLite.Extensions.Mvc
+namespace MicroLite.Extensions.Mvc.Filters
 {
     using System;
     using System.Collections.Generic;

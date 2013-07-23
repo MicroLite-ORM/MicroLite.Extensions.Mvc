@@ -15,6 +15,7 @@ namespace MicroLite.Configuration
     using System.Linq;
     using System.Web.Mvc;
     using MicroLite.Extensions.Mvc;
+    using MicroLite.Extensions.Mvc.Filters;
     using MicroLite.Logging;
 
     /// <summary>

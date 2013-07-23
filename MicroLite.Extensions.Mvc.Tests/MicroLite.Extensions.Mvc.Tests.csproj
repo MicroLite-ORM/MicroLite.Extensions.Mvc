@@ -99,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationExtensionsTests.cs" />
-    <Compile Include="MicroLiteSessionAttributeTests.cs" />
+    <Compile Include="Filters\MicroLiteSessionAttributeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

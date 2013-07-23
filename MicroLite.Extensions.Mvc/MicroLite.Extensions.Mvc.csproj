@@ -106,7 +106,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MicroLiteReadOnlyController.cs" />
-    <Compile Include="MicroLiteSessionAttribute.cs">
+    <Compile Include="Filters\MicroLiteSessionAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

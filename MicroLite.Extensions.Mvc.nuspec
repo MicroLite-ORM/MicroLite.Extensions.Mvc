@@ -13,7 +13,7 @@
     <copyright>Copyright 2012</copyright>
     <tags>Micro ORM Framework POCO Database ASP.NET MVC</tags>
     <dependencies>
-      <dependency id="MicroLite" version="4.0.0-beta" />
+      <dependency id="MicroLite" version="4.0.0" />
     </dependencies>
   </metadata>
   <files>

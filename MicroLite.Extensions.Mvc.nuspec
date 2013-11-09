@@ -23,5 +23,6 @@
     <file src="..\build\4.0\MicroLite.Extensions.Mvc.xml" target="lib\net40" />
     <file src="..\build\4.5\MicroLite.Extensions.Mvc.dll" target="lib\net45" />
     <file src="..\build\4.5\MicroLite.Extensions.Mvc.xml" target="lib\net45" />
+    <file src="..\build\help\MicroLite.Extensions.Mvc.chm" target="" />
   </files>
 </package>

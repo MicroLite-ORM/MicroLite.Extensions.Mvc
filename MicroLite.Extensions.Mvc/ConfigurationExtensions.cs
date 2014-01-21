@@ -40,13 +40,22 @@ namespace MicroLite.Configuration
             }
 
             System.Diagnostics.Trace.TraceInformation(Messages.LoadingExtension);
-            Log.TryLogInfo(Messages.LoadingExtension);
+
+            if (Log.IsInfo)
+            {
+                Log.Info(Messages.LoadingExtension);
+            }
+
             MicroLiteSessionAttribute.SessionFactories = Configure.SessionFactories;
 
             if (settings.RegisterGlobalMicroLiteSessionAttribute
                 && !GlobalFilters.Filters.Any(f => f.Instance.GetType().IsAssignableFrom(typeof(MicroLiteSessionAttribute))))
             {
-                Log.TryLogInfo(Messages.RegisteringDefaultActionFilter);
+                if (Log.IsInfo)
+                {
+                    Log.Info(Messages.RegisteringDefaultActionFilter);
+                }
+
                 GlobalFilters.Filters.Add(new MicroLiteSessionAttribute());
             }
 

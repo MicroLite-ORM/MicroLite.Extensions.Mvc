@@ -30,17 +30,31 @@ namespace MicroLite.Configuration
         /// Configures the MicroLite ORM Framework extensions for ASP.NET Mvc using the specified configuration settings.
         /// </summary>
         /// <param name="configureExtensions">The interface to configure extensions.</param>
+        /// <param name="filterCollection">The GlobalFilterCollection (GlobalFilters.Filters if using WebHost).</param>
         /// <param name="settings">The settings used for configuration.</param>
+        /// <exception cref="ArgumentNullException">Thrown if any parameter is null.</exception>
         /// <returns>The configure extensions.</returns>
-        public static IConfigureExtensions WithMvc(this IConfigureExtensions configureExtensions, MvcConfigurationSettings settings)
+        public static IConfigureExtensions WithMvc(
+            this IConfigureExtensions configureExtensions,
+            GlobalFilterCollection filterCollection,
+            MvcConfigurationSettings settings)
         {
+            if (configureExtensions == null)
+            {
+                throw new ArgumentNullException("configureExtensions");
+            }
+
+            if (filterCollection == null)
+            {
+                throw new ArgumentNullException("filterCollection");
+            }
+
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
             }
 
             System.Diagnostics.Trace.TraceInformation(Messages.LoadingExtension);
-
             if (Log.IsInfo)
             {
                 Log.Info(Messages.LoadingExtension);
@@ -49,14 +63,14 @@ namespace MicroLite.Configuration
             MicroLiteSessionAttribute.SessionFactories = Configure.SessionFactories;
 
             if (settings.RegisterGlobalMicroLiteSessionAttribute
-                && !GlobalFilters.Filters.Any(f => f.Instance.GetType().IsAssignableFrom(typeof(MicroLiteSessionAttribute))))
+                && !filterCollection.Any(f => f.Instance.GetType().IsAssignableFrom(typeof(MicroLiteSessionAttribute))))
             {
                 if (Log.IsInfo)
                 {
-                    Log.Info(Messages.RegisteringDefaultActionFilter);
+                    Log.Info(Messages.RegisteringDefaultMicroLiteSessionActionFilter);
                 }
 
-                GlobalFilters.Filters.Add(new MicroLiteSessionAttribute());
+                filterCollection.Add(new MicroLiteSessionAttribute());
             }
 
             return configureExtensions;

@@ -23,7 +23,7 @@ namespace MicroLite.Extensions.Mvc.Filters
 
     /// <summary>
     /// An action filter attribute which can be applied to a class or method to supply a <see cref="MicroLiteController"/>
-    /// with a new <see cref="ISession"/> when an action is executed.
+    /// with a new <see cref="ISession"/> or <see cref="IReadOnlySession"/> before an action is executed.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public sealed class MicroLiteSessionAttribute : ActionFilterAttribute
@@ -151,12 +151,12 @@ namespace MicroLite.Extensions.Mvc.Filters
         {
             if (SessionFactories == null)
             {
-                throw new MicroLiteException(ExceptionMessages.NoSessionFactoriesSet);
+                throw new MicroLiteException(Messages.NoSessionFactoriesSet);
             }
 
             if (this.connectionName == null && SessionFactories.Count() > 1)
             {
-                throw new MicroLiteException(ExceptionMessages.NoConnectionNameMultipleSessionFactories);
+                throw new MicroLiteException(Messages.NoConnectionNameMultipleSessionFactories);
             }
 
             var sessionFactory =
@@ -164,7 +164,7 @@ namespace MicroLite.Extensions.Mvc.Filters
 
             if (sessionFactory == null)
             {
-                throw new MicroLiteException(string.Format(CultureInfo.InvariantCulture, ExceptionMessages.NoSessionFactoryFoundForConnectionName, this.connectionName));
+                throw new MicroLiteException(string.Format(CultureInfo.InvariantCulture, Messages.NoSessionFactoryFoundForConnectionName, this.connectionName));
             }
 
             return sessionFactory;

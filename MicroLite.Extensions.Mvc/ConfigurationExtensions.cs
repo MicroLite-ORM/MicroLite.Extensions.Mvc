@@ -34,6 +34,24 @@ namespace MicroLite.Configuration
         /// <param name="settings">The settings used for configuration.</param>
         /// <exception cref="ArgumentNullException">Thrown if any parameter is null.</exception>
         /// <returns>The configure extensions.</returns>
+        /// <example>
+        /// If hosted in IIS and using the default settings:
+        /// <code>
+        /// Configure
+        ///     .Extensions()
+        ///     .WithMvc(GlobalFilters.Filters, MvcConfigurationSettings.Default);
+        /// </code>
+        /// </example>
+        /// <example>
+        /// If hosted in IIS and using custom settings:
+        /// <code>
+        /// Configure
+        ///     .Extensions()
+        ///     .WithMvc(
+        ///         GlobalFilters.Filters,
+        ///         new MvcConfigurationSettings { ... });
+        /// </code>
+        /// </example>
         public static IConfigureExtensions WithMvc(
             this IConfigureExtensions configureExtensions,
             GlobalFilterCollection filterCollection,

@@ -23,6 +23,7 @@ namespace MicroLite.Extensions.Mvc
         public MvcConfigurationSettings()
         {
             this.RegisterGlobalMicroLiteSessionAttribute = true;
+            this.RegisterGlobalValidateModelStateAttribute = true;
         }
 
         /// <summary>
@@ -37,10 +38,20 @@ namespace MicroLite.Extensions.Mvc
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to register a MicroLiteSessionAttribute in the GlobalFilters.Filters
-        /// is one is not already registered (defaults to true).
+        /// Gets or sets a value indicating whether to register a MicroLiteSessionAttribute in the
+        /// GlobalFilters.Filters is one is not already registered (defaults to true).
         /// </summary>
         public bool RegisterGlobalMicroLiteSessionAttribute
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to register a ValidateModelStateAttribute in the
+        /// GlobalFilters.Filters is one is not already registered (defaults to true).
+        /// </summary>
+        public bool RegisterGlobalValidateModelStateAttribute
         {
             get;
             set;

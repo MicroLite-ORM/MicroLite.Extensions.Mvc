@@ -62,6 +62,17 @@ namespace MicroLite.Configuration
 
             MicroLiteSessionAttribute.SessionFactories = Configure.SessionFactories;
 
+            if (settings.RegisterGlobalValidateModelStateAttribute
+                && !filterCollection.Any(f => f.Instance.GetType().IsAssignableFrom(typeof(ValidateModelStateAttribute))))
+            {
+                if (Log.IsInfo)
+                {
+                    Log.Info(Messages.RegisteringValidateModelStateAttribute);
+                }
+
+                filterCollection.Add(new ValidateModelStateAttribute());
+            }
+
             if (settings.RegisterGlobalMicroLiteSessionAttribute
                 && !filterCollection.Any(f => f.Instance.GetType().IsAssignableFrom(typeof(MicroLiteSessionAttribute))))
             {

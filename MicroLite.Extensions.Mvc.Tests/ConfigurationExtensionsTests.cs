@@ -72,6 +72,32 @@
 
                 Assert.NotNull(filter);
             }
+
+            [Fact]
+            public void AValidateModelStateAttributeShouldBeRegistered()
+            {
+                var filter = this.filterCollection
+                    .Where(f => f.Instance.GetType().IsAssignableFrom(typeof(ValidateModelStateAttribute)))
+                    .SingleOrDefault();
+
+                Assert.NotNull(filter);
+            }
+
+            [Fact]
+            public void TheMicroLiteSessionAttributeShouldBeSecond()
+            {
+                var filters = this.filterCollection.Select(f => f.Instance).ToArray();
+
+                Assert.IsType<MicroLiteSessionAttribute>(filters[1]);
+            }
+
+            [Fact]
+            public void TheValidateModelStateAttributeShouldBeFirst()
+            {
+                var filters = this.filterCollection.Select(f => f.Instance).ToArray();
+
+                Assert.IsType<ValidateModelStateAttribute>(filters[0]);
+            }
         }
 
         public class WhenCallingWithWithMvcWithConfigurationSettingsDisabled
@@ -84,7 +110,8 @@
 
                 configureExtensions.WithMvc(this.filterCollection, new MvcConfigurationSettings
                 {
-                    RegisterGlobalMicroLiteSessionAttribute = false
+                    RegisterGlobalMicroLiteSessionAttribute = false,
+                    RegisterGlobalValidateModelStateAttribute = false
                 });
             }
 
@@ -97,16 +124,28 @@
 
                 Assert.Null(filter);
             }
+
+            [Fact]
+            public void NoValidateModelStateAttributeShouldBeRegistered()
+            {
+                var filter = this.filterCollection
+                    .Where(f => f.Instance.GetType().IsAssignableFrom(typeof(ValidateModelStateAttribute)))
+                    .SingleOrDefault();
+
+                Assert.Null(filter);
+            }
         }
 
         public class WhenCallingWithWithMvcWithDefaultSettingsButFiltersAreAlreadyRegistered
         {
             private readonly GlobalFilterCollection filterCollection = new GlobalFilterCollection();
             private readonly MicroLiteSessionAttribute microLiteSessionAttribute = new MicroLiteSessionAttribute();
+            private readonly ValidateModelStateAttribute validateModelStateAttribute = new ValidateModelStateAttribute();
 
             public WhenCallingWithWithMvcWithDefaultSettingsButFiltersAreAlreadyRegistered()
             {
                 this.filterCollection.Add(this.microLiteSessionAttribute);
+                this.filterCollection.Add(this.validateModelStateAttribute);
 
                 var configureExtensions = new Mock<IConfigureExtensions>().Object;
 
@@ -121,6 +160,16 @@
                     .SingleOrDefault();
 
                 Assert.Same(microLiteSessionAttribute, filter.Instance);
+            }
+
+            [Fact]
+            public void TheOriginalValidateModelStateAttributeShouldNotBeReplaced()
+            {
+                var filter = this.filterCollection
+                    .Where(f => f.Instance.GetType().IsAssignableFrom(typeof(ValidateModelStateAttribute)))
+                    .SingleOrDefault();
+
+                Assert.Same(validateModelStateAttribute, filter.Instance);
             }
         }
     }

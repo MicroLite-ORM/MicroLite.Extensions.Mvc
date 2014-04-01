@@ -104,5 +104,14 @@ namespace MicroLite.Extensions.Mvc {
                 return ResourceManager.GetString("RegisteringDefaultMicroLiteSessionActionFilter", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading a ValidateModelStateAttribute in the specified GlobalFilters.Filters.
+        /// </summary>
+        internal static string RegisteringValidateModelStateAttribute {
+            get {
+                return ResourceManager.GetString("RegisteringValidateModelStateAttribute", resourceCulture);
+            }
+        }
     }
 }

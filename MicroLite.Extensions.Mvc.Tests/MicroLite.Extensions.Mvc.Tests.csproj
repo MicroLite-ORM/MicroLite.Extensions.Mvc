@@ -96,6 +96,8 @@
   <ItemGroup>
     <Compile Include="ConfigurationExtensionsTests.cs" />
     <Compile Include="Filters\MicroLiteSessionAttributeTests.cs" />
+    <Compile Include="Filters\ValidateModelStateAttributeTests.cs" />
+    <Compile Include="MvcConfigurationSettingsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

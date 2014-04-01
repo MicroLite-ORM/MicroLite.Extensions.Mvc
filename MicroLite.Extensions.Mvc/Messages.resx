@@ -132,4 +132,7 @@
   <data name="RegisteringDefaultMicroLiteSessionActionFilter" xml:space="preserve">
     <value>Loading a default instance of MicroLiteSessionAttribute in GlobalFilters.Filters</value>
   </data>
+  <data name="RegisteringValidateModelStateAttribute" xml:space="preserve">
+    <value>Loading a ValidateModelStateAttribute in the specified GlobalFilters.Filters</value>
+  </data>
 </root>

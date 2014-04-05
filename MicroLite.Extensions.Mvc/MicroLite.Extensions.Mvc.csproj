@@ -87,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationExtensions.cs" />
-    <Compile Include="Filters\ValidateModelStateAttribute.cs" />
+    <Compile Include="ValidateModelStateAttribute.cs" />
     <Compile Include="Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -97,10 +97,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MicroLiteReadOnlyController.cs" />
-    <Compile Include="Filters\MicroLiteSessionAttribute.cs">
+    <Compile Include="MicroLiteSessionAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MvcConfigurationSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +107,7 @@
       <Link>MicroLite.snk</Link>
     </None>
     <None Include="packages.config" />
+    <None Include="_Filters.cd" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Messages.resx">

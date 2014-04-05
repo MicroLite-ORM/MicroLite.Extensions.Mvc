@@ -1,7 +1,7 @@
-﻿namespace MicroLite.Extensions.Mvc.Tests.Filters
+﻿namespace MicroLite.Extensions.Mvc.Tests
 {
     using System.Web.Mvc;
-    using MicroLite.Extensions.Mvc.Filters;
+    using MicroLite.Extensions.Mvc;
     using Moq;
     using Xunit;
 

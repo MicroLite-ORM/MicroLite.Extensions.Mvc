@@ -46,14 +46,12 @@ namespace MicroLite.Extensions.Mvc
                 return;
             }
 
-            var viewData = filterContext.Controller.ViewData;
-
-            if (!viewData.ModelState.IsValid)
+            if (filterContext != null && !filterContext.Controller.ViewData.ModelState.IsValid)
             {
                 filterContext.Result = new ViewResult
                 {
                     TempData = filterContext.Controller.TempData,
-                    ViewData = viewData
+                    ViewData = filterContext.Controller.ViewData
                 };
             }
         }

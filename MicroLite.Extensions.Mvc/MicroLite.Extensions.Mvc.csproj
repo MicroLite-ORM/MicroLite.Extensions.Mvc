@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="AutoManageTransactionAttribute.cs" />
     <Compile Include="MvcConfigurationExtensions.cs" />
+    <Compile Include="ValidateModelNotNullAttribute.cs" />
     <Compile Include="ValidateModelStateAttribute.cs" />
     <Compile Include="Messages.Designer.cs">
       <AutoGen>True</AutoGen>

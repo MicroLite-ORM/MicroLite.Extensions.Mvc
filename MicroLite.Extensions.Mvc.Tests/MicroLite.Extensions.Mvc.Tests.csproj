@@ -94,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoManageTransactionAttributeTests.cs" />
     <Compile Include="ConfigurationExtensionsTests.cs" />
     <Compile Include="MicroLiteSessionAttributeTests.cs" />
     <Compile Include="ValidateModelStateAttributeTests.cs" />

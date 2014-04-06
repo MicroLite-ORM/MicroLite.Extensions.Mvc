@@ -1,17 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="MicroLite.Extensions.Mvc.Filters.MicroLiteSessionAttribute">
-    <Position X="0.5" Y="0.5" Width="3" />
+  <Class Name="MicroLite.Extensions.Mvc.MicroLiteSessionAttribute">
+    <Position X="3.25" Y="0.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAQAAAKAAAAAQAAAAACAAAQAAAAkAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAQAAAIAAAAAQAAAAAAAAAQAAAAkAAAA=</HashCode>
       <FileName>MicroLiteSessionAttribute.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MicroLite.Extensions.Mvc.Filters.ValidateModelStateAttribute">
-    <Position X="4" Y="0.5" Width="2.25" />
+  <Class Name="MicroLite.Extensions.Mvc.ValidateModelStateAttribute">
+    <Position X="0.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>ValidateModelStateAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicroLite.Extensions.Mvc.AutoManageTransactionAttribute">
+    <Position X="6.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAQAAAIAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>AutoManageTransactionAttribute.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

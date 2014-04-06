@@ -23,6 +23,23 @@ namespace MicroLite.Extensions.Mvc
     /// An action filter attribute which can be applied to a class or method to supply a <see cref="MicroLiteController"/>
     /// with a new <see cref="ISession"/> or <see cref="IReadOnlySession"/> before an action is executed.
     /// </summary>
+    /// <example>
+    /// Add to the global filters list for it to apply to every action on every controller unless opted out
+    /// (only applies if all controllers use the same session factory):
+    /// <code>
+    /// static void RegisterGlobalFilters(GlobalFilterCollection filters)
+    /// {
+    ///     filters.Add(new MicroLiteSessionAttribute());
+    /// }
+    /// </code>
+    /// </example>
+    /// <example>
+    /// Add to a controller to override the connection used all actions in a controller:
+    /// <code>
+    /// [MicroLiteSessionAttribute("ConnectionName")]
+    /// public class CustomerController : MicroLiteController { ... }
+    /// </code>
+    /// </example>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public sealed class MicroLiteSessionAttribute : ActionFilterAttribute
     {

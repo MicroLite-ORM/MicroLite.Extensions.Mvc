@@ -113,12 +113,12 @@ namespace MicroLite.Extensions.Mvc
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "This method is only called the MVC framework & the ActionExecutingContext should never be null.")]
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var sessionFactory = this.FindSessionFactoryForSpecifiedConnection();
-
             var controller = filterContext.Controller as IHaveSession;
 
             if (controller != null)
             {
+                var sessionFactory = this.FindSessionFactoryForSpecifiedConnection();
+
                 controller.Session = sessionFactory.OpenSession();
                 return;
             }
@@ -127,6 +127,8 @@ namespace MicroLite.Extensions.Mvc
 
             if (readOnlyController != null)
             {
+                var sessionFactory = this.FindSessionFactoryForSpecifiedConnection();
+
                 readOnlyController.Session = sessionFactory.OpenReadOnlySession();
                 return;
             }

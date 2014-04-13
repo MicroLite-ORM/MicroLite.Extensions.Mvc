@@ -38,6 +38,12 @@
             {
                 this.mockTransaction.Verify(x => x.Commit(), Times.Once());
             }
+
+            [Fact]
+            public void TheTransactionIsDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Once());
+            }
         }
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndAutoManageTransactionIsFalse
@@ -70,6 +76,12 @@
             }
 
             [Fact]
+            public void TheTransactionIsNotDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Never());
+            }
+
+            [Fact]
             public void TheTransactionIsNotRolledBack()
             {
                 this.mockTransaction.Verify(x => x.Rollback(), Times.Never());
@@ -96,6 +108,12 @@
 
                 var attribute = new AutoManageTransactionAttribute();
                 attribute.OnActionExecuted(context);
+            }
+
+            [Fact]
+            public void TheTransactionIsDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Once());
             }
 
             [Fact]
@@ -150,6 +168,12 @@
             }
 
             [Fact]
+            public void TheTransactionIsDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Once());
+            }
+
+            [Fact]
             public void TheTransactionIsNotRolledBackAgain()
             {
                 this.mockTransaction.Verify(x => x.Rollback(), Times.Never());
@@ -177,6 +201,12 @@
 
                 var attribute = new AutoManageTransactionAttribute();
                 attribute.OnActionExecuted(context);
+            }
+
+            [Fact]
+            public void TheTransactionIsDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Once());
             }
 
             [Fact]
@@ -213,6 +243,12 @@
             {
                 this.mockTransaction.Verify(x => x.Commit(), Times.Once());
             }
+
+            [Fact]
+            public void TheTransactionIsDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Once());
+            }
         }
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndAutoManageTransactionIsFalse
@@ -245,6 +281,12 @@
             }
 
             [Fact]
+            public void TheTransactionIsNotDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Never());
+            }
+
+            [Fact]
             public void TheTransactionIsNotRolledBack()
             {
                 this.mockTransaction.Verify(x => x.Rollback(), Times.Never());
@@ -271,6 +313,12 @@
 
                 var attribute = new AutoManageTransactionAttribute();
                 attribute.OnActionExecuted(context);
+            }
+
+            [Fact]
+            public void TheTransactionIsDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Once());
             }
 
             [Fact]
@@ -325,6 +373,12 @@
             }
 
             [Fact]
+            public void TheTransactionIsDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Once());
+            }
+
+            [Fact]
             public void TheTransactionIsNotRolledBackAgain()
             {
                 this.mockTransaction.Verify(x => x.Rollback(), Times.Never());
@@ -352,6 +406,12 @@
 
                 var attribute = new AutoManageTransactionAttribute();
                 attribute.OnActionExecuted(context);
+            }
+
+            [Fact]
+            public void TheTransactionIsDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Once());
             }
 
             [Fact]

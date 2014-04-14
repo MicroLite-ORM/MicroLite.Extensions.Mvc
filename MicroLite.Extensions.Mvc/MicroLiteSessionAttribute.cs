@@ -83,9 +83,13 @@ namespace MicroLite.Extensions.Mvc
         /// Called by the ASP.NET MVC framework after the action method executes.
         /// </summary>
         /// <param name="filterContext">The filter context.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "This method is only called the MVC framework & the ActionExecutingContext should never be null.")]
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
+            if (filterContext == null)
+            {
+                throw new ArgumentNullException("filterContext");
+            }
+
             var controller = filterContext.Controller as IHaveSession;
 
             if (controller != null)
@@ -107,9 +111,13 @@ namespace MicroLite.Extensions.Mvc
         /// Called by the ASP.NET MVC framework before the action method executes.
         /// </summary>
         /// <param name="filterContext">The filter context.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "This method is only called the MVC framework & the ActionExecutingContext should never be null.")]
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (filterContext == null)
+            {
+                throw new ArgumentNullException("filterContext");
+            }
+
             var controller = filterContext.Controller as IHaveSession;
 
             if (controller != null)

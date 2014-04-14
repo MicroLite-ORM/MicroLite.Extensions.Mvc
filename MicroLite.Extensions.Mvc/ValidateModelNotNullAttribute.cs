@@ -61,7 +61,6 @@ namespace MicroLite.Extensions.Mvc
         /// Called by the ASP.NET MVC framework before the action method executes.
         /// </summary>
         /// <param name="filterContext">The filter context.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "This method is only called the MVC framework & the ActionExecutingContext should never be null.")]
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (this.SkipValidation)
@@ -69,11 +68,14 @@ namespace MicroLite.Extensions.Mvc
                 return;
             }
 
-            foreach (var kvp in filterContext.ActionParameters)
+            if (filterContext != null)
             {
-                if (kvp.Value == null)
+                foreach (var kvp in filterContext.ActionParameters)
                 {
-                    throw new ArgumentNullException(kvp.Key);
+                    if (kvp.Value == null)
+                    {
+                        throw new ArgumentNullException(kvp.Key);
+                    }
                 }
             }
         }

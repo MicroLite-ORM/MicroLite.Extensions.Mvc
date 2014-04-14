@@ -1,5 +1,6 @@
 ﻿namespace MicroLite.Extensions.Mvc.Tests
 {
+    using System;
     using System.Data;
     using System.Web.Mvc;
     using MicroLite.Extensions.Mvc;
@@ -85,6 +86,49 @@
             public void TheTransactionIsNotDisposed()
             {
                 this.mockTransaction.Verify(x => x.Dispose(), Times.Never());
+            }
+
+            [Fact]
+            public void TheTransactionIsNotRolledBack()
+            {
+                this.mockTransaction.Verify(x => x.Rollback(), Times.Never());
+            }
+        }
+
+        public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndCommittingAnActiveTransactionThrowsAnException
+        {
+            private readonly Mock<ISession> mockSession = new Mock<ISession>();
+            private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
+
+            public WhenCallingOnActionExecuted_WithAMicroLiteController_AndCommittingAnActiveTransactionThrowsAnException()
+            {
+                this.mockTransaction.Setup(x => x.IsActive).Returns(true);
+                this.mockTransaction.Setup(x => x.Commit()).Throws<InvalidOperationException>();
+                this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
+
+                var controller = new Mock<MicroLiteController>().Object;
+                controller.Session = this.mockSession.Object;
+
+                var context = new ActionExecutedContext
+                {
+                    Controller = controller
+                };
+
+                var attribute = new AutoManageTransactionAttribute();
+
+                Assert.Throws<InvalidOperationException>(() => attribute.OnActionExecuted(context));
+            }
+
+            [Fact]
+            public void TheTransactionIsCommitted()
+            {
+                this.mockTransaction.Verify(x => x.Commit(), Times.Once());
+            }
+
+            [Fact]
+            public void TheTransactionIsDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Once());
             }
 
             [Fact]
@@ -314,6 +358,49 @@
             public void TheTransactionIsNotDisposed()
             {
                 this.mockTransaction.Verify(x => x.Dispose(), Times.Never());
+            }
+
+            [Fact]
+            public void TheTransactionIsNotRolledBack()
+            {
+                this.mockTransaction.Verify(x => x.Rollback(), Times.Never());
+            }
+        }
+
+        public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndCommittingAnActiveTransactionThrowsAnException
+        {
+            private readonly Mock<IReadOnlySession> mockSession = new Mock<IReadOnlySession>();
+            private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
+
+            public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndCommittingAnActiveTransactionThrowsAnException()
+            {
+                this.mockTransaction.Setup(x => x.IsActive).Returns(true);
+                this.mockTransaction.Setup(x => x.Commit()).Throws<InvalidOperationException>();
+                this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
+
+                var controller = new Mock<MicroLiteReadOnlyController>().Object;
+                controller.Session = this.mockSession.Object;
+
+                var context = new ActionExecutedContext
+                {
+                    Controller = controller
+                };
+
+                var attribute = new AutoManageTransactionAttribute();
+
+                Assert.Throws<InvalidOperationException>(() => attribute.OnActionExecuted(context));
+            }
+
+            [Fact]
+            public void TheTransactionIsCommitted()
+            {
+                this.mockTransaction.Verify(x => x.Commit(), Times.Once());
+            }
+
+            [Fact]
+            public void TheTransactionIsDisposed()
+            {
+                this.mockTransaction.Verify(x => x.Dispose(), Times.Once());
             }
 
             [Fact]

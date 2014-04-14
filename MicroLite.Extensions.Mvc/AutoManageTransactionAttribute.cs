@@ -152,16 +152,21 @@ namespace MicroLite.Extensions.Mvc
 
             var transaction = session.CurrentTransaction;
 
-            if (exception == null && transaction.IsActive)
+            try
             {
-                transaction.Commit();
+                if (transaction.IsActive && exception == null)
+                {
+                    transaction.Commit();
+                }
+                else if (transaction.IsActive && exception != null)
+                {
+                    transaction.Rollback();
+                }
             }
-            else if (exception != null && transaction.IsActive)
+            finally
             {
-                transaction.Rollback();
+                transaction.Dispose();
             }
-
-            transaction.Dispose();
         }
     }
 }

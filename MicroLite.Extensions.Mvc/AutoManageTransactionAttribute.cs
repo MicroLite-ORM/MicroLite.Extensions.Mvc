@@ -156,7 +156,7 @@ namespace MicroLite.Extensions.Mvc
             {
                 transaction.Commit();
             }
-            else if (exception != null && !transaction.WasRolledBack)
+            else if (exception != null && transaction.IsActive)
             {
                 transaction.Rollback();
             }

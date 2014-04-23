@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MicroLite.Extensions.Mvc")]
-[assembly: AssemblyDescription("MicroLite ORM Framework extension to integrate with ASP.NET MVC")]
+[assembly: AssemblyDescription("MicroLite.Extensions.Mvc is an extension to the MicroLite ORM Framework which allows integration with ASP.NET MVC 3 or later.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MicroLite")]
 [assembly: AssemblyProduct("MicroLite.Extensions.Mvc")]

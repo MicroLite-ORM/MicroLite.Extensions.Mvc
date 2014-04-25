@@ -39,3 +39,7 @@ Then register the action filters in your `FilterConfig` class (usually in the Ap
 * The `AutoManageTransactionAttribute` will ensure that a transaction is started prior to the controller action being invoked and committed (or rolled back if the action throws an exception) after the controller action has been invoked.
 
 To find out more, head over to the [Wiki](https://github.com/TrevorPilley/MicroLite.Extensions.Mvc/wiki).
+
+_Supported .NET Framework Versions_
+
+The NuGet Package contains binaries compiled against 4.0 and 4.5.

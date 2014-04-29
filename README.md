@@ -110,4 +110,7 @@ There are times when you may want to manually manage the transaction so it is ea
 
 _Supported .NET Framework Versions_
 
-The NuGet Package contains binaries compiled against 4.0 and 4.5.
+The NuGet Package contains binaries compiled against:
+
+* .NET 4.0 (Full)
+* .NET 4.5

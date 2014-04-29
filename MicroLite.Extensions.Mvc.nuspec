@@ -14,7 +14,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>Micro ORM Framework POCO Database ASP.NET MVC</tags>
     <dependencies>
-      <dependency id="MicroLite" version="5.0.0-rc" />
+      <dependency id="MicroLite" version="5.0.0" />
       <dependency id="Microsoft.AspNet.Mvc" version="3.0.20105.1" />
     </dependencies>
   </metadata>

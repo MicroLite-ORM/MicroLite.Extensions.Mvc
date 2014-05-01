@@ -95,6 +95,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoManageTransactionAttributeTests.cs" />
+    <Compile Include="MicroLiteControllerTests.cs" />
+    <Compile Include="MicroLiteReadOnlyControllerTests.cs" />
     <Compile Include="MvcConfigurationExtensionsTests.cs" />
     <Compile Include="MicroLiteSessionAttributeTests.cs" />
     <Compile Include="ValidateModelNotNullAttributeTests.cs" />

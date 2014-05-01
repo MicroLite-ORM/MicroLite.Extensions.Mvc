@@ -21,6 +21,28 @@ namespace MicroLite.Extensions.Mvc
     /// </summary>
     public abstract class MicroLiteController : Controller, IHaveSession
     {
+        private ISession session;
+
+        /// <summary>
+        /// Initialises a new instance of the MicroLiteController class.
+        /// </summary>
+        protected MicroLiteController()
+            : this(null)
+        {
+        }
+
+        /// <summary>
+        /// Initialises a new instance of the MicroLiteController class with an ISession.
+        /// </summary>
+        /// <param name="session">The ISession for the current HTTP request.</param>
+        /// <remarks>
+        /// This constructor allows for an inheriting class to easily inject an ISession via an IOC container.
+        /// </remarks>
+        protected MicroLiteController(ISession session)
+        {
+            this.session = session;
+        }
+
         /// <summary>
         /// Gets the System.Web.HttpSessionStateBase object for the current HTTP request.
         /// </summary>
@@ -38,8 +60,15 @@ namespace MicroLite.Extensions.Mvc
         /// </summary>
         public new ISession Session
         {
-            get;
-            set;
+            get
+            {
+                return this.session;
+            }
+
+            set
+            {
+                this.session = value;
+            }
         }
     }
 }

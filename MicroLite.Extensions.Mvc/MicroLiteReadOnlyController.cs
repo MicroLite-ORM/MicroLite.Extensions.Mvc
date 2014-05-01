@@ -21,6 +21,28 @@ namespace MicroLite.Extensions.Mvc
     /// </summary>
     public abstract class MicroLiteReadOnlyController : Controller, IHaveReadOnlySession
     {
+        private IReadOnlySession session;
+
+        /// <summary>
+        /// Initialises a new instance of the MicroLiteReadOnlyController class.
+        /// </summary>
+        protected MicroLiteReadOnlyController()
+            : this(null)
+        {
+        }
+
+        /// <summary>
+        /// Initialises a new instance of the MicroLiteReadOnlyController class with an IReadOnlySession.
+        /// </summary>
+        /// <param name="session">The IReadOnlySession for the current HTTP request.</param>
+        /// <remarks>
+        /// This constructor allows for an inheriting class to easily inject an IReadOnlySession via an IOC container.
+        /// </remarks>
+        protected MicroLiteReadOnlyController(IReadOnlySession session)
+        {
+            this.session = session;
+        }
+
         /// <summary>
         /// Gets the System.Web.HttpSessionStateBase object for the current HTTP request.
         /// </summary>
@@ -38,8 +60,15 @@ namespace MicroLite.Extensions.Mvc
         /// </summary>
         public new IReadOnlySession Session
         {
-            get;
-            set;
+            get
+            {
+                return this.session;
+            }
+
+            set
+            {
+                this.session = value;
+            }
         }
     }
 }

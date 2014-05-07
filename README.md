@@ -1,7 +1,7 @@
 MicroLite.Extensions.Mvc
 ========================
 
-_MicroLite.Extensions.Mvc_ is an extension to the MicroLite ORM Framework which allows integration with ASP.NET MVC 3 onwards.
+_MicroLite.Extensions.Mvc_ is an extension to the MicroLite ORM Framework which allows integration with ASP.NET MVC.
 
 It is easy to use MicroLite with ASP.NET MVC, simply supply your controller with an `ISession` or `IReadOnlySession` and use it in your controller actions. However, using the MVC extension for MicroLite makes it even easier and contains some useful extras.
 
@@ -11,7 +11,7 @@ In order to use the MVC extension for the MicroLite ORM framework, you need to r
 
 ## Configuring the Extension
 
-Register the action filters for the behaviour you want in your `FilterConfig` in the App_Start folder:
+Register the action filters for the behaviour you want in your `FilterConfig` in the App_Start folder of your project:
 
     public static void RegisterGlobalFilters(GlobalFilterCollection filters)
     {
@@ -68,28 +68,21 @@ Lastly, implement `IHaveSession` or `IHaveReadOnlySession` - either directly or 
 
 The `ValidateModelNotNullAttribute` will throw an `ArgumentNullException` if the model in a request is null, it saves having to write `if (model == null) { throw new ArgumentNullException("model"); }` at the start of every action.
 
-You may not want the attribute to apply to a certain controller or action, therefore the `ValidateModelNotNullAttribute` has a `SkipValidation` property (false by default) which allows you to opt out individual controllers or actions.
+You may not want the attribute to apply to a certain action, therefore the `ValidateModelNotNullAttribute` has a `SkipValidation` property (false by default) which allows you to opt out individual actions.
 
-    [ValidateModelNotNull(SkipValidation = true)] // will affect all methods in the controller
-    public class CustomerController : MicroLiteController { ... }
-
-    [ValidateModelNotNull(SkipValidation = true)] // will only affect individual methods
+    [ValidateModelNotNull(SkipValidation = true)] // will only affect the action it is applied to
     public ActionResult Edit(int id, Model model) { ... }
 
 ### ValidateModelStateAttribute
 
 The `ValidateModelStateAttribute` validates the model state in a request and redirects to the view if it is invalid, it saves having to wrap all your methods with `if (ModelState.IsValid())`.
 
-There are times when you may want to return a different model to the view than the one posted to the controller so it is easy to opt out at either action or controller level:
+There are times when you may want to return a different model to the view than the one posted to the action so it is easy to opt out an action:
 
-    [ValidateModelState(SkipValidation = true)] // will affect all methods in the controller
-    public class CustomerController : MicroLiteController { ... }
-
-    [ValidateModelState(SkipValidation = true)] // will only affect individual methods
+    [ValidateModelState(SkipValidation = true)] // will only affect the action it is applied to
     public ActionResult Edit(int id, Model model) { ... }
 
 ### MicroLiteSessionAttribute
-
 
 The `MicroLiteSessionAttribute` will ensure that an `ISession` or `IReadOnlySession` is opened and assigned to your controller if it inherits from `MicroLiteController`/`MicroLiteReadOnlyController` or implements `IHaveSession`/`IHaveReadOnlySession` prior to an action being called. It will then ensure that the session is disposed of after the action has been called. When constructed, it requires the name of the connection the session should be opened for.
 
@@ -99,18 +92,21 @@ NOTE: If you use an IOC container to manage sessions, then you do not need to us
 
 The `AutoManageTransactionAttribute` will ensure that a transaction is begun for the session provided to a controller if it inherits from `MicroLiteController`/`MicroLiteReadOnlyController` or implements `IHaveSession`/`IHaveReadOnlySession` prior to an action being called. It will then ensure that the transaction is either rolled back or committed depending on whether the action results in an exception being thrown or not.
 
-
 There are times when you may want to manually manage the transaction so it is easy to opt out at either action or controller level:
 
-    [AutoManageTransaction(AutoManageTransaction = false)] // will affect all methods in the controller
+    [AutoManageTransaction(AutoManageTransaction = false)] // will affect all actions in the controller
     public class CustomerController : MicroLiteController { ... }
 
-    [AutoManageTransaction(AutoManageTransaction = false)] // will only affect individual methods
+    [AutoManageTransaction(AutoManageTransaction = false)] // will only affect the action it is applied to
     public ActionResult Edit(int id, Model model) { ... }
 
-_Supported .NET Framework Versions_
+## Supported .NET Framework Versions
 
 The NuGet Package contains binaries compiled against:
 
 * .NET 4.0 (Full)
 * .NET 4.5
+
+## Supported ASP.NET MVC Versions
+
+* ASP.NET MVC 3 onwards

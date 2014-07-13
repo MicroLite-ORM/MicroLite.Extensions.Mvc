@@ -109,4 +109,4 @@ The NuGet Package contains binaries compiled against:
 
 ## Supported ASP.NET MVC Versions
 
-* ASP.NET MVC 3 onwards
+* ASP.NET MVC 4 onwards

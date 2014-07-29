@@ -104,9 +104,5 @@ There are times when you may want to manually manage the transaction so it is ea
 
 The NuGet Package contains binaries compiled against:
 
-* .NET 4.0 (Full)
-* .NET 4.5
-
-## Supported ASP.NET MVC Versions
-
-* ASP.NET MVC 4 onwards
+* .NET 4.0 (Full) and Microsoft.AspNet.Mvc 4.0.20710
+* .NET 4.5 and Microsoft.AspNet.Mvc 5.0

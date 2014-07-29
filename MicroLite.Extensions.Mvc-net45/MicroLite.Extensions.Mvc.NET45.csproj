@@ -38,7 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\MicroLite.Extensions.Mvc.XML</DocumentationFile>
-    <CodeAnalysisRuleSet>..\Net.Http.WebApi.OData.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\MicroLite.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisAdditionalOptions>/assemblyCompareMode:StrongNameIgnoringVersion</CodeAnalysisAdditionalOptions>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -50,7 +50,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MicroLite">
-      <HintPath>..\packages\MicroLite.5.0.0\lib\net40-client\MicroLite.dll</HintPath>
+      <HintPath>..\packages\MicroLite.5.0.0\lib\net45\MicroLite.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -61,47 +61,58 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoManageTransactionAttribute.cs" />
-    <Compile Include="MvcConfigurationExtensions.cs" />
-    <Compile Include="ValidateModelNotNullAttribute.cs" />
-    <Compile Include="ValidateModelStateAttribute.cs" />
-    <Compile Include="Messages.Designer.cs">
+    <Compile Include="..\MicroLite.Extensions.Mvc\Messages.Designer.cs">
+      <Link>Messages.Designer.cs</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
-    <Compile Include="MicroLiteController.cs">
-      <SubType>Code</SubType>
+    <Compile Include="..\MicroLite.Extensions.Mvc\AutoManageTransactionAttribute.cs">
+      <Link>AutoManageTransactionAttribute.cs</Link>
     </Compile>
-    <Compile Include="MicroLiteReadOnlyController.cs" />
-    <Compile Include="MicroLiteSessionAttribute.cs">
-      <SubType>Code</SubType>
+    <Compile Include="..\MicroLite.Extensions.Mvc\MicroLiteController.cs">
+      <Link>MicroLiteController.cs</Link>
+    </Compile>
+    <Compile Include="..\MicroLite.Extensions.Mvc\MicroLiteReadOnlyController.cs">
+      <Link>MicroLiteReadOnlyController.cs</Link>
+    </Compile>
+    <Compile Include="..\MicroLite.Extensions.Mvc\MicroLiteSessionAttribute.cs">
+      <Link>MicroLiteSessionAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\MicroLite.Extensions.Mvc\MvcConfigurationExtensions.cs">
+      <Link>MvcConfigurationExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\MicroLite.Extensions.Mvc\ValidateModelNotNullAttribute.cs">
+      <Link>ValidateModelNotNullAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\MicroLite.Extensions.Mvc\ValidateModelStateAttribute.cs">
+      <Link>ValidateModelStateAttribute.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -110,8 +121,6 @@
       <Link>MicroLite.snk</Link>
     </None>
     <None Include="packages.config" />
-    <None Include="_Controllers.cd" />
-    <None Include="_Filters.cd" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
@@ -119,7 +128,8 @@
     </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Messages.resx">
+    <EmbeddedResource Include="..\MicroLite.Extensions.Mvc\Messages.resx">
+      <Link>Messages.resx</Link>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>

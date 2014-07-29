@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroLite.Extensions.Mvc", "MicroLite.Extensions.Mvc\MicroLite.Extensions.Mvc.NET45.csproj", "{14DE51D4-3029-441D-B001-555660EB065D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroLite.Extensions.Mvc", "MicroLite.Extensions.Mvc-net45\MicroLite.Extensions.Mvc.NET45.csproj", "{14DE51D4-3029-441D-B001-555660EB065D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroLite.Extensions.Mvc.Tests", "MicroLite.Extensions.Mvc.Tests\MicroLite.Extensions.Mvc.Tests.NET45.csproj", "{3973DD15-AB08-4BC7-A883-9BD202523EAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroLite.Extensions.Mvc.Tests", "MicroLite.Extensions.Mvc.Tests-net45\MicroLite.Extensions.Mvc.Tests.NET45.csproj", "{3973DD15-AB08-4BC7-A883-9BD202523EAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5732B479-EBBA-4E29-9890-8AB5C05685C8}"
 	ProjectSection(SolutionItems) = preProject

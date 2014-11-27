@@ -101,7 +101,11 @@ namespace MicroLite.Extensions.Mvc
                 throw new ArgumentNullException("filterContext");
             }
 
+#if NET_4_0
             var controller = filterContext.Controller as IHaveSession;
+#else
+            var controller = filterContext.Controller as IHaveAsyncSession;
+#endif
 
             if (controller != null)
             {
@@ -109,7 +113,11 @@ namespace MicroLite.Extensions.Mvc
                 return;
             }
 
+#if NET_4_0
             var readOnlyController = filterContext.Controller as IHaveReadOnlySession;
+#else
+            var readOnlyController = filterContext.Controller as IHaveAsyncReadOnlySession;
+#endif
 
             if (readOnlyController != null)
             {
@@ -134,7 +142,11 @@ namespace MicroLite.Extensions.Mvc
                 throw new ArgumentNullException("filterContext");
             }
 
+#if NET_4_0
             var controller = filterContext.Controller as IHaveSession;
+#else
+            var controller = filterContext.Controller as IHaveAsyncSession;
+#endif
 
             if (controller != null)
             {
@@ -142,7 +154,11 @@ namespace MicroLite.Extensions.Mvc
                 return;
             }
 
+#if NET_4_0
             var readOnlyController = filterContext.Controller as IHaveReadOnlySession;
+#else
+            var readOnlyController = filterContext.Controller as IHaveAsyncReadOnlySession;
+#endif
 
             if (readOnlyController != null)
             {
@@ -151,7 +167,13 @@ namespace MicroLite.Extensions.Mvc
             }
         }
 
+#if NET_4_0
+
         private static void OnActionExecuted(IReadOnlySession session, Exception exception)
+#else
+
+        private static void OnActionExecuted(IAsyncReadOnlySession session, Exception exception)
+#endif
         {
             if (session.CurrentTransaction == null)
             {

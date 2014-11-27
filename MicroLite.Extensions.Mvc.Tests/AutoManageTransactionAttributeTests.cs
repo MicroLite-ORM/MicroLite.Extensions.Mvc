@@ -14,7 +14,11 @@
     {
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndAnActiveTransaction
         {
+#if NET_4_0
             private readonly Mock<ISession> mockSession = new Mock<ISession>();
+#else
+            private readonly Mock<IAsyncSession> mockSession = new Mock<IAsyncSession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndAnActiveTransaction()
@@ -55,7 +59,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndAutoManageTransactionIsFalse
         {
+#if NET_4_0
             private readonly Mock<ISession> mockSession = new Mock<ISession>();
+#else
+            private readonly Mock<IAsyncSession> mockSession = new Mock<IAsyncSession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndAutoManageTransactionIsFalse()
@@ -97,7 +105,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndCommittingAnActiveTransactionThrowsAnException
         {
+#if NET_4_0
             private readonly Mock<ISession> mockSession = new Mock<ISession>();
+#else
+            private readonly Mock<IAsyncSession> mockSession = new Mock<IAsyncSession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndCommittingAnActiveTransactionThrowsAnException()
@@ -140,7 +152,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndNoActiveTransaction
         {
+#if NET_4_0
             private readonly Mock<ISession> mockSession = new Mock<ISession>();
+#else
+            private readonly Mock<IAsyncSession> mockSession = new Mock<IAsyncSession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndNoActiveTransaction()
@@ -181,7 +197,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndNoCurrentTransaction
         {
+#if NET_4_0
             private readonly Mock<ISession> mockSession = new Mock<ISession>();
+#else
+            private readonly Mock<IAsyncSession> mockSession = new Mock<IAsyncSession>();
+#endif
 
             [Fact]
             public void OnActionExecutedDoesNotThrowAnException()
@@ -202,7 +222,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndTheContextContainsAnException_AndTheTransactionHasBeenRolledBack
         {
+#if NET_4_0
             private readonly Mock<ISession> mockSession = new Mock<ISession>();
+#else
+            private readonly Mock<IAsyncSession> mockSession = new Mock<IAsyncSession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndTheContextContainsAnException_AndTheTransactionHasBeenRolledBack()
@@ -244,7 +268,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndTheContextContainsAnException_AndTheTransactionHasNotBeenRolledBack
         {
+#if NET_4_0
             private readonly Mock<ISession> mockSession = new Mock<ISession>();
+#else
+            private readonly Mock<IAsyncSession> mockSession = new Mock<IAsyncSession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndTheContextContainsAnException_AndTheTransactionHasNotBeenRolledBack()
@@ -286,7 +314,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndAnActiveTransaction
         {
+#if NET_4_0
             private readonly Mock<IReadOnlySession> mockSession = new Mock<IReadOnlySession>();
+#else
+            private readonly Mock<IAsyncReadOnlySession> mockSession = new Mock<IAsyncReadOnlySession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndAnActiveTransaction()
@@ -327,7 +359,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndAutoManageTransactionIsFalse
         {
+#if NET_4_0
             private readonly Mock<IReadOnlySession> mockSession = new Mock<IReadOnlySession>();
+#else
+            private readonly Mock<IAsyncReadOnlySession> mockSession = new Mock<IAsyncReadOnlySession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndAutoManageTransactionIsFalse()
@@ -369,7 +405,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndCommittingAnActiveTransactionThrowsAnException
         {
+#if NET_4_0
             private readonly Mock<IReadOnlySession> mockSession = new Mock<IReadOnlySession>();
+#else
+            private readonly Mock<IAsyncReadOnlySession> mockSession = new Mock<IAsyncReadOnlySession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndCommittingAnActiveTransactionThrowsAnException()
@@ -412,7 +452,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndNoActiveTransaction
         {
+#if NET_4_0
             private readonly Mock<IReadOnlySession> mockSession = new Mock<IReadOnlySession>();
+#else
+            private readonly Mock<IAsyncReadOnlySession> mockSession = new Mock<IAsyncReadOnlySession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndNoActiveTransaction()
@@ -453,7 +497,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndNoCurrentTransaction
         {
+#if NET_4_0
             private readonly Mock<IReadOnlySession> mockSession = new Mock<IReadOnlySession>();
+#else
+            private readonly Mock<IAsyncReadOnlySession> mockSession = new Mock<IAsyncReadOnlySession>();
+#endif
 
             [Fact]
             public void OnActionExecutedDoesNotThrowAnException()
@@ -474,7 +522,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndTheContextContainsAnException_AndTheTransactionHasBeenRolledBack
         {
+#if NET_4_0
             private readonly Mock<IReadOnlySession> mockSession = new Mock<IReadOnlySession>();
+#else
+            private readonly Mock<IAsyncReadOnlySession> mockSession = new Mock<IAsyncReadOnlySession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndTheContextContainsAnException_AndTheTransactionHasBeenRolledBack()
@@ -516,7 +568,11 @@
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndTheContextContainsAnException_AndTheTransactionHasNotBeenRolledBack
         {
+#if NET_4_0
             private readonly Mock<IReadOnlySession> mockSession = new Mock<IReadOnlySession>();
+#else
+            private readonly Mock<IAsyncReadOnlySession> mockSession = new Mock<IAsyncReadOnlySession>();
+#endif
             private readonly Mock<ITransaction> mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndTheContextContainsAnException_AndTheTransactionHasNotBeenRolledBack()
@@ -558,7 +614,11 @@
 
         public class WhenCallingOnActionExecuting_WithAMicroLiteController
         {
+#if NET_4_0
             private readonly Mock<ISession> mockSession = new Mock<ISession>();
+#else
+            private readonly Mock<IAsyncSession> mockSession = new Mock<IAsyncSession>();
+#endif
 
             public WhenCallingOnActionExecuting_WithAMicroLiteController()
             {
@@ -583,7 +643,11 @@
 
         public class WhenCallingOnActionExecuting_WithAMicroLiteController_AndAutoManageTransactionIsFalse
         {
+#if NET_4_0
             private readonly Mock<ISession> mockSession = new Mock<ISession>();
+#else
+            private readonly Mock<IAsyncSession> mockSession = new Mock<IAsyncSession>();
+#endif
 
             public WhenCallingOnActionExecuting_WithAMicroLiteController_AndAutoManageTransactionIsFalse()
             {
@@ -609,7 +673,11 @@
 
         public class WhenCallingOnActionExecuting_WithAMicroLiteReadOnlyController
         {
+#if NET_4_0
             private readonly Mock<ISession> mockSession = new Mock<ISession>();
+#else
+            private readonly Mock<IAsyncSession> mockSession = new Mock<IAsyncSession>();
+#endif
 
             public WhenCallingOnActionExecuting_WithAMicroLiteReadOnlyController()
             {
@@ -634,7 +702,11 @@
 
         public class WhenCallingOnActionExecuting_WithAMicroLiteReadOnlyController_AndAutoManageTransactionIsFalse
         {
+#if NET_4_0
             private readonly Mock<ISession> mockSession = new Mock<ISession>();
+#else
+            private readonly Mock<IAsyncSession> mockSession = new Mock<IAsyncSession>();
+#endif
 
             public WhenCallingOnActionExecuting_WithAMicroLiteReadOnlyController_AndAutoManageTransactionIsFalse()
             {

@@ -9,7 +9,9 @@ It is easy to use MicroLite with ASP.NET MVC, simply supply your controller with
 
 The NuGet Package contains binaries compiled against:
 
-* .NET 4.0 (Full) and Microsoft.AspNet.Mvc 4.0.20710
-* .NET 4.5 and Microsoft.AspNet.Mvc 5.0
+* .NET 4.0 (Full) and Microsoft.AspNet.Mvc (4.0.20710)
+* .NET 4.5 and Microsoft.AspNet.Mvc (5.0)
 
 To find out more, head over to the [Wiki](https://github.com/TrevorPilley/MicroLite.Extensions.Mvc/wiki).
+
+Also, check out the [MVC](http://microliteorm.wordpress.com/tag/mvc/) tag on the MicroLite Blog.

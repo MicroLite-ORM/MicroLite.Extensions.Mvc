@@ -47,13 +47,7 @@ namespace MicroLite.Extensions.Mvc
         /// Gets the System.Web.HttpSessionStateBase object for the current HTTP request.
         /// </summary>
         /// <remarks>This property replaces the Controller.Session property so that we can use it for our ISession.</remarks>
-        public HttpSessionStateBase HttpSession
-        {
-            get
-            {
-                return base.Session;
-            }
-        }
+        public HttpSessionStateBase HttpSession => base.Session;
 
         /// <summary>
         /// Gets or sets the <see cref="ISession"/> for the current HTTP request.

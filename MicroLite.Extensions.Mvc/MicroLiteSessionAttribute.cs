@@ -43,8 +43,6 @@ namespace MicroLite.Extensions.Mvc
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public sealed class MicroLiteSessionAttribute : ActionFilterAttribute
     {
-        private readonly string connectionName;
-
         /// <summary>
         /// Initialises a new instance of the <see cref="MicroLiteSessionAttribute"/> class for the specified connection name.
         /// </summary>
@@ -56,7 +54,7 @@ namespace MicroLite.Extensions.Mvc
                 throw new ArgumentNullException("connectionName");
             }
 
-            this.connectionName = connectionName;
+            this.ConnectionName = connectionName;
         }
 
         /// <summary>
@@ -64,10 +62,7 @@ namespace MicroLite.Extensions.Mvc
         /// </summary>
         public string ConnectionName
         {
-            get
-            {
-                return this.connectionName;
-            }
+            get;
         }
 
         /// <summary>
@@ -87,7 +82,7 @@ namespace MicroLite.Extensions.Mvc
         {
             if (filterContext == null)
             {
-                throw new ArgumentNullException("filterContext");
+                throw new ArgumentNullException(nameof(filterContext));
             }
             
             var controller = filterContext.Controller as IHaveAsyncSession;
@@ -114,7 +109,7 @@ namespace MicroLite.Extensions.Mvc
         {
             if (filterContext == null)
             {
-                throw new ArgumentNullException("filterContext");
+                throw new ArgumentNullException(nameof(filterContext));
             }
             
             var controller = filterContext.Controller as IHaveAsyncSession;
@@ -140,10 +135,7 @@ namespace MicroLite.Extensions.Mvc
         
         private static void OnActionExecuted(IAsyncReadOnlySession session)
         {
-            if (session != null)
-            {
-                session.Dispose();
-            }
+            session?.Dispose();
         }
 
         private ISessionFactory FindSessionFactoryForSpecifiedConnection()
@@ -154,11 +146,11 @@ namespace MicroLite.Extensions.Mvc
             }
 
             var sessionFactory =
-                SessionFactories.SingleOrDefault(x => this.connectionName == null || x.ConnectionName == this.connectionName);
+                SessionFactories.SingleOrDefault(x => this.ConnectionName == null || x.ConnectionName == this.ConnectionName);
 
             if (sessionFactory == null)
             {
-                throw new MicroLiteException(string.Format(CultureInfo.InvariantCulture, Messages.NoSessionFactoryFoundForConnectionName, this.connectionName));
+                throw new MicroLiteException(string.Format(CultureInfo.InvariantCulture, Messages.NoSessionFactoryFoundForConnectionName, this.ConnectionName));
             }
 
             return sessionFactory;

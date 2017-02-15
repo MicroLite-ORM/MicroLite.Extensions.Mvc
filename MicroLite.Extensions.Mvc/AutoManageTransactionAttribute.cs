@@ -59,8 +59,6 @@ namespace MicroLite.Extensions.Mvc
         /// </summary>
         public AutoManageTransactionAttribute()
         {
-            this.AutoManageTransaction = true;
-            this.IsolationLevel = IsolationLevel.ReadCommitted;
         }
 
         /// <summary>
@@ -70,20 +68,12 @@ namespace MicroLite.Extensions.Mvc
         /// <remarks>
         /// Allows an individual controller or action to opt-out if an instance of the attribute is registered in the global filters collection.
         /// </remarks>
-        public bool AutoManageTransaction
-        {
-            get;
-            set;
-        }
+        public bool AutoManageTransaction { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the isolation level to be used when a transaction is started.
         /// </summary>
-        public IsolationLevel IsolationLevel
-        {
-            get;
-            set;
-        }
+        public IsolationLevel IsolationLevel { get; set; } = IsolationLevel.ReadCommitted;
 
         /// <summary>
         /// Called by the ASP.NET MVC framework after the action method executes.
@@ -108,7 +98,7 @@ namespace MicroLite.Extensions.Mvc
                 OnActionExecuted(controller.Session, filterContext.Exception);
                 return;
             }
-            
+
             var readOnlyController = filterContext.Controller as IHaveAsyncReadOnlySession;
 
             if (readOnlyController != null)
@@ -133,7 +123,7 @@ namespace MicroLite.Extensions.Mvc
             {
                 throw new ArgumentNullException("filterContext");
             }
-            
+
             var controller = filterContext.Controller as IHaveAsyncSession;
 
             if (controller != null)
@@ -141,7 +131,7 @@ namespace MicroLite.Extensions.Mvc
                 controller.Session.BeginTransaction(this.IsolationLevel);
                 return;
             }
-            
+
             var readOnlyController = filterContext.Controller as IHaveAsyncReadOnlySession;
 
             if (readOnlyController != null)
@@ -150,7 +140,7 @@ namespace MicroLite.Extensions.Mvc
                 return;
             }
         }
-        
+
         private static void OnActionExecuted(IAsyncReadOnlySession session, Exception exception)
         {
             if (session.CurrentTransaction == null)

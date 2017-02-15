@@ -31,11 +31,7 @@
         public class WhenConstructedWithAnISession
         {
             private readonly MicroLiteController controller;
-#if NET_4_0
-            private readonly ISession session = new Mock<ISession>().Object;
-#else
             private readonly IAsyncSession session = new Mock<IAsyncSession>().Object;
-#endif
 
             public WhenConstructedWithAnISession()
             {

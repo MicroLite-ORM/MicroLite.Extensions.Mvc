@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="AutoManageTransactionAttribute.cs" company="MicroLite">
-// Copyright 2012 - 2015 Project Contributors
+// Copyright 2012 - 2017 Project Contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -101,23 +101,15 @@ namespace MicroLite.Extensions.Mvc
                 throw new ArgumentNullException("filterContext");
             }
 
-#if NET_4_0
-            var controller = filterContext.Controller as IHaveSession;
-#else
             var controller = filterContext.Controller as IHaveAsyncSession;
-#endif
 
             if (controller != null)
             {
                 OnActionExecuted(controller.Session, filterContext.Exception);
                 return;
             }
-
-#if NET_4_0
-            var readOnlyController = filterContext.Controller as IHaveReadOnlySession;
-#else
+            
             var readOnlyController = filterContext.Controller as IHaveAsyncReadOnlySession;
-#endif
 
             if (readOnlyController != null)
             {
@@ -141,24 +133,16 @@ namespace MicroLite.Extensions.Mvc
             {
                 throw new ArgumentNullException("filterContext");
             }
-
-#if NET_4_0
-            var controller = filterContext.Controller as IHaveSession;
-#else
+            
             var controller = filterContext.Controller as IHaveAsyncSession;
-#endif
 
             if (controller != null)
             {
                 controller.Session.BeginTransaction(this.IsolationLevel);
                 return;
             }
-
-#if NET_4_0
-            var readOnlyController = filterContext.Controller as IHaveReadOnlySession;
-#else
+            
             var readOnlyController = filterContext.Controller as IHaveAsyncReadOnlySession;
-#endif
 
             if (readOnlyController != null)
             {
@@ -166,14 +150,8 @@ namespace MicroLite.Extensions.Mvc
                 return;
             }
         }
-
-#if NET_4_0
-
-        private static void OnActionExecuted(IReadOnlySession session, Exception exception)
-#else
-
+        
         private static void OnActionExecuted(IAsyncReadOnlySession session, Exception exception)
-#endif
         {
             if (session.CurrentTransaction == null)
             {

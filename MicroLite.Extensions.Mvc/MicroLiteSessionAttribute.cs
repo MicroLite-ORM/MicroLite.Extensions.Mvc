@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="MicroLiteSessionAttribute.cs" company="MicroLite">
-// Copyright 2012 - 2015 Project Contributors
+// Copyright 2012 - 2017 Project Contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -89,23 +89,15 @@ namespace MicroLite.Extensions.Mvc
             {
                 throw new ArgumentNullException("filterContext");
             }
-
-#if NET_4_0
-            var controller = filterContext.Controller as IHaveSession;
-#else
+            
             var controller = filterContext.Controller as IHaveAsyncSession;
-#endif
             if (controller != null)
             {
                 OnActionExecuted(controller.Session);
                 return;
             }
-
-#if NET_4_0
-            var readOnlyController = filterContext.Controller as IHaveReadOnlySession;
-#else
+            
             var readOnlyController = filterContext.Controller as IHaveAsyncReadOnlySession;
-#endif
 
             if (readOnlyController != null)
             {
@@ -124,50 +116,29 @@ namespace MicroLite.Extensions.Mvc
             {
                 throw new ArgumentNullException("filterContext");
             }
-
-#if NET_4_0
-            var controller = filterContext.Controller as IHaveSession;
-#else
+            
             var controller = filterContext.Controller as IHaveAsyncSession;
-#endif
+
             if (controller != null)
             {
                 var sessionFactory = this.FindSessionFactoryForSpecifiedConnection();
-
-#if NET_4_0
-                controller.Session = sessionFactory.OpenSession();
-#else
+                
                 controller.Session = sessionFactory.OpenAsyncSession();
-#endif
                 return;
             }
-
-#if NET_4_0
-            var readOnlyController = filterContext.Controller as IHaveReadOnlySession;
-#else
+            
             var readOnlyController = filterContext.Controller as IHaveAsyncReadOnlySession;
-#endif
 
             if (readOnlyController != null)
             {
                 var sessionFactory = this.FindSessionFactoryForSpecifiedConnection();
-
-#if NET_4_0
-                readOnlyController.Session = sessionFactory.OpenReadOnlySession();
-#else
+                
                 readOnlyController.Session = sessionFactory.OpenAsyncReadOnlySession();
-#endif
                 return;
             }
         }
-
-#if NET_4_0
-
-        private static void OnActionExecuted(IReadOnlySession session)
-#else
-
+        
         private static void OnActionExecuted(IAsyncReadOnlySession session)
-#endif
         {
             if (session != null)
             {

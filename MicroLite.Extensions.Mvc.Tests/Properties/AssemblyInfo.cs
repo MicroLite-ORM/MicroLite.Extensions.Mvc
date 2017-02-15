@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MicroLite.Extensions.Mvc.Tests")]
-[assembly: AssemblyCopyright("Copyright 2012 - 2015 Project Contributors all rights reserved.")]
+[assembly: AssemblyCopyright("Copyright 2012 - 2017 Project Contributors all rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="MicroLiteReadOnlyController.cs" company="MicroLite">
-// Copyright 2012 - 2015 Project Contributors
+// Copyright 2012 - 2017 Project Contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,18 +19,9 @@ namespace MicroLite.Extensions.Mvc
     /// <summary>
     /// Provides access to a MicroLite IReadOnlySession in addition to the base ASP.NET MVC controller.
     /// </summary>
-    public abstract class MicroLiteReadOnlyController : Controller,
-#if NET_4_0
- IHaveReadOnlySession
-#else
- IHaveAsyncReadOnlySession
-#endif
+    public abstract class MicroLiteReadOnlyController : Controller, IHaveAsyncReadOnlySession
     {
-#if NET_4_0
-        private IReadOnlySession session;
-#else
         private IAsyncReadOnlySession session;
-#endif
 
         /// <summary>
         /// Initialises a new instance of the MicroLiteReadOnlyController class.
@@ -47,13 +38,7 @@ namespace MicroLite.Extensions.Mvc
         /// <remarks>
         /// This constructor allows for an inheriting class to easily inject an IReadOnlySession via an IOC container.
         /// </remarks>
-#if NET_4_0
-
-        protected MicroLiteReadOnlyController(IReadOnlySession session)
-#else
-
         protected MicroLiteReadOnlyController(IAsyncReadOnlySession session)
-#endif
         {
             this.session = session;
         }
@@ -73,13 +58,7 @@ namespace MicroLite.Extensions.Mvc
         /// <summary>
         /// Gets or sets the <see cref="IReadOnlySession"/> for the current HTTP request.
         /// </summary>
-#if NET_4_0
-
-        public new IReadOnlySession Session
-#else
-
         public new IAsyncReadOnlySession Session
-#endif
         {
             get
             {

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="MicroLiteController.cs" company="MicroLite">
-// Copyright 2012 - 2015 Project Contributors
+// Copyright 2012 - 2017 Project Contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,18 +19,9 @@ namespace MicroLite.Extensions.Mvc
     /// <summary>
     /// Provides access to a MicroLite ISession in addition to the base ASP.NET MVC controller.
     /// </summary>
-    public abstract class MicroLiteController : Controller,
-#if NET_4_0
- IHaveSession
-#else
- IHaveAsyncSession
-#endif
+    public abstract class MicroLiteController : Controller, IHaveAsyncSession
     {
-#if NET_4_0
-        private ISession session;
-#else
         private IAsyncSession session;
-#endif
 
         /// <summary>
         /// Initialises a new instance of the MicroLiteController class.
@@ -47,13 +38,7 @@ namespace MicroLite.Extensions.Mvc
         /// <remarks>
         /// This constructor allows for an inheriting class to easily inject an ISession via an IOC container.
         /// </remarks>
-#if NET_4_0
-
-        protected MicroLiteController(ISession session)
-#else
-
         protected MicroLiteController(IAsyncSession session)
-#endif
         {
             this.session = session;
         }
@@ -73,13 +58,7 @@ namespace MicroLite.Extensions.Mvc
         /// <summary>
         /// Gets or sets the <see cref="ISession"/> for the current HTTP request.
         /// </summary>
-#if NET_4_0
-
-        public new ISession Session
-#else
-
         public new IAsyncSession Session
-#endif
         {
             get
             {

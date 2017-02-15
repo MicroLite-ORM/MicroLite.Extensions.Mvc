@@ -1,12 +1,13 @@
 properties {
+  $buildVersion
   $projectName = "MicroLite.Extensions.Mvc"
   $baseDir = Resolve-Path .
   $buildDir = "$baseDir\build"
   $helpDir = "$buildDir\help\"
 
   $builds = @(
-    @{Name = "NET40"; Constants="NET_4_0"; BuildDir="$buildDir\4.0\"; Framework="v4.0"},
-    @{Name = "NET45"; Constants="NET_4_5"; BuildDir="$buildDir\4.5\"; Framework="v4.5"}
+    @{ Name = "NET45"; Constants="NET45"; BuildDir="$buildDir\4.5\"; Framework="v4.5" },
+    @{ Name = "NET46"; Constants="NET46"; BuildDir="$buildDir\4.6\"; Framework="v4.6" }
   )
 }
 
@@ -41,12 +42,14 @@ Task RunTests -Depends Build {
     Write-Host "Running $projectName.Tests.$name" -ForegroundColor Green
 
     $outDir = $build.BuildDir
-    Exec {  & $baseDir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe "$outDir\$projectName.Tests.dll" }
+    Exec { & $baseDir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe "$outDir\$projectName.Tests.dll" }
   }
   Write-Host
 }
 
-Task BuildHelp -Depends RunTests {  
-  Write-Host "Building $projectName.shfbproj" -ForegroundColor Green
-  Exec { msbuild "$projectName.shfbproj" }  
+Task BuildHelp -Depends RunTests {
+  if ($buildVersion) {
+    Write-Host "Building $projectName.shfbproj" -ForegroundColor Green
+    Exec { msbuild "$projectName.shfbproj" }
+  }
 }

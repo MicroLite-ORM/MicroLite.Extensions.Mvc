@@ -39,7 +39,7 @@
     <MissingTags>None</MissingTags>
     <NamingMethod>MemberName</NamingMethod>
     <IndentHtml>False</IndentHtml>
-    <FrameworkVersion>.NET Framework 4.6</FrameworkVersion>
+    <FrameworkVersion>.NET Framework 4.5</FrameworkVersion>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
     <CppCommentsFixup>False</CppCommentsFixup>
     <CleanIntermediates>True</CleanIntermediates>

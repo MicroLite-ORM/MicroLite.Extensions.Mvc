@@ -16,8 +16,7 @@ Also, check out the [MVC](http://microliteorm.wordpress.com/tag/mvc/) tag on the
 The NuGet Package contains binaries compiled against:
 
 * .NET 4.5
-* .NET 4.6
 
 ## Supported ASP.NET MVC Versions
 
-* ASP.NET MVC 5.2.3 onwards
+* ASP.NET MVC 5.2.3

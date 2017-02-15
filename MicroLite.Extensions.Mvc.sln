@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroLite.Extensions.Mvc.NET46", "MicroLite.Extensions.Mvc\MicroLite.Extensions.Mvc.NET46.csproj", "{14DE51D4-3029-441D-B001-555660EB065D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroLite.Extensions.Mvc", "MicroLite.Extensions.Mvc\MicroLite.Extensions.Mvc.csproj", "{14DE51D4-3029-441D-B001-555660EB065D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroLite.Extensions.Mvc.Tests.NET46", "MicroLite.Extensions.Mvc.Tests\MicroLite.Extensions.Mvc.Tests.NET46.csproj", "{3973DD15-AB08-4BC7-A883-9BD202523EAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroLite.Extensions.Mvc.Tests", "MicroLite.Extensions.Mvc.Tests\MicroLite.Extensions.Mvc.Tests.csproj", "{3973DD15-AB08-4BC7-A883-9BD202523EAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

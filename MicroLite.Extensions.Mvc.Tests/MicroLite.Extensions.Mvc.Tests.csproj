@@ -100,9 +100,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MicroLite.Extensions.Mvc\MicroLite.Extensions.Mvc.NET45.csproj">
+    <ProjectReference Include="..\MicroLite.Extensions.Mvc\MicroLite.Extensions.Mvc.csproj">
       <Project>{14de51d4-3029-441d-b001-555660eb065d}</Project>
-      <Name>MicroLite.Extensions.Mvc.NET45</Name>
+      <Name>MicroLite.Extensions.Mvc</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

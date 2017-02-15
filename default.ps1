@@ -4,6 +4,7 @@ properties {
   $baseDir = Resolve-Path .
   $buildDir = "$baseDir\build"
   $helpDir = "$buildDir\help\"
+  $msbuild = "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
 
   $builds = @(
     @{ Name = "NET45"; Constants="NET45"; BuildDir="$buildDir\4.5\"; Framework="v4.5" },
@@ -31,7 +32,7 @@ Task Build -Depends Clean {
     $constants = $build.Constants
     $outDir = $build.BuildDir
     $netVer = $build.Framework
-    Exec { msbuild "$projectName.$name.sln" "/target:Clean;Rebuild" "/property:Configuration=Release;WarningLevel=1;DefineConstants=$constants;OutDir=$outDir;TargetFrameworkVersion=$netVer" /verbosity:quiet }
+    &"$msbuild" "$projectName.$name.sln" "/target:Clean;Rebuild" "/property:Configuration=Release;WarningLevel=1;DefineConstants=$constants;OutDir=$outDir;TargetFrameworkVersion=$netVer" /verbosity:quiet
   }
   Write-Host
 }

@@ -9,25 +9,6 @@
     /// </summary>
     public class MicroLiteReadOnlyControllerTests
     {
-        public class WhenConstructedUsingTheDefaultConstructor
-        {
-            private readonly MicroLiteReadOnlyController controller;
-
-            public WhenConstructedUsingTheDefaultConstructor()
-            {
-                var mockController = new Mock<MicroLiteReadOnlyController>();
-                mockController.CallBase = true;
-
-                this.controller = mockController.Object;
-            }
-
-            [Fact]
-            public void TheSessionIsNull()
-            {
-                Assert.Null(this.controller.Session);
-            }
-        }
-
         public class WhenConstructedWithAnIReadOnlySession
         {
             private readonly MicroLiteReadOnlyController controller;

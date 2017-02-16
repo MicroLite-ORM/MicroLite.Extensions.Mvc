@@ -21,16 +21,6 @@ namespace MicroLite.Extensions.Mvc
     /// </summary>
     public abstract class MicroLiteReadOnlyController : Controller, IHaveAsyncReadOnlySession
     {
-        private IAsyncReadOnlySession session;
-
-        /// <summary>
-        /// Initialises a new instance of the MicroLiteReadOnlyController class.
-        /// </summary>
-        protected MicroLiteReadOnlyController()
-            : this(null)
-        {
-        }
-
         /// <summary>
         /// Initialises a new instance of the MicroLiteReadOnlyController class with an IReadOnlySession.
         /// </summary>
@@ -40,7 +30,7 @@ namespace MicroLite.Extensions.Mvc
         /// </remarks>
         protected MicroLiteReadOnlyController(IAsyncReadOnlySession session)
         {
-            this.session = session;
+            this.Session = session;
         }
 
         /// <summary>
@@ -54,15 +44,8 @@ namespace MicroLite.Extensions.Mvc
         /// </summary>
         public new IAsyncReadOnlySession Session
         {
-            get
-            {
-                return this.session;
-            }
-
-            set
-            {
-                this.session = value;
-            }
+            get;
+            set;
         }
     }
 }

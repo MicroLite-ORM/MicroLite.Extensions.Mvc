@@ -21,16 +21,6 @@ namespace MicroLite.Extensions.Mvc
     /// </summary>
     public abstract class MicroLiteController : Controller, IHaveAsyncSession
     {
-        private IAsyncSession session;
-
-        /// <summary>
-        /// Initialises a new instance of the MicroLiteController class.
-        /// </summary>
-        protected MicroLiteController()
-            : this(null)
-        {
-        }
-
         /// <summary>
         /// Initialises a new instance of the MicroLiteController class with an ISession.
         /// </summary>
@@ -40,7 +30,7 @@ namespace MicroLite.Extensions.Mvc
         /// </remarks>
         protected MicroLiteController(IAsyncSession session)
         {
-            this.session = session;
+            this.Session = session;
         }
 
         /// <summary>
@@ -54,15 +44,8 @@ namespace MicroLite.Extensions.Mvc
         /// </summary>
         public new IAsyncSession Session
         {
-            get
-            {
-                return this.session;
-            }
-
-            set
-            {
-                this.session = value;
-            }
+            get;
+            set;
         }
     }
 }

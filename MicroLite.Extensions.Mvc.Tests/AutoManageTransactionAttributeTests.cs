@@ -22,8 +22,7 @@
                 this.mockTransaction.Setup(x => x.IsActive).Returns(true);
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -63,8 +62,7 @@
                 this.mockTransaction.Setup(x => x.IsActive).Returns(true);
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -106,8 +104,7 @@
                 this.mockTransaction.Setup(x => x.Commit()).Throws<InvalidOperationException>();
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -148,8 +145,7 @@
                 this.mockTransaction.Setup(x => x.IsActive).Returns(false);
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -186,8 +182,7 @@
             [Fact]
             public void OnActionExecutedDoesNotThrowAnException()
             {
-                var controller = new Mock<MicroLiteController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -210,8 +205,7 @@
                 this.mockTransaction.Setup(x => x.IsActive).Returns(false);
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -252,8 +246,7 @@
                 this.mockTransaction.Setup(x => x.IsActive).Returns(true);
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -294,8 +287,7 @@
                 this.mockTransaction.Setup(x => x.IsActive).Returns(true);
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteReadOnlyController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteReadOnlyController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -335,8 +327,7 @@
                 this.mockTransaction.Setup(x => x.IsActive).Returns(true);
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteReadOnlyController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteReadOnlyController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -378,8 +369,7 @@
                 this.mockTransaction.Setup(x => x.Commit()).Throws<InvalidOperationException>();
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteReadOnlyController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteReadOnlyController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -420,8 +410,7 @@
                 this.mockTransaction.Setup(x => x.IsActive).Returns(false);
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteReadOnlyController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteReadOnlyController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -458,8 +447,7 @@
             [Fact]
             public void OnActionExecutedDoesNotThrowAnException()
             {
-                var controller = new Mock<MicroLiteReadOnlyController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteReadOnlyController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -482,8 +470,7 @@
                 this.mockTransaction.Setup(x => x.IsActive).Returns(false);
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteReadOnlyController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteReadOnlyController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -524,8 +511,7 @@
                 this.mockTransaction.Setup(x => x.IsActive).Returns(true);
                 this.mockSession.Setup(x => x.CurrentTransaction).Returns(this.mockTransaction.Object);
 
-                var controller = new Mock<MicroLiteReadOnlyController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteReadOnlyController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutedContext
                 {
@@ -562,8 +548,7 @@
 
             public WhenCallingOnActionExecuting_WithAMicroLiteController()
             {
-                var controller = new Mock<MicroLiteController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutingContext
                 {
@@ -587,8 +572,7 @@
 
             public WhenCallingOnActionExecuting_WithAMicroLiteController_AndAutoManageTransactionIsFalse()
             {
-                var controller = new Mock<MicroLiteController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutingContext
                 {
@@ -613,8 +597,7 @@
 
             public WhenCallingOnActionExecuting_WithAMicroLiteReadOnlyController()
             {
-                var controller = new Mock<MicroLiteReadOnlyController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteReadOnlyController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutingContext
                 {
@@ -638,8 +621,7 @@
 
             public WhenCallingOnActionExecuting_WithAMicroLiteReadOnlyController_AndAutoManageTransactionIsFalse()
             {
-                var controller = new Mock<MicroLiteReadOnlyController>().Object;
-                controller.Session = this.mockSession.Object;
+                var controller = new Mock<MicroLiteReadOnlyController>(this.mockSession.Object).Object;
 
                 var context = new ActionExecutingContext
                 {

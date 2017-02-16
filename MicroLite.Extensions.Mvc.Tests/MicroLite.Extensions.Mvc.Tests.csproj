@@ -86,7 +86,6 @@
     <Compile Include="AutoManageTransactionAttributeTests.cs" />
     <Compile Include="MicroLiteControllerTests.cs" />
     <Compile Include="MicroLiteReadOnlyControllerTests.cs" />
-    <Compile Include="MvcConfigurationExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidateModelNotNullAttributeTests.cs" />
     <Compile Include="ValidateModelStateAttributeTests.cs" />

@@ -96,7 +96,6 @@
     </Compile>
     <Compile Include="MicroLiteController.cs" />
     <Compile Include="MicroLiteReadOnlyController.cs" />
-    <Compile Include="MvcConfigurationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidateModelNotNullAttribute.cs" />
     <Compile Include="ValidateModelStateAttribute.cs" />

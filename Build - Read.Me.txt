@@ -3,7 +3,7 @@ Build scripts etc assume that the repository is checked out to C:\Source\GitHub\
 Requirements:
 
   - Visual Studio 2015 or later
-  - .NET 4.6 (https://www.microsoft.com/net/targeting)
+  - .NET 4.5 (https://www.microsoft.com/net/targeting)
   - StyleCop version 4.7.54 - ensure that MSBuild integration is selected when installed (http://stylecop.codeplex.com/)
   - Git 2.11.1 (http://git-scm.com/download/win)
   - Sandcastle Help File Builder 2016.9.17 (http://shfb.codeplex.com/)

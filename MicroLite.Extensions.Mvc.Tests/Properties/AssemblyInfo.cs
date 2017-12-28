@@ -1,11 +1,12 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using Xunit;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MicroLite.Extensions.Mvc.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Unit Tests for the MicroLite.Extensions.Mvc library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MicroLite.Extensions.Mvc.Tests")]
@@ -29,3 +30,4 @@ using System.Runtime.InteropServices;
 //      Revision
 [assembly: AssemblyVersion("6.3.0.0")]
 [assembly: AssemblyFileVersion("6.3.0.0")]
+[assembly: CollectionBehavior(DisableTestParallelization = false)]

@@ -1,7 +1,7 @@
 MicroLite.Extensions.Mvc
 ========================
 
-[![NuGet version](https://badge.fury.io/nu/MicroLite.Extensions.Mvc.svg)](http://badge.fury.io/nu/MicroLite.Extensions.Mvc)
+[![NuGet version](https://badge.fury.io/nu/MicroLite.Extensions.Mvc.svg)](http://badge.fury.io/nu/MicroLite.Extensions.Mvc) [![Build Status](https://trevorpilley.visualstudio.com/_apis/public/build/definitions/4cf9ae80-460f-4dc8-a6fd-815e9e58ad35/7/badge)](https://trevorpilley.visualstudio.com/MicroLite.Extensions.Mvc)
 
 _MicroLite.Extensions.Mvc_ is an extension to the MicroLite ORM Framework which allows integration with ASP.NET MVC.
 

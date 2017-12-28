@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MicroLiteController.cs" company="MicroLite">
+// <copyright file="MicroLiteController.cs" company="Project Contributors">
 // Copyright 2012 - 2017 Project Contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,6 +12,7 @@
 // -----------------------------------------------------------------------
 namespace MicroLite.Extensions.Mvc
 {
+    using System;
     using System.Web;
     using System.Web.Mvc;
     using MicroLite.Infrastructure;
@@ -22,15 +23,15 @@ namespace MicroLite.Extensions.Mvc
     public abstract class MicroLiteController : Controller, IHaveAsyncSession
     {
         /// <summary>
-        /// Initialises a new instance of the MicroLiteController class with an ISession.
+        /// Initialises a new instance of the <see cref="MicroLiteController"/> class.
         /// </summary>
-        /// <param name="session">The ISession for the current HTTP request.</param>
+        /// <param name="session">The <see cref="IAsyncSession"/> for the current HTTP request.</param>
         /// <remarks>
-        /// This constructor allows for an inheriting class to easily inject an ISession via an IOC container.
+        /// This constructor allows for an inheriting class to easily inject an <see cref="IAsyncSession"/> via an IOC container.
         /// </remarks>
         protected MicroLiteController(IAsyncSession session)
         {
-            this.Session = session;
+            this.Session = session ?? throw new ArgumentNullException(nameof(session));
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace MicroLite.Extensions.Mvc
         public HttpSessionStateBase HttpSession => base.Session;
 
         /// <summary>
-        /// Gets or sets the <see cref="ISession"/> for the current HTTP request.
+        /// Gets or sets the <see cref="IAsyncSession"/> for the current HTTP request.
         /// </summary>
         public new IAsyncSession Session
         {

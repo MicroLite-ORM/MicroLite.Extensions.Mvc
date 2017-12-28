@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MicroLiteReadOnlyController.cs" company="MicroLite">
+// <copyright file="MicroLiteReadOnlyController.cs" company="Project Contributors">
 // Copyright 2012 - 2017 Project Contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,6 +12,7 @@
 // -----------------------------------------------------------------------
 namespace MicroLite.Extensions.Mvc
 {
+    using System;
     using System.Web;
     using System.Web.Mvc;
     using MicroLite.Infrastructure;
@@ -22,15 +23,15 @@ namespace MicroLite.Extensions.Mvc
     public abstract class MicroLiteReadOnlyController : Controller, IHaveAsyncReadOnlySession
     {
         /// <summary>
-        /// Initialises a new instance of the MicroLiteReadOnlyController class with an IReadOnlySession.
+        /// Initialises a new instance of the <see cref="MicroLiteReadOnlyController"/> class.
         /// </summary>
-        /// <param name="session">The IReadOnlySession for the current HTTP request.</param>
+        /// <param name="session">The <see cref="IAsyncReadOnlySession"/> for the current HTTP request.</param>
         /// <remarks>
-        /// This constructor allows for an inheriting class to easily inject an IReadOnlySession via an IOC container.
+        /// This constructor allows for an inheriting class to easily inject an <see cref="IAsyncReadOnlySession"/> via an IOC container.
         /// </remarks>
         protected MicroLiteReadOnlyController(IAsyncReadOnlySession session)
         {
-            this.Session = session;
+            this.Session = session ?? throw new ArgumentNullException(nameof(session));
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace MicroLite.Extensions.Mvc
         public HttpSessionStateBase HttpSession => base.Session;
 
         /// <summary>
-        /// Gets or sets the <see cref="IReadOnlySession"/> for the current HTTP request.
+        /// Gets or sets the <see cref="IAsyncReadOnlySession"/> for the current HTTP request.
         /// </summary>
         public new IAsyncReadOnlySession Session
         {

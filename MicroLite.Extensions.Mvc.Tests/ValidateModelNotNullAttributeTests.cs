@@ -23,7 +23,7 @@
                     }
                 };
 
-                Assert.DoesNotThrow(() => attribute.OnActionExecuting(actionContext));
+                attribute.OnActionExecuting(actionContext);
             }
         }
 
@@ -69,7 +69,7 @@
                     }
                 };
 
-                Assert.DoesNotThrow(() => attribute.OnActionExecuting(actionContext));
+                attribute.OnActionExecuting(actionContext);
             }
         }
     }

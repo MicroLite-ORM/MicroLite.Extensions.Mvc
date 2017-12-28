@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ValidateModelStateAttribute.cs" company="MicroLite">
+// <copyright file="ValidateModelStateAttribute.cs" company="Project Contributors">
 // Copyright 2012 - 2017 Project Contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -73,7 +73,7 @@ namespace MicroLite.Extensions.Mvc
                 filterContext.Result = new ViewResult
                 {
                     TempData = filterContext.Controller.TempData,
-                    ViewData = filterContext.Controller.ViewData
+                    ViewData = filterContext.Controller.ViewData,
                 };
             }
         }

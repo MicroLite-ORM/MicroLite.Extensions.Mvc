@@ -19,8 +19,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\build\4.5\MicroLite.Extensions.Mvc.dll" target="lib\net45" />
-    <file src="..\build\4.5\MicroLite.Extensions.Mvc.xml" target="lib\net45" />
-    <file src="..\build\help\MicroLite.Extensions.Mvc.chm" target="" />
+    <file src="MicroLite.Extensions.Mvc\bin\Release\MicroLite.Extensions.Mvc.dll" target="lib\net45" />
+    <file src="MicroLite.Extensions.Mvc\bin\Release\MicroLite.Extensions.Mvc.xml" target="lib\net45" />
   </files>
 </package>

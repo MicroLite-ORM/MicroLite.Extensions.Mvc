@@ -19,4 +19,4 @@ The NuGet Package contains binaries compiled against:
 
 ## Supported ASP.NET MVC Versions
 
-* ASP.NET MVC 5.2.3
+* ASP.NET MVC 5.2.4

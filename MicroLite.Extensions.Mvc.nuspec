@@ -15,7 +15,7 @@
     <tags>ASP.NET MVC MicroORM ORM POCO Database</tags>
     <dependencies>
       <dependency id="MicroLite" version="[6.3,7.0)" />
-      <dependency id="Microsoft.AspNet.Mvc" version="[5.2.3,6.0)" />
+      <dependency id="Microsoft.AspNet.Mvc" version="[5.2.4,6.0)" />
     </dependencies>
   </metadata>
   <files>

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="AutoManageTransactionAttribute.cs" company="Project Contributors">
-// Copyright 2012 - 2018 Project Contributors
+// Copyright Project Contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -10,13 +10,13 @@
 //
 // </copyright>
 // -----------------------------------------------------------------------
+using System;
+using System.Data;
+using System.Web.Mvc;
+using MicroLite.Infrastructure;
+
 namespace MicroLite.Extensions.Mvc
 {
-    using System;
-    using System.Data;
-    using System.Web.Mvc;
-    using MicroLite.Infrastructure;
-
     /// <summary>
     /// An action filter attribute which can be applied to a class or method to automatically begin an <see cref="ITransaction"/>
     /// before an action is executed and either commit or roll it back after the action is executed depending on whether an exception occurred.
@@ -45,7 +45,7 @@ namespace MicroLite.Extensions.Mvc
     /// </code>
     /// </example>
     /// <example>
-    /// Override the IsolationLevel of the transaction for a specific method (could also be done at controller level)
+    /// Override the IsolationLevel of the transaction for a specific method (could also be done at controller level).
     /// <code>
     /// [AutoManageTransactionAttribute(IsolationLevel = IsolationLevel.Chaos)]
     /// public ActionResult Edit(int id, Model model)
@@ -81,27 +81,23 @@ namespace MicroLite.Extensions.Mvc
         /// <param name="filterContext">The filter context.</param>
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (!this.AutoManageTransaction)
+            if (!AutoManageTransaction)
             {
                 return;
             }
 
-            if (filterContext == null)
+            if (filterContext is null)
             {
-                throw new ArgumentNullException("filterContext");
+                throw new ArgumentNullException(nameof(filterContext));
             }
 
-            var controller = filterContext.Controller as IHaveAsyncSession;
-
-            if (controller != null)
+            if (filterContext.Controller is IHaveAsyncSession controller)
             {
                 OnActionExecuted(controller.Session, filterContext.Exception);
                 return;
             }
 
-            var readOnlyController = filterContext.Controller as IHaveAsyncReadOnlySession;
-
-            if (readOnlyController != null)
+            if (filterContext.Controller is IHaveAsyncReadOnlySession readOnlyController)
             {
                 OnActionExecuted(readOnlyController.Session, filterContext.Exception);
                 return;
@@ -114,45 +110,41 @@ namespace MicroLite.Extensions.Mvc
         /// <param name="filterContext">The filter context.</param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!this.AutoManageTransaction)
+            if (!AutoManageTransaction)
             {
                 return;
             }
 
-            if (filterContext == null)
+            if (filterContext is null)
             {
-                throw new ArgumentNullException("filterContext");
+                throw new ArgumentNullException(nameof(filterContext));
             }
 
-            var controller = filterContext.Controller as IHaveAsyncSession;
-
-            if (controller != null)
+            if (filterContext.Controller is IHaveAsyncSession controller)
             {
-                controller.Session.BeginTransaction(this.IsolationLevel);
+                controller.Session.BeginTransaction(IsolationLevel);
                 return;
             }
 
-            var readOnlyController = filterContext.Controller as IHaveAsyncReadOnlySession;
-
-            if (readOnlyController != null)
+            if (filterContext.Controller is IHaveAsyncReadOnlySession readOnlyController)
             {
-                readOnlyController.Session.BeginTransaction(this.IsolationLevel);
+                readOnlyController.Session.BeginTransaction(IsolationLevel);
                 return;
             }
         }
 
         private static void OnActionExecuted(IAsyncReadOnlySession session, Exception exception)
         {
-            if (session.CurrentTransaction == null)
+            if (session.CurrentTransaction is null)
             {
                 return;
             }
 
-            var transaction = session.CurrentTransaction;
+            ITransaction transaction = session.CurrentTransaction;
 
             try
             {
-                if (transaction.IsActive && exception == null)
+                if (transaction.IsActive && exception is null)
                 {
                     transaction.Commit();
                 }

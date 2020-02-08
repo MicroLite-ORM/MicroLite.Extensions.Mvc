@@ -9,14 +9,12 @@
     {
         public class WhenCallingOnActionExecuting_AndTheModelStateDoesNotContainErrors
         {
-            private readonly ValidateModelStateAttribute attribute = new ValidateModelStateAttribute();
+            private readonly ValidateModelStateAttribute _attribute = new ValidateModelStateAttribute();
 
             [Fact]
             public void TheResultShoulNotBeSet()
             {
-                var mockController = new Mock<ControllerBase>();
-
-                var controller = mockController.Object;
+                ControllerBase controller = new Mock<ControllerBase>().Object;
                 controller.ViewData = new ViewDataDictionary();
 
                 var filterContext = new ActionExecutingContext
@@ -24,7 +22,7 @@
                     Controller = controller
                 };
 
-                attribute.OnActionExecuting(filterContext);
+                _attribute.OnActionExecuting(filterContext);
 
                 Assert.Null(filterContext.Result);
             }
@@ -32,7 +30,7 @@
 
         public class WhenCallingOnActionExecuting_TheModelStateContainsErrors_AndSkipValidationIsFalse
         {
-            private readonly ValidateModelStateAttribute attribute = new ValidateModelStateAttribute
+            private readonly ValidateModelStateAttribute _attribute = new ValidateModelStateAttribute
             {
                 SkipValidation = false
             };
@@ -40,9 +38,7 @@
             [Fact]
             public void TheResultShouldBeSetToAViewResult()
             {
-                var mockController = new Mock<ControllerBase>();
-
-                var controller = mockController.Object;
+                ControllerBase controller = new Mock<ControllerBase>().Object;
                 controller.TempData = new TempDataDictionary();
                 controller.ViewData = new ViewDataDictionary();
                 controller.ViewData.ModelState.AddModelError("Foo", "Error");
@@ -52,7 +48,7 @@
                     Controller = controller
                 };
 
-                attribute.OnActionExecuting(filterContext);
+                _attribute.OnActionExecuting(filterContext);
 
                 Assert.NotNull(filterContext.Result);
                 Assert.IsType<ViewResult>(filterContext.Result);
@@ -64,7 +60,7 @@
 
         public class WhenCallingOnActionExecuting_TheModelStateContainsErrors_AndSkipValidationIsTrue
         {
-            private readonly ValidateModelStateAttribute attribute = new ValidateModelStateAttribute
+            private readonly ValidateModelStateAttribute _attribute = new ValidateModelStateAttribute
             {
                 SkipValidation = true
             };
@@ -72,9 +68,7 @@
             [Fact]
             public void TheResultShoulNotBeSet()
             {
-                var mockController = new Mock<ControllerBase>();
-
-                var controller = mockController.Object;
+                var controller = new Mock<ControllerBase>().Object;
                 controller.TempData = new TempDataDictionary();
                 controller.ViewData = new ViewDataDictionary();
                 controller.ViewData.ModelState.AddModelError("Foo", "Error");
@@ -84,7 +78,7 @@
                     Controller = controller
                 };
 
-                attribute.OnActionExecuting(filterContext);
+                _attribute.OnActionExecuting(filterContext);
 
                 Assert.Null(filterContext.Result);
             }

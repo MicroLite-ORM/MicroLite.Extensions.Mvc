@@ -10,7 +10,7 @@
     {
         public class WhenCallingOnActionExecuting_AndTheActionArgumentsDoesNotContainNull
         {
-            private readonly ValidateModelNotNullAttribute attribute = new ValidateModelNotNullAttribute();
+            private readonly ValidateModelNotNullAttribute _attribute = new ValidateModelNotNullAttribute();
 
             [Fact]
             public void NoExceptionShouldBeThrown()
@@ -23,13 +23,13 @@
                     }
                 };
 
-                attribute.OnActionExecuting(actionContext);
+                _attribute.OnActionExecuting(actionContext);
             }
         }
 
         public class WhenCallingOnActionExecuting_TheActionArgumentsContainNull_AndSkipValidationIsFalse
         {
-            private readonly ValidateModelNotNullAttribute attribute = new ValidateModelNotNullAttribute
+            private readonly ValidateModelNotNullAttribute _attribute = new ValidateModelNotNullAttribute
             {
                 SkipValidation = false
             };
@@ -45,7 +45,7 @@
                     }
                 };
 
-                var exception = Assert.Throws<ArgumentNullException>(() => attribute.OnActionExecuting(actionContext));
+                ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => _attribute.OnActionExecuting(actionContext));
 
                 Assert.Equal("model", exception.ParamName);
             }
@@ -53,7 +53,7 @@
 
         public class WhenCallingOnActionExecuting_TheActionArgumentsContainNull_AndSkipValidationIsTrue
         {
-            private readonly ValidateModelNotNullAttribute attribute = new ValidateModelNotNullAttribute
+            private readonly ValidateModelNotNullAttribute _attribute = new ValidateModelNotNullAttribute
             {
                 SkipValidation = true
             };
@@ -69,7 +69,7 @@
                     }
                 };
 
-                attribute.OnActionExecuting(actionContext);
+                _attribute.OnActionExecuting(actionContext);
             }
         }
     }

@@ -1,9 +1,8 @@
-﻿namespace MicroLite.Extensions.Mvc.Tests
-{
-    using MicroLite.Extensions.Mvc;
-    using Moq;
-    using Xunit;
+﻿using Moq;
+using Xunit;
 
+namespace MicroLite.Extensions.Mvc.Tests
+{
     /// <summary>
     /// Unit Tests for the <see cref="MicroLiteController"/> class.
     /// </summary>
@@ -11,21 +10,23 @@
     {
         public class WhenConstructedWithAnISession
         {
-            private readonly MicroLiteController controller;
-            private readonly IAsyncSession session = new Mock<IAsyncSession>().Object;
+            private readonly MicroLiteController _controller;
+            private readonly IAsyncSession _session = new Mock<IAsyncSession>().Object;
 
             public WhenConstructedWithAnISession()
             {
-                var mockController = new Mock<MicroLiteController>(this.session);
-                mockController.CallBase = true;
+                var mockController = new Mock<MicroLiteController>(_session)
+                {
+                    CallBase = true
+                };
 
-                this.controller = mockController.Object;
+                _controller = mockController.Object;
             }
 
             [Fact]
             public void TheSessionIsSet()
             {
-                Assert.Equal(this.session, this.controller.Session);
+                Assert.Equal(_session, _controller.Session);
             }
         }
     }

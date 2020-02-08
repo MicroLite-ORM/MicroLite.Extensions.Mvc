@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="MicroLiteReadOnlyController.cs" company="Project Contributors">
-// Copyright 2012 - 2018 Project Contributors
+// Copyright Project Contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -10,13 +10,13 @@
 //
 // </copyright>
 // -----------------------------------------------------------------------
+using System;
+using System.Web;
+using System.Web.Mvc;
+using MicroLite.Infrastructure;
+
 namespace MicroLite.Extensions.Mvc
 {
-    using System;
-    using System.Web;
-    using System.Web.Mvc;
-    using MicroLite.Infrastructure;
-
     /// <summary>
     /// Provides access to a MicroLite IReadOnlySession in addition to the base ASP.NET MVC controller.
     /// </summary>
@@ -31,7 +31,7 @@ namespace MicroLite.Extensions.Mvc
         /// </remarks>
         protected MicroLiteReadOnlyController(IAsyncReadOnlySession session)
         {
-            this.Session = session ?? throw new ArgumentNullException(nameof(session));
+            Session = session ?? throw new ArgumentNullException(nameof(session));
         }
 
         /// <summary>
@@ -43,10 +43,6 @@ namespace MicroLite.Extensions.Mvc
         /// <summary>
         /// Gets or sets the <see cref="IAsyncReadOnlySession"/> for the current HTTP request.
         /// </summary>
-        public new IAsyncReadOnlySession Session
-        {
-            get;
-            set;
-        }
+        public new IAsyncReadOnlySession Session { get; set; }
     }
 }

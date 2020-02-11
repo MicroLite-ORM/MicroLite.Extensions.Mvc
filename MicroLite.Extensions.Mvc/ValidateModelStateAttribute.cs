@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="ValidateModelStateAttribute.cs" company="Project Contributors">
-// Copyright 2012 - 2018 Project Contributors
+// Copyright Project Contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -10,11 +10,11 @@
 //
 // </copyright>
 // -----------------------------------------------------------------------
+using System;
+using System.Web.Mvc;
+
 namespace MicroLite.Extensions.Mvc
 {
-    using System;
-    using System.Web.Mvc;
-
     /// <summary>
     /// An <see cref="ActionFilterAttribute"/> which verifies the model state is valid.
     /// </summary>
@@ -51,11 +51,7 @@ namespace MicroLite.Extensions.Mvc
         /// Allows overriding the default behaviour on an individual action/controller if an instance
         /// is already registered in the global filters.
         /// </remarks>
-        public bool SkipValidation
-        {
-            get;
-            set;
-        }
+        public bool SkipValidation { get; set; }
 
         /// <summary>
         /// Called by the ASP.NET MVC framework before the action method executes.
@@ -63,7 +59,7 @@ namespace MicroLite.Extensions.Mvc
         /// <param name="filterContext">The filter context.</param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (this.SkipValidation)
+            if (SkipValidation)
             {
                 return;
             }

@@ -1,22 +1,24 @@
 MicroLite.Extensions.Mvc
 ========================
 
-[![NuGet version](https://badge.fury.io/nu/MicroLite.Extensions.Mvc.svg)](http://badge.fury.io/nu/MicroLite.Extensions.Mvc) [![Build Status](https://trevorpilley.visualstudio.com/_apis/public/build/definitions/4cf9ae80-460f-4dc8-a6fd-815e9e58ad35/7/badge)](https://trevorpilley.visualstudio.com/MicroLite.Extensions.Mvc)
+|Service|Status|
+|-------|------|
+||[![NuGet version](https://badge.fury.io/nu/MicroLite.Extensions.Mvc.svg)](http://badge.fury.io/nu/MicroLite.Extensions.Mvc)|
+|/develop|[![Build Status](https://dev.azure.com/trevorpilley/MicroLite-ORM/_apis/build/status/MicroLite-ORM.MicroLite.Extensions.Mvc?branchName=develop)](https://dev.azure.com/trevorpilley/MicroLite-ORM/_apis/build/status/MicroLite-ORM.MicroLite.Extensions.Mvc?branchName=develop)|
+|/master|[![Build Status](https://dev.azure.com/trevorpilley/MicroLite-ORM/_apis/build/status/MicroLite-ORM.MicroLite.Extensions.Mvc?branchName=master)](https://dev.azure.com/trevorpilley/MicroLite-ORM/_apis/build/status/MicroLite-ORM.MicroLite.Extensions.Mvc?branchName=master)|
 
-_MicroLite.Extensions.Mvc_ is an extension to the MicroLite ORM Framework which allows integration with ASP.NET MVC.
+MicroLite.Extensions.Mvc is a .NET 4.5 library which adds an extension for the MicroLite ORM Framework to integrate with ASP.NET MVC.
 
 It is easy to use MicroLite with ASP.NET MVC, simply supply your controller with a Session `IAsyncSession` or `IAsyncReadOnlySession` and use it in your controller actions. However, using the MVC extension for MicroLite makes it even easier and contains some useful extras.
 
-To find out more, head over to the [Wiki](https://github.com/TrevorPilley/MicroLite.Extensions.Mvc/wiki).
+To find out more, head over to the [Wiki](https://github.com/MicroLite-ORM/MicroLite.Extensions.Mvc/wiki).
 
 Also, check out the [MVC](http://microliteorm.wordpress.com/tag/mvc/) tag on the MicroLite Blog.
 
-## Supported .NET Framework Versions
+### Supported .NET Versions
 
 The NuGet Package contains binaries compiled against:
 
-* .NET 4.5
-
-## Supported ASP.NET MVC Versions
-
-* ASP.NET MVC 5.2.4
+* .NET Framework 4.5
+* - Microsoft.AspNet.Mvc 5.2.7
+* - MicroLite 6.3.1

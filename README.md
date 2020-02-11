@@ -4,8 +4,8 @@ MicroLite.Extensions.Mvc
 |Service|Status|
 |-------|------|
 ||[![NuGet version](https://badge.fury.io/nu/MicroLite.Extensions.Mvc.svg)](http://badge.fury.io/nu/MicroLite.Extensions.Mvc)|
-|/develop|[![Build Status](https://dev.azure.com/trevorpilley/MicroLite-ORM/_apis/build/status/MicroLite-ORM.MicroLite.Extensions.Mvc?branchName=develop)](https://dev.azure.com/trevorpilley/MicroLite-ORM/_apis/build/status/MicroLite-ORM.MicroLite.Extensions.Mvc?branchName=develop)|
-|/master|[![Build Status](https://dev.azure.com/trevorpilley/MicroLite-ORM/_apis/build/status/MicroLite-ORM.MicroLite.Extensions.Mvc?branchName=master)](https://dev.azure.com/trevorpilley/MicroLite-ORM/_apis/build/status/MicroLite-ORM.MicroLite.Extensions.Mvc?branchName=master)|
+|/develop|[![Build Status](https://dev.azure.com/trevorpilley/MicroLite-ORM/_apis/build/status/MicroLite-ORM.MicroLite.Extensions.Mvc?branchName=develop)](https://dev.azure.com/trevorpilley/MicroLite-ORM/_build/latest?definitionId=23&branchName=develop)|
+|/master|[![Build Status](https://dev.azure.com/trevorpilley/MicroLite-ORM/_apis/build/status/MicroLite-ORM.MicroLite.Extensions.Mvc?branchName=master)](https://dev.azure.com/trevorpilley/MicroLite-ORM/_build/latest?definitionId=23&branchName=master)|
 
 MicroLite.Extensions.Mvc is a .NET 4.5 library which adds an extension for the MicroLite ORM Framework to integrate with ASP.NET MVC.
 
@@ -20,5 +20,5 @@ Also, check out the [MVC](http://microliteorm.wordpress.com/tag/mvc/) tag on the
 The NuGet Package contains binaries compiled against:
 
 * .NET Framework 4.5
-* - Microsoft.AspNet.Mvc 5.2.7
 * - MicroLite 6.3.1
+* - Microsoft.AspNet.Mvc 5.2.7

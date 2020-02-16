@@ -30,9 +30,7 @@ namespace MicroLite.Extensions.Mvc
         /// This constructor allows for an inheriting class to easily inject an <see cref="IAsyncSession"/> via an IOC container.
         /// </remarks>
         protected MicroLiteController(IAsyncSession session)
-        {
-            Session = session ?? throw new ArgumentNullException(nameof(session));
-        }
+            => Session = session ?? throw new ArgumentNullException(nameof(session));
 
         /// <summary>
         /// Gets the System.Web.HttpSessionStateBase object for the current HTTP request.

@@ -13,7 +13,7 @@ namespace MicroLite.Extensions.Mvc.Tests
     {
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndAnActiveTransaction
         {
-            private readonly Mock<IAsyncSession> _mockSession = new Mock<IAsyncSession>();
+            private readonly Mock<ISession> _mockSession = new Mock<ISession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndAnActiveTransaction()
@@ -53,7 +53,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndAutoManageTransactionIsFalse
         {
-            private readonly Mock<IAsyncSession> _mockSession = new Mock<IAsyncSession>();
+            private readonly Mock<ISession> _mockSession = new Mock<ISession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndAutoManageTransactionIsFalse()
@@ -96,7 +96,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndCommittingAnActiveTransactionThrowsAnException
         {
-            private readonly Mock<IAsyncSession> _mockSession = new Mock<IAsyncSession>();
+            private readonly Mock<ISession> _mockSession = new Mock<ISession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndCommittingAnActiveTransactionThrowsAnException()
@@ -138,7 +138,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndNoActiveTransaction
         {
-            private readonly Mock<IAsyncSession> _mockSession = new Mock<IAsyncSession>();
+            private readonly Mock<ISession> _mockSession = new Mock<ISession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndNoActiveTransaction()
@@ -178,7 +178,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndNoCurrentTransaction
         {
-            private readonly Mock<IAsyncSession> _mockSession = new Mock<IAsyncSession>();
+            private readonly Mock<ISession> _mockSession = new Mock<ISession>();
 
             [Fact]
             public void OnActionExecutedDoesNotThrowAnException()
@@ -198,7 +198,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndTheContextContainsAnException_AndTheTransactionHasBeenRolledBack
         {
-            private readonly Mock<IAsyncSession> _mockSession = new Mock<IAsyncSession>();
+            private readonly Mock<ISession> _mockSession = new Mock<ISession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndTheContextContainsAnException_AndTheTransactionHasBeenRolledBack()
@@ -239,7 +239,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteController_AndTheContextContainsAnException_AndTheTransactionHasNotBeenRolledBack
         {
-            private readonly Mock<IAsyncSession> _mockSession = new Mock<IAsyncSession>();
+            private readonly Mock<ISession> _mockSession = new Mock<ISession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteController_AndTheContextContainsAnException_AndTheTransactionHasNotBeenRolledBack()
@@ -280,7 +280,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndAnActiveTransaction
         {
-            private readonly Mock<IAsyncReadOnlySession> _mockSession = new Mock<IAsyncReadOnlySession>();
+            private readonly Mock<IReadOnlySession> _mockSession = new Mock<IReadOnlySession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndAnActiveTransaction()
@@ -320,7 +320,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndAutoManageTransactionIsFalse
         {
-            private readonly Mock<IAsyncReadOnlySession> _mockSession = new Mock<IAsyncReadOnlySession>();
+            private readonly Mock<IReadOnlySession> _mockSession = new Mock<IReadOnlySession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndAutoManageTransactionIsFalse()
@@ -363,7 +363,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndCommittingAnActiveTransactionThrowsAnException
         {
-            private readonly Mock<IAsyncReadOnlySession> _mockSession = new Mock<IAsyncReadOnlySession>();
+            private readonly Mock<IReadOnlySession> _mockSession = new Mock<IReadOnlySession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndCommittingAnActiveTransactionThrowsAnException()
@@ -405,7 +405,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndNoActiveTransaction
         {
-            private readonly Mock<IAsyncReadOnlySession> _mockSession = new Mock<IAsyncReadOnlySession>();
+            private readonly Mock<IReadOnlySession> _mockSession = new Mock<IReadOnlySession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndNoActiveTransaction()
@@ -445,7 +445,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndNoCurrentTransaction
         {
-            private readonly Mock<IAsyncReadOnlySession> _mockSession = new Mock<IAsyncReadOnlySession>();
+            private readonly Mock<IReadOnlySession> _mockSession = new Mock<IReadOnlySession>();
 
             [Fact]
             public void OnActionExecutedDoesNotThrowAnException()
@@ -465,7 +465,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndTheContextContainsAnException_AndTheTransactionHasBeenRolledBack
         {
-            private readonly Mock<IAsyncReadOnlySession> _mockSession = new Mock<IAsyncReadOnlySession>();
+            private readonly Mock<IReadOnlySession> _mockSession = new Mock<IReadOnlySession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndTheContextContainsAnException_AndTheTransactionHasBeenRolledBack()
@@ -506,7 +506,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndTheContextContainsAnException_AndTheTransactionHasNotBeenRolledBack
         {
-            private readonly Mock<IAsyncReadOnlySession> _mockSession = new Mock<IAsyncReadOnlySession>();
+            private readonly Mock<IReadOnlySession> _mockSession = new Mock<IReadOnlySession>();
             private readonly Mock<ITransaction> _mockTransaction = new Mock<ITransaction>();
 
             public WhenCallingOnActionExecuted_WithAMicroLiteReadOnlyController_AndTheContextContainsAnException_AndTheTransactionHasNotBeenRolledBack()
@@ -547,7 +547,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuting_WithAMicroLiteController
         {
-            private readonly Mock<IAsyncSession> _mockSession = new Mock<IAsyncSession>();
+            private readonly Mock<ISession> _mockSession = new Mock<ISession>();
 
             public WhenCallingOnActionExecuting_WithAMicroLiteController()
             {
@@ -571,7 +571,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuting_WithAMicroLiteController_AndAutoManageTransactionIsFalse
         {
-            private readonly Mock<IAsyncSession> _mockSession = new Mock<IAsyncSession>();
+            private readonly Mock<ISession> _mockSession = new Mock<ISession>();
 
             public WhenCallingOnActionExecuting_WithAMicroLiteController_AndAutoManageTransactionIsFalse()
             {
@@ -598,7 +598,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuting_WithAMicroLiteReadOnlyController
         {
-            private readonly Mock<IAsyncSession> _mockSession = new Mock<IAsyncSession>();
+            private readonly Mock<ISession> _mockSession = new Mock<ISession>();
 
             public WhenCallingOnActionExecuting_WithAMicroLiteReadOnlyController()
             {
@@ -622,7 +622,7 @@ namespace MicroLite.Extensions.Mvc.Tests
 
         public class WhenCallingOnActionExecuting_WithAMicroLiteReadOnlyController_AndAutoManageTransactionIsFalse
         {
-            private readonly Mock<IAsyncSession> _mockSession = new Mock<IAsyncSession>();
+            private readonly Mock<ISession> _mockSession = new Mock<ISession>();
 
             public WhenCallingOnActionExecuting_WithAMicroLiteReadOnlyController_AndAutoManageTransactionIsFalse()
             {

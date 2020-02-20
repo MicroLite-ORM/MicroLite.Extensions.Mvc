@@ -91,13 +91,13 @@ namespace MicroLite.Extensions.Mvc
                 throw new ArgumentNullException(nameof(filterContext));
             }
 
-            if (filterContext.Controller is IHaveAsyncSession controller)
+            if (filterContext.Controller is IHaveSession controller)
             {
                 OnActionExecuted(controller.Session, filterContext.Exception);
                 return;
             }
 
-            if (filterContext.Controller is IHaveAsyncReadOnlySession readOnlyController)
+            if (filterContext.Controller is IHaveReadOnlySession readOnlyController)
             {
                 OnActionExecuted(readOnlyController.Session, filterContext.Exception);
                 return;
@@ -120,20 +120,20 @@ namespace MicroLite.Extensions.Mvc
                 throw new ArgumentNullException(nameof(filterContext));
             }
 
-            if (filterContext.Controller is IHaveAsyncSession controller)
+            if (filterContext.Controller is IHaveSession controller)
             {
                 controller.Session.BeginTransaction(IsolationLevel);
                 return;
             }
 
-            if (filterContext.Controller is IHaveAsyncReadOnlySession readOnlyController)
+            if (filterContext.Controller is IHaveReadOnlySession readOnlyController)
             {
                 readOnlyController.Session.BeginTransaction(IsolationLevel);
                 return;
             }
         }
 
-        private static void OnActionExecuted(IAsyncReadOnlySession session, Exception exception)
+        private static void OnActionExecuted(IReadOnlySession session, Exception exception)
         {
             if (session.CurrentTransaction is null)
             {

@@ -11,7 +11,7 @@ namespace MicroLite.Extensions.Mvc.Tests
         public class WhenConstructedWithAnISession
         {
             private readonly MicroLiteController _controller;
-            private readonly IAsyncSession _session = new Mock<IAsyncSession>().Object;
+            private readonly ISession _session = new Mock<ISession>().Object;
 
             public WhenConstructedWithAnISession()
             {

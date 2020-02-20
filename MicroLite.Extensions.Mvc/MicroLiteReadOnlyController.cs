@@ -20,16 +20,16 @@ namespace MicroLite.Extensions.Mvc
     /// <summary>
     /// Provides access to a MicroLite IReadOnlySession in addition to the base ASP.NET MVC controller.
     /// </summary>
-    public abstract class MicroLiteReadOnlyController : Controller, IHaveAsyncReadOnlySession
+    public abstract class MicroLiteReadOnlyController : Controller, IHaveReadOnlySession
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="MicroLiteReadOnlyController"/> class.
         /// </summary>
-        /// <param name="session">The <see cref="IAsyncReadOnlySession"/> for the current HTTP request.</param>
+        /// <param name="session">The <see cref="IReadOnlySession"/> for the current HTTP request.</param>
         /// <remarks>
-        /// This constructor allows for an inheriting class to easily inject an <see cref="IAsyncReadOnlySession"/> via an IOC container.
+        /// This constructor allows for an inheriting class to easily inject an <see cref="IReadOnlySession"/> via an IOC container.
         /// </remarks>
-        protected MicroLiteReadOnlyController(IAsyncReadOnlySession session)
+        protected MicroLiteReadOnlyController(IReadOnlySession session)
             => Session = session ?? throw new ArgumentNullException(nameof(session));
 
         /// <summary>
@@ -39,8 +39,8 @@ namespace MicroLite.Extensions.Mvc
         public HttpSessionStateBase HttpSession => base.Session;
 
         /// <summary>
-        /// Gets or sets the <see cref="IAsyncReadOnlySession"/> for the current HTTP request.
+        /// Gets or sets the <see cref="IReadOnlySession"/> for the current HTTP request.
         /// </summary>
-        public new IAsyncReadOnlySession Session { get; set; }
+        public new IReadOnlySession Session { get; set; }
     }
 }

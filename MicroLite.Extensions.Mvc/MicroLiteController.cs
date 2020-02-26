@@ -39,8 +39,8 @@ namespace MicroLite.Extensions.Mvc
         public HttpSessionStateBase HttpSession => base.Session;
 
         /// <summary>
-        /// Gets or sets the <see cref="ISession"/> for the current HTTP request.
+        /// Gets  the <see cref="ISession"/> for the current HTTP request.
         /// </summary>
-        public new ISession Session { get; set; }
+        public new ISession Session { get; }
     }
 }

@@ -1,11 +1,10 @@
-﻿namespace MicroLite.Extensions.Mvc.Tests
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
-    using MicroLite.Extensions.Mvc;
-    using Xunit;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using Xunit;
 
+namespace MicroLite.Extensions.Mvc.Tests
+{
     public class ValidateModelNotNullAttributeTests
     {
         public class WhenCallingOnActionExecuting_AndTheActionArgumentsDoesNotContainNull

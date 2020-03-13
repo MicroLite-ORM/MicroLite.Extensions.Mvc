@@ -100,7 +100,6 @@ namespace MicroLite.Extensions.Mvc
             if (filterContext.Controller is IHaveReadOnlySession readOnlyController)
             {
                 OnActionExecuted(readOnlyController.Session, filterContext.Exception);
-                return;
             }
         }
 
@@ -129,7 +128,6 @@ namespace MicroLite.Extensions.Mvc
             if (filterContext.Controller is IHaveReadOnlySession readOnlyController)
             {
                 readOnlyController.Session.BeginTransaction(IsolationLevel);
-                return;
             }
         }
 

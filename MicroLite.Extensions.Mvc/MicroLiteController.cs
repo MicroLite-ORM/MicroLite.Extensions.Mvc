@@ -23,7 +23,7 @@ namespace MicroLite.Extensions.Mvc
     public abstract class MicroLiteController : Controller, IHaveSession
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="MicroLiteController"/> class.
+        /// Initialises a new instance of the <see cref="MicroLiteController"/> class with an ISession.
         /// </summary>
         /// <param name="session">The <see cref="ISession"/> for the current HTTP request.</param>
         /// <remarks>

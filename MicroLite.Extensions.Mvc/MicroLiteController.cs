@@ -20,19 +20,17 @@ namespace MicroLite.Extensions.Mvc
     /// <summary>
     /// Provides access to a MicroLite ISession in addition to the base ASP.NET MVC controller.
     /// </summary>
-    public abstract class MicroLiteController : Controller, IHaveAsyncSession
+    public abstract class MicroLiteController : Controller, IHaveSession
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="MicroLiteController"/> class.
+        /// Initialises a new instance of the <see cref="MicroLiteController"/> class with an ISession.
         /// </summary>
-        /// <param name="session">The <see cref="IAsyncSession"/> for the current HTTP request.</param>
+        /// <param name="session">The <see cref="ISession"/> for the current HTTP request.</param>
         /// <remarks>
-        /// This constructor allows for an inheriting class to easily inject an <see cref="IAsyncSession"/> via an IOC container.
+        /// This constructor allows for an inheriting class to easily inject an <see cref="ISession"/> via an IOC container.
         /// </remarks>
-        protected MicroLiteController(IAsyncSession session)
-        {
-            Session = session ?? throw new ArgumentNullException(nameof(session));
-        }
+        protected MicroLiteController(ISession session)
+            => Session = session ?? throw new ArgumentNullException(nameof(session));
 
         /// <summary>
         /// Gets the System.Web.HttpSessionStateBase object for the current HTTP request.
@@ -41,8 +39,8 @@ namespace MicroLite.Extensions.Mvc
         public HttpSessionStateBase HttpSession => base.Session;
 
         /// <summary>
-        /// Gets or sets the <see cref="IAsyncSession"/> for the current HTTP request.
+        /// Gets  the <see cref="ISession"/> for the current HTTP request.
         /// </summary>
-        public new IAsyncSession Session { get; set; }
+        public new ISession Session { get; }
     }
 }

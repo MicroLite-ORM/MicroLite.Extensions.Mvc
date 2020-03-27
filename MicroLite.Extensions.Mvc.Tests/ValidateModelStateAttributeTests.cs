@@ -1,10 +1,9 @@
-﻿namespace MicroLite.Extensions.Mvc.Tests
-{
-    using System.Web.Mvc;
-    using MicroLite.Extensions.Mvc;
-    using Moq;
-    using Xunit;
+﻿using System.Web.Mvc;
+using Moq;
+using Xunit;
 
+namespace MicroLite.Extensions.Mvc.Tests
+{
     public class ValidateModelStateAttributeTests
     {
         public class WhenCallingOnActionExecuting_AndTheModelStateDoesNotContainErrors
